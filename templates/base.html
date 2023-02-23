@@ -1,0 +1,53 @@
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pallada</title>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />-->
+    {% block extra_css %}{% endblock %}
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+<header>
+    <div class="header">
+
+
+        <form action="{% url 'courses' %}" method="get">
+            <div class="search">
+                <div class="search-input">
+                    <input type="text" class="menu-search" placeholder="Искать..." value="{{ search_query }}" name="search_query">
+                    <button type="submit" class="search-btn--s">
+                        <img src="{% static 'mainmenu/images/search.svg' %}"  alt="">
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+
+
+    </div>
+</header>
+
+<!--{% if messages %}-->
+
+<!--{% for message in messages %}-->
+<!--    <div class="uk-alert-{{message.tags}}" uk-alert>-->
+<!--        <a class="uk-alert-close" uk-close></a>-->
+<!--        <p>{{message}}</p>-->
+<!--    </div>-->
+<!--{% endfor %}-->
+
+<!--{% endif %}-->
+
+{% block main %}{% endblock %}
+
+{% block extra_js %}{% endblock %}
+</body>
+
+</html>

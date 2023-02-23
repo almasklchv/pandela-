@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'users/profile.css' %}">
+<link rel="stylesheet" href="{% static 'mainmenu/menu.css' %}">
+<link rel="stylesheet" href="{% static 'mainmenu/story.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="wrapper">
+        <div class="account">
+            <div class="account-main">
+                            <div class="account-img">
+                                <img src="{{ profile.imageURL }}" alt="avatar" class="account--ava">
+                            </div>
+                            <div class="account-info">
+                                <div class="account-main-line">
+                                    <div class="line-first">
+                                        <p class="account-info-name">{{ profile.name }}</p>
+                                    </div>
+                                    <div class="line-second">
+                                        <button class="send--btn">
+                                             <a href="{% url 'create-message' profile.id %}" class="account-btn">
+                                                Отправить письмо
+                                             </a>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <p class="account-info-username">@{{ profile.username }}</p>
+                                <p class="account-info-bio">{{ profile.bio|linebreaksbr }}</p>
+                                {% if profile.social_link %}
+                                <a href="{{ profile.social_link }}" class="account-info-link">
+                                    <img src="{% static 'users/images/link.svg' %}" alt="">{{ profile.social_link }}</a>
+                                {% endif %}
+
+                            </div>
+            </div>
+            <div class="account-mobile">
+                    <button class="m-send--btn">
+                        <a href="{% url 'create-message' profile.id %}" class="account-btn">
+                            Отправить письмо
+                        </a>
+                    </button>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+{% endblock %}

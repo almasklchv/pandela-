@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<a href="{% url 'update_course' course.id %}">обновить</a>
+<a href="{% url 'delete_course' course.id %}">удалить</a>
+
+
+
+
+<div class="videos">
+    {% for video in course.video_set.all %}
+    <a href="{% url 'watch_video' video.id %}">
+        <p>{{video.title}}</p>
+    </a>
+    {% endfor %}
+</div>
+
+ <div class="comments">
+                    <h3 class="singleProject__subtitle">Feedback</h3>
+                    <h5 class="course--rating">
+                        {{course.vote_ratio}}% Positive Feedback ({{course.vote_total}}
+                        Vote{{course.vote_total|pluralize:"s"}})
+                    </h5>
+
+                    {% if request.user.profile.id in course.reviewers %}
+                    <p>You have already submitted your review for this project</p>
+
+                    {% elif request.user.profile == course.owner %}
+                    <p>You cannot review your own work</p>
+
+                    {% elif request.user.is_authenticated %}
+                    <form class="form" action="{% url 'course' course.id %}" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form__field">
+                            <label for="formInput#textarea">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                        {% endfor %}
+                        <input class="btn btn--sub btn--lg" type="submit" value="Add Review" />
+                    </form>
+                    {% else %}
+                    <a href="{% url 'login' %}?next={{request.path}}">Please login to leave a review</a>
+                    {% endif %}
+
+                    <div class="commentList">
+                        {% for review in course.review_set.all %}
+                        {% if review.body %}
+                        <div class="comment">
+                            <a href="{% url 'user-profile' review.owner.id  %}">
+                                <img class="avatar avatar--md" src="{{review.owner.profile_image.url}}" alt="user" />
+                            </a>
+
+
+                            <div class="comment__details">
+                                <a href="{% url 'user-profile' review.owner.id  %}"
+                                    class="comment__author">{{review.owner.name}}</a>
+                                <p class="comment__info">{{review.body|linebreaksbr}}</p>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+{% endblock %}

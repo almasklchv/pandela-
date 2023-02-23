@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'mainmenu/404.css' %}">
+<link rel="stylesheet" href="{% static 'mainmenu/menu.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="wrapper">
+    <div class="message-hello">
+        <div class="message-hello-img">
+            <img src="{% static 'mainmenu/images/hello-sticker-404.png' %}" alt="">
+        </div>
+        <div class="message-hello-text">
+            <h1>Ошибка 404</h1>
+            <p>Простите, но кажется вы открыли несуществующую страничку. Возможно что-то было удалено</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

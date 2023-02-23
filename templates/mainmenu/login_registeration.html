@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block main %}
+
+<div class="wrapper">
+    <div class="message-hello sticker-registration">
+        <div class="message-hello-img">
+            <img src="{% static 'mainmenu/images/hello-sticker-registration.png' %}" alt="" class="sticker">
+        </div>
+        <div class="message-hello-text">
+            <h1>Зарегистрируйтесь или войдите в аккаунт!</h1>
+            <p>Что-то я вас не припоминаю... Напомните кто вы? Или вы здесь впервые?)</p>
+        </div>
+
+    </div>
+
+
+    <div class="registration-form">
+        <div class="registration-form-items">
+            <div class="registration-logo">
+            <img src="{% static 'mainmenu/images/logo.svg' %}" alt="">
+            </div>
+            <div class="registration-logo-text">
+                <p>INTSTORIES</p>
+            </div>
+            {% if page == 'register' %}
+
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="registration-inputs">
+                    {% for field in form %}
+                        <p class="registration-label">
+                            <label for="formInput#text">{{field.label}}</label>
+                        </p>
+                        {{field}}
+
+<!--                        {% if field.help_text %}-->
+<!--                            <small>{{ field.help_text  }}</small>-->
+<!--                        {% endif %}-->
+
+                        {% for error in field.errors %}
+                            <p style="color: red">{{error}}</p>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <a href="{% url 'login' %}" class="link-another"><p>Уже есть аккаунт?</p></a>
+
+                    <button type="submit" class="registration-form-btn">Зарегистрироваться</button>
+                </div>
+
+            </form>
+            {% else %}
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="registration-inputs">
+
+                    <input type="text" class="registration-form-input" placeholder="Ваш никнейм" name="username" required>
+                    <br>
+                    <input type="password" class="registration-form-input" placeholder="Пароль" name="password" required>
+                    <br>
+
+                    <a href="{% url 'register' %}" class="link-another"><p>Нет аккаунта?</p></a>
+
+                    <button type="submit" class="registration-form-btn">Войти</button>
+
+                </div>
+
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

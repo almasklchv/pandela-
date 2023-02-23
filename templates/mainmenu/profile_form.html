@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'users/profile_form.css' %}">
+    <link rel="stylesheet" href="{% static 'mainmenu/menu.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<!-- Перенести код story_form в profile_form  -->
+
+<div class="wrapper">
+
+    <div class="message-hello">
+                        <div class="message-hello-img hello-padding">
+                            <img src="{% static 'mainmenu/images/hello-sticker-profile.png' %}" alt="" class="sticker">
+                        </div>
+                        <div class="message-hello-text">
+                            <h1>Это редактор вашего профиля</h1>
+                            <p>Рекомендуем красиво его оформить. Иначе как на вас будет смотреть общественность?)</p>
+                        </div>
+
+                </div>
+    <div class="account">
+        <div class="account-form">
+            <div class="wrap">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                    <div class="form__field">
+                        <p><label for="formInput#text">{{ field.label }}</label></p>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+
+                    <input type="submit" class="form-btn" value="Сохранить">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

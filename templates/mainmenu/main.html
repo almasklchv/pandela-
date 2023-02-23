@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+
+    <div>
+        <a href="{% url 'course_create' %}">создать</a>
+
+    </div>
+    {% for course in courses %}
+    <div class="smth">
+        <a href="{% url 'course' course.id %}">
+            <p>{{ course.title }}</p>
+            <p>{{ course.description }}</p>
+            <p>{{ course.type }}</p>
+            <div class="message-other-img">
+                <img src="{{course.preview.url}}" alt="photo">
+            </div>
+            <p>{{ course.created }}</p>
+        </a>
+    </div>
+
+
+    {% endfor %}
+{% endblock %}
