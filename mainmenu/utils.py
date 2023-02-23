@@ -13,5 +13,6 @@ def searchCourses(request):
 
     courses = Course.objects.order_by('-created').distinct().filter(Q(title__icontains=search_query) |
                                    Q(description__icontains=search_query))
+    popular_courses = Course.objects.order_by('-vote_total').distinct()
 
     return courses, search_query
