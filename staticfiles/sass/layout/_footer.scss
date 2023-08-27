@@ -1,0 +1,72 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -1px;
+    padding-top: 22px;
+    .left {
+        display: flex;
+    }
+
+    .right {
+        display: flex;
+        position: relative;
+        top: -9px;
+        right: 51px;
+
+        p {
+            opacity: 60%;
+            margin-left: 32px;
+        }
+    }
+
+    .logo {
+        top: -19px;
+        margin-left: 40px;
+        margin-right: 25px;
+    }
+
+    .menu {
+        li {
+            margin-right: 39px;
+            font-weight: 500;
+            font-size: 15px;
+            opacity: 60%;
+        }
+    }
+}
+
+.social-media-group {
+    display: flex;
+    margin-top: 22px;
+}
+
+.social-media-group__item {
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+}
+
+.tiktok_ico {
+    background: url('../icons/footer/static/tiktok_ico.svg');
+}
+
+.tiktok_ico:hover {
+    background: url('../icons/footer/hover/tiktok_ico.png');
+}
+
+.vk_ico {
+    background: url('../icons/footer/static/vk_ico.svg');
+}
+
+.vk_ico:hover {
+    background: url('../icons/footer/hover/vk_ico.png');
+}
+
+.instagram_ico {
+    background: url('../icons/footer/static/instagram_ico.svg');
+}
+
+.instagram_ico:hover {
+    background: url('../icons/footer/hover/instagram_ico.png');
+}

@@ -1,53 +1,143 @@
-<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-{% load static %}
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pallada</title>
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />-->
-    {% block extra_css %}{% endblock %}
-    {% block extra_head %}{% endblock %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link
+      type="image/x-icon"
+      href="{% static 'icons/favicon.png' %}"
+      rel="shortcut icon"
+    />
+    <link
+      type="Image/x-icon"
+      href="{% static 'icons/favicon.png' %}"
+      rel="icon"
+    />
+    {% block extra_head %}
+    {% endblock %}
 </head>
 <body>
-<header>
-    <div class="header">
+
+<header class="header">
+      <h1 class="logo"><a href="/"><span style="color: #4CAF50;">Pand</span>ela</a></h1>
+      <!-- Логотип -->
+
+      <div class="dropdown-menu">
+        <!-- Выпадающее меню (при ширине <= 1512px) -->
+        <div class="dropdown-menu__btn">
+          <p>Категории</p>
+          <span class="dropdown-menu__icon"></span>
+        </div>
+        <div class="dropdown-menu__content hidden">
+          <p><a href="#">Программирование</a></p>
+          <p><a href="#">Дизайн</a></p>
+          <p><a href="#">Маркетинг</a></p>
+        </div>
+      </div>
+      <nav class="navigation">
+        <!-- Простое меню (при ширине > 1512px) -->
+        <ul class="menu">
+          <li><a href="http://127.0.0.1:8000/?search_query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Программирование</a></li>
+          <li><a href="http://127.0.0.1:8000/?search_query=%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD">Дизайн</a></li>
+          <li><a href="http://127.0.0.1:8000/?search_query=%D0%9C%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3">Маркетинг</a></li>
+        </ul>
+      </nav>
+
+      <form class="search-form" action="{% url 'courses' %}" method="get">
+        <!-- Форма поиска -->
+        <span class="search_ico"></span>
+        <input
+          type="text"
+          id="search-form__input"
+          placeholder="Искать"
+          autocomplete="off"
+          value="{{ search_query }}"
+          name="search_query"
+        />
+      </form>
 
 
-        <form action="{% url 'courses' %}" method="get">
-            <div class="search">
-                <div class="search-input">
-                    <input type="text" class="menu-search" placeholder="Искать..." value="{{ search_query }}" name="search_query">
-                    <button type="submit" class="search-btn--s">
-                        <img src="{% static 'mainmenu/images/search.svg' %}"  alt="">
-                    </button>
-                </div>
-            </div>
+      <!-- Бургер меню - кнопка (появляется при размере <800px) -->
+      <div class="burger-icon">
+        <div class="burger-icon__line1"></div>
+        <div class="burger-icon__line2"></div>
+        <div class="burger-icon__line3"></div>
+      </div>
+    
+
+
+      <div class="account">
+        <a href="{% url 'premium' %}"><p>Оформить подписку</p></a>
+        <span class="account_ico">
+        </span>
+      </div>
+    </header>
+
+    <!-- Бургер меню -->
+    <div class="burger-menu">
+      <div class="burger-menu__content">
+        <div class="my-profile">
+          <img src="{% static 'images/my-profile_avatar.png' %}" alt="Аватарка профиля" class="avatar">
+          <p class="my-profile__title">Мой профиль</p>
+          <div class="my-profile__bottom">
+            <a href="{% url 'edit-account' %}" class="my-profile__edit">Редактировать </a>
+            <span class="line">| </span>
+            <a href="{% url 'logout' %}" class="my-profile__logout">Выйти</a>
+          </div>
+        </div>
+        <form class="search-form show" action="{% url 'courses' %}" method="get">
+          <!-- Форма поиска -->
+          <span class="search_ico"></span>
+          <input
+            type="text"
+            id="search-form__input"
+            placeholder="Искать"
+            autocomplete="off"
+            value="{{ search_query }}"
+            name="search_query"
+          />
         </form>
-
-
-
-
+        <ul class="menu">
+          <li><a href="http://127.0.0.1:8000/?search_query=%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Программирование</a></li>
+          <li><a href="http://127.0.0.1:8000/?search_query=%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD">Дизайн</a></li>
+          <li><a href="http://127.0.0.1:8000/?search_query=%D0%9C%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3">Маркетинг</a></li>
+        </ul>
+      </div>
     </div>
-</header>
 
-<!--{% if messages %}-->
+{% block main %}
+{% endblock %}
 
-<!--{% for message in messages %}-->
-<!--    <div class="uk-alert-{{message.tags}}" uk-alert>-->
-<!--        <a class="uk-alert-close" uk-close></a>-->
-<!--        <p>{{message}}</p>-->
-<!--    </div>-->
-<!--{% endfor %}-->
+<footer>
+      <div class="left">
+        <h1 class="logo"><a href="/"><span style="color: #4CAF50;">Pand</span>ela</a></h1>
+        <ul class="menu">
+          <a href="{% url 'premium' %}"><li>Оформить подписку</li></a>
+          <a href="{% url 'course_create' %}"><li>Выложить свой курс</li></a>
+          <a href="{% url 'premium' %}"><li>О нас</li></a>
+        </ul>
+      </div>
 
-<!--{% endif %}-->
+      <div class="right">
+        <div class="social-media-group">
+          <a href="https://www.tiktok.com/@vvlra_"
+            ><span class="social-media-group__item tiktok_ico"></span
+          ></a>
+          <a href="https://vk.com/vl_bobrov"><span class="social-media-group__item vk_ico"></span></a>
+          <a href="https://www.instagram.com/valeriibrv/"
+            ><span class="social-media-group__item instagram_ico"></span
+          ></a>
+        </div>
+        <p>© 2022 Все права защищены</p>
+      </div>
+    </footer>
 
-{% block main %}{% endblock %}
 
-{% block extra_js %}{% endblock %}
+<script type="module" src="{% static 'script/main.js' %}"></script>
+{% block extra_js %}
+{% endblock %}
 </body>
-
 </html>

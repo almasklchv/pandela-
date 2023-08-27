@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat-Regular'), local('Montserrat Regular'),
+        url('./Montserrat/Montserrat-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat-SemiBold'), local('Montserrat SemiBold'),
+        url('./Montserrat/Montserrat-SemiBold.ttf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat-Bold'), local('Montserrat Bold'),
+        url('./Montserrat/Montserrat-Bold.ttf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat-ExtraBold'), local('Montserrat ExtraBold'),
+        url('./Montserrat/Montserrat-ExtraBold.ttf');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto-Light'), local('Roboto Light'),
+        url('./Roboto/Roboto-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto-Light'), local('Roboto Light'),
+        url('./Roboto/Roboto-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto-Medium'), local('Roboto Medium'),
+        url('./Roboto/Roboto-Medium.ttf');
+    font-weight: 500;
+}

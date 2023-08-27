@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<title>Авторизация - Pandela</title>
+{% endblock %}
+
+{% block main %}
+    {% if page == 'register' %}
+        <div class="form-container">
+                <img class="form__logo" src="{% static 'icons/favicon.png' %}" alt="form logo" width="28px">
+                <form class="form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <label for="id_username">Полное имя</label>
+                        {{form.username}}
+                        <br>
+                        <label for="id_email">Почта</label>
+                        {{form.email}}
+                        <br>
+                        <label for="id_password1">Пароль:</label>
+                        {{form.password1}}
+                        <br>
+                        <label for="id_password2">Подтвердите Пароль:</label>
+                        {{form.password2}}
+                        <br>
+
+                        <a href="{% url 'login' %}" class="link-another"><p>Уже есть аккаунт?</p></a>
+
+                        <input class="form__btn" type="submit" value="Зарегистрироваться">
+                  </form>
+            </div>
+    {% else %}
+        <div class="form-container">
+                <img class="form__logo" src="{% static 'icons/favicon.png' %}" alt="form logo" width="28px">
+                <form class="form" method="POST">
+                    {% csrf_token %}
+                    <label for="id_username">Имя</label>
+                    <input class="form__text-input" type="username" name="username" id="id_username" autocomplete="off" required>
+                    <br>
+                    <label for="id_password">Пароль:</label>
+                    <input class="form__text-input" type="password" name="password" id="id_password" autocomplete="off" required>
+                    <br>
+
+                    <a href="{% url 'register' %}" class="link-another"><p>Нет аккаунта?</p></a>
+
+                    <input class="form__btn" type="submit" value="Войти">
+                  </form>
+            </div>
+
+    {% endif %}
+{% endblock %}
+

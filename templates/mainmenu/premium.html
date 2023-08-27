@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_head %}
+<title>Премиум подписка</title>
+{% endblock %}
+{% block main %}
+
+      <main>
+        <div class="premium-welcome">
+          <div class="premium-welcome__content">
+            <h1 class="premium-welcome__title">Учитесь без ограничений</h1>
+            <p class="premium-welcome__description">С подпиской вы можете получать сертификат об окончании курса. Нет ограничений.
+                Наслаждайтесь обучением без рекламы</p>
+            <div class="welcome__btns">
+                <button class="btn">НАЧАТЬ</button>
+                <button class="btn btn_transparent">ОФОРМИТЬ ПОДПИСКУ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="premium-for-what">
+            <h2>Зачем вам подписка?</h2>
+            <div class="for-what__items">
+                <div class="for-what__item">
+                    <img src="{% static 'icons/certificate-logo.png' %}" alt="Сертификат">
+                    <p class="for-what__item-text">Сертификат</p>
+                </div>
+                <div class="for-what__item">
+                    <img src="{% static 'icons/no-ads-logo.png' %}" alt="Сертификат">
+                    <p class="for-what__item-text">Нет рекламы</p>
+                </div>
+                <div class="for-what__item">
+                    <img src="{% static 'icons/no-restrictions-logo.png' %}" alt="Сертификат">
+                    <p class="for-what__item-text">Нет ограничений</p>
+                </div>
+                <div class="for-what__item">
+                    <img src="{% static 'icons/download-logo.png' %}" alt="Сертификат">
+                    <p class="for-what__item-text">Скачивайте курсы</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="subscription">
+          <h2>Начнём же развиваться!</h2>
+          <p class="subscription__description">Подписку можно оформить любой картой</p>
+          <div class="subscription__card">
+            <h4 class="subscription__title">Подписка</h4>
+            <p class="subscription__price">399 руб/мес</p>
+            <hr>
+            <div class="subscription__center">
+              <div class="subscription__benefits">
+                <p>Включённые сертификаты</p>
+                <p>Отсутствие рекламы</p>
+                <p>Отсутствие ограничений</p>
+                <p>Можно скачивать курсы</p>
+              </div>
+              <button class="btn">ОФОРМИТЬ ПОДПИСКУ</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+{% endblock %}

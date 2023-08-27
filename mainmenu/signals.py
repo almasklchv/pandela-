@@ -17,8 +17,8 @@ def createProfile(sender, instance, created, **kwargs):
             name=user.first_name,
         )
 
-        # subject = "Рады приветствовать тебя в Inststories!"
-        # message = "Делись историями, а также читай рассказы других <3"
+        # subject = "Рады приветствовать тебя в Pandela!"
+        # message = "Обучайся с нами"
         #
         # send_mail(
         #     subject,

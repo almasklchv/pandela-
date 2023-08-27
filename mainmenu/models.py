@@ -1,8 +1,12 @@
+from django import template
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.deletion import CASCADE
 
 import uuid
+
+register = template.Library()
 # Create your models here.
 
 COURSE_TYPE=(
@@ -37,17 +41,22 @@ class Profile(models.Model):
 
 class Course(models.Model):
     owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE)
-    title = models.CharField(max_length=225)
-    description = models.TextField()
-    type = models.CharField(max_length=100, choices=COURSE_TYPE)
+    title = models.CharField("Заголовок", max_length=225)
+    description = models.TextField("Описание", max_length=110)
+    type = models.CharField("Выберите категорию", max_length=100, choices=COURSE_TYPE)
     vote_total = models.IntegerField(default=0, null=True, blank=True)
     vote_ratio = models.IntegerField(default=0, null=True, blank=True)
-    preview = models.ImageField(upload_to='previews', blank=True, null=True)
+    preview = models.ImageField("Добавить заставку", upload_to='previews', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
         return self.title
+
+    @register.filter
+    def order_by(queryset, args):
+        args = [x.strip() for x in args.split(',')]
+        return queryset.order_by(*args)
 
     @property
     def reviewers(self):
@@ -66,10 +75,11 @@ class Course(models.Model):
 
         self.save()
 
+
 class Review(models.Model):
     VOTE_TYPE = (
-        ('up', 'Up Vote'),
-        ('down', 'Down Vote'),
+        ('нравится', 'Нравится'),
+        ('не нравится', 'Не Нравится'),
     )
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -93,3 +103,5 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+

@@ -1,0 +1,107 @@
+.burger-icon {
+    position: absolute;
+    right: 13px;
+    top: 16px;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    display: none;
+}
+
+.burger-icon.open {
+    .burger-icon__line1 {
+        transform: rotate(45deg);
+        top: 10px;
+    }
+
+    .burger-icon__line2 {
+        opacity: 0;
+    }
+
+    .burger-icon__line3 {
+        transform: rotate(-45deg);
+        top: 10px;
+    }
+}
+
+.burger-icon__line1, .burger-icon__line2, .burger-icon__line3 {
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.burger-icon__line1 {
+    top: 0;
+}
+
+.burger-icon__line2 {
+    top: 8px;
+}
+
+.burger-icon__line3 {
+    top: 16px;
+}
+
+.burger-menu__content {
+    .dropdown-menu__content {
+        position: relative;
+        border: none;
+        margin: 0;
+    }
+}
+
+.burger-menu {
+    width: 380px;
+    position: absolute;
+    right: -100%;
+    background: #0f0f0f;
+    z-index: 10;
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 100px;
+    transition: all 0.2s;
+    padding-top: 30px;
+    border-radius: 20px;
+}
+
+.burger-menu.open {
+    right: 0;
+}
+
+.my-profile {
+    margin-bottom: -5px;
+}
+
+.my-profile__title {
+    position: relative;
+    top: -18px;
+    display: inline-block;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 3px;
+}
+
+.my-profile__bottom {
+    position: relative;
+    left: 40px;
+    top: -25px;
+}
+
+.my-profile__edit, .line, .my-profile__logout {
+    cursor: pointer;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 8.5px;
+    line-height: 10px;
+    color: #fff;
+    padding-bottom: 1px;
+}
+
+.my-profile__edit:hover, .my-profile__logout:hover {
+    color: #4CAF50;
+}

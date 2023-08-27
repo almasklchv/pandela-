@@ -1,0 +1,547 @@
+@media (min-width: 1513px) {
+    .navigation {
+        display: block;
+    }
+
+    .dropdown-menu {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 1313px) {
+    .premium-for-what {
+        padding-bottom: 165px;
+    }
+
+    .premium-welcome__title {
+        font-size: 40px;
+        padding-top: 50px;
+    }
+
+    .premium-welcome__description {
+        font-size: 20px;
+        max-width: 805px;
+    }
+
+    .btn {
+        width: 158px;
+        height: 47.4px;
+        font-size: 16.6px;
+    }
+
+    .btn_transparent {
+        width: 255px;
+    }
+
+    .premium-for-what {
+        h2 {
+            white-space: nowrap;
+            font-size: 40px;
+        }
+    }
+
+    .premium-welcome {
+        padding-left: 0;
+        overflow: hidden;
+        margin-top: 0;
+    }
+
+    .premium-welcome__content {
+        position: relative;
+        left: 50%;
+        transform: translate(-47%);
+    }
+
+    .for-what__items {
+        justify-content: space-around;
+    }
+
+    .for-what__item {
+        width: 200px;
+        margin-right: 0;
+        img {
+            width: 118.3px;
+        }
+    }
+
+    .for-what__item-text {
+        font-size: 17.5px;
+        margin-top: 134px;
+    }
+
+    .subscription {
+        h2 {
+            white-space: nowrap;
+            font-size: 40px;
+        }
+    }
+    
+    .subscription__description {
+        font-size: 16.5px;
+        white-space: nowrap;
+    }
+
+    .subscription__card {
+        .btn {
+            width: 258px;
+            height: 38.3px;
+            font-size: 20px;
+        }
+    }
+}
+
+@media (max-width: 1291px) {
+    .logo {
+        font-size: 29.1px;
+        margin-left: 42.5px;
+        line-height: 35.5px;
+    }
+
+    .header_text {
+        font-size: 15px;
+        top: 21px;
+    }
+
+    .account {
+        margin-right: 15px;
+
+
+        
+        p {
+            font-size: 15px;
+        }
+    }
+
+    .account_ico {
+        margin-left: 14px;
+    }
+
+    .login_ico {
+        width: 18px;
+        height: 18px;
+        right: 105px;
+        background: url("../icons/login_ico-small.svg");
+    }
+
+    a:hover {
+        .login_ico {
+            background: url("../icons/login_ico-small-hover.svg");
+        }
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 17.5px;
+    }
+
+    .title {
+        font-size: 26.6px;
+    }
+
+    .dropdown-menu__icon {
+        left: -12px;
+        bottom: 20px;
+    }
+
+    #search-form__input {
+        width: 225px;
+        height: 29.1px;
+        font-size: 15px;
+        line-height: 17.5px;
+        padding-left: 27.5px;
+    }
+
+    #search-form__input::placeholder {
+        font-size: 15px;
+        line-height: 17.5px;
+    }
+
+    .search_ico {
+        margin-top: 6px;
+    }
+
+    .mega-banner {
+        h2 {
+            font-size: 30px;
+            line-height: 36.6px;
+        }
+    }
+
+    .mega-banner__title {
+        font-size: 40px;
+        line-height: 49.1px;
+    }
+
+    .course__poster, .video-player {
+        width: 506px;
+        height: 284px;
+    }
+
+    h1 {
+        font-size: 33px;
+    }
+
+    .course__description {
+        font-size: 20px;
+    }
+
+    footer {
+        .logo {
+            top: -15.8px;
+            margin-left: 33.3px;
+            margin-right: 20.8px;
+        }
+
+        .menu {
+            li {
+                font-size: 13px;
+                margin-right: 33px;
+            }
+        }
+
+        .right {
+            p {
+                margin-left: 26.6px;
+                margin-top: 19px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1108px) {
+    footer {
+        .logo {
+            margin-right: 0;
+        }
+    }
+}
+
+@media (max-width: 1096px) {
+    footer {
+        flex-direction: column;
+        max-width: 434px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+
+        .logo {
+            margin: 0 auto;
+            margin-bottom: -19px;
+        }
+
+        .menu {
+            margin-bottom: 20px;
+        }
+
+        .left {
+            flex-direction: column;
+        }
+
+        .right {
+            right: 0;
+
+            p {
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .social-media-group {
+        margin: 0 auto;
+    }
+    
+    #search-form__input {
+        width: 150px;
+    }
+
+    .dropdown-menu {
+        margin-left: 26px;
+    }
+}
+
+@media (max-width: 1212px) {
+    .course-page {
+        margin-left: -4%;
+    }
+    .course-welcome {
+        flex-direction: column;
+        margin-bottom: 100px;
+
+        .left {
+            margin-left: 9%;
+            margin-right: 9%;
+        }
+
+        .right {
+            margin: 0;
+            margin-left: 4%;
+        }
+    }
+
+    .course-program {
+        margin-left: 9%;
+    }
+
+    .course-reviews {
+        margin-left: 9%;
+    }
+}
+
+@media (max-width: 855px) {
+    .account {
+        p {
+            position: relative;
+            left: 70px;
+            top: -2px;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .logo {
+        margin-left: 8.5px;
+        font-size: 20px;
+    }
+
+    .burger-icon {
+        display: block;
+    }
+
+    .search-form.show {
+        display: block;
+    }
+
+    .search-form {
+        margin: 0;
+        width: 100%;
+    }
+
+    #search-form__input {
+        width: 100%;
+    }
+
+    .menu {
+        width: 78%;
+        display: flex;
+        justify-content: space-between;
+        li {
+            a {
+                font-size: 15px;
+            }
+        }
+    }
+
+    .account {
+        display: none;
+    }
+
+    .title {
+        margin-left: 8.5px;
+    }
+
+    .left-btn, .right-btn, .search-form, .dropdown-menu {
+        display: none;
+    }
+
+    .all-courses {
+        margin-right: -30px;
+        
+    }
+
+    .popular-courses, .new-courses {
+        justify-content: center;
+    }
+
+    .course {
+        margin-bottom: 18px;
+    }
+
+    .course-page {
+        margin-top: -40px;
+    }
+
+    
+
+}
+
+@media (max-width: 650px) {
+    .premium-for-what {
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .subscription {
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .subscription__description {
+        font-size: 15.5px;
+    }
+
+    .welcome__btns {
+        .btn_transparent {
+            margin-top: 7px;
+        }
+    }
+}
+
+
+@media (max-width: 567px) {
+    .course__poster, .video-player {
+        width: 360px;
+        height: 202.43px;
+    }
+}
+
+@media (max-width: 477px) {
+    .login {
+        margin-top: -5px;
+        margin-right: 25px;
+    }
+
+    .login_ico {
+        top: 24px;
+        right: 80px;
+    }
+
+    
+
+    .course_preview {
+        width: 100%;
+        height: 202px;
+    }
+
+    .course-welcome {
+        .right {
+            margin-left: -1%;
+        }
+    }
+
+    .premium-welcome__title {
+        font-size: 24px;
+        padding-top: 30px;
+    }
+
+    .premium-welcome__description {
+        font-size: 15px;
+    }
+
+    .btn {
+        width: 95%;
+    }
+
+    .premium-for-what {
+        h2 {
+            font-size: 24px;
+        }
+    }
+
+    .subscription {
+        h2 {
+            font-size: 24px
+        }
+    }
+
+    .subscription__description {
+        font-size: 14px;
+        padding-top: 85px;
+    }
+
+    .subscription__card {
+        width: 340px;
+    }
+
+    footer {
+        .menu {
+            
+            li {
+                font-size: 12px;
+                margin-right: 18px;
+            }
+        }
+
+        .right {
+            p {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .mega-banner__title {
+        font-size: 30px;
+    }
+
+    .mega-banner {
+        h2 {
+            font-size: 20px;
+        }
+    }
+}
+
+@media (max-width: 454px) {
+        .form-container {
+            width: auto;
+            max-width: 430px;
+            max-height: 450px;
+            margin-bottom: 234px;
+        }
+}
+
+@media (max-width: 401px) {
+    .course-welcome {
+        .left {
+            margin-left: 6%;
+            margin-right: 6%;
+        }
+
+        .right {
+            margin-left: -7%;
+        }
+    }
+
+    .course-program {
+        margin-left: 6%;
+    }
+
+    .course-reviews {
+        margin-left: 6%;
+    }
+
+    h1 {
+        font-size: 24px;
+        white-space: nowrap;
+    }
+
+    .course__description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 395px) {
+    footer {
+        .menu {
+            margin-left: -23px;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .burger-menu {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .burger-menu__content {
+        width: 100%;
+    }
+
+    .search-form {
+        width: 91%;
+    }
+}

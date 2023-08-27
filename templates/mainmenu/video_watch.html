@@ -1,10 +1,26 @@
 {% load static %}
 
+{% block extra_head %}
+<title>{{ course.title }}</title>
+{% endblock %}
+
+
 {% block main %}
 
 
-<video  controls class="w-full h-screen player">
-    <source src="/media/{{video.file}}">
-</video>
+<!--<video  controls class="w-full h-screen player">-->
+<!--    <source src="/media/{{video.file}}">-->
+<!--</video>-->
 
+<div class="video-player" id="player"></div>
+
+{% endblock %}
+
+
+ {% block extra_js %}
+  <script src="{% static '/script/playerjs-1.js' %}"></script>
+
+  <script>
+    let player = new Playerjs({id:"player", file:"/media/{{video.file}}"});
+  </script>
 {% endblock %}

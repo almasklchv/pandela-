@@ -19,6 +19,7 @@ def courses(request):
 
 def course(request, pk):
     courseObj = Course.objects.get(id=pk)
+    template = courseObj.video_set.all()[0]
     form = ReviewForm()
 
 
@@ -34,7 +35,7 @@ def course(request, pk):
         messages.success(request, 'Your review was successfully submitted!')
         return redirect('course', pk=courseObj.id)
 
-    return render(request, 'mainmenu/course.html', {'course': courseObj, 'form': form})
+    return render(request, 'mainmenu/course.html', {'course': courseObj, 'form': form, 'template': template})
 
 
 def handle_not_found(request, exception):
@@ -63,7 +64,7 @@ def loginUser(request):
             return redirect('courses')
         else:
             messages.error(request, 'Никнейм или пароль неверный')
-    return render(request, 'mainmenu/login_registeration.html')
+    return render(request, 'mainmenu/login_registration.html')
 
 
 def logoutUser(request):
@@ -91,13 +92,14 @@ def registerUser(request):
         messages.success(request, 'Произошла ошибка... Создать аккаунт не удаётся по неведомым причинам :(')
 
     context = {'page': page, 'form': form}
-    return render(request, 'mainmenu/login_registeration.html', context)
+    return render(request, 'mainmenu/login_registration.html', context)
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id=pk)
-    stories = profile.story_set.all()
-    context = {'profile': profile, 'stories': stories}
+    courses = profile.story_set.all()
+    context = {'profile': profile, 'courses': courses}
     return render(request, 'mainmenu/profile.html', context)
+# на самом деле этот кусок кода пока что бесполезен, но если вдруг мы сделаем систему аккаунтов, это будет круто
 
 
 @login_required(login_url='login')
@@ -106,6 +108,7 @@ def userAccount(request):
     # courses = profile.story_set.all()
     context = {'profile': profile}
     return render(request, 'mainmenu/account.html', context)
+# то же самое
 
 
 @login_required(login_url='login')
@@ -118,17 +121,15 @@ def editAccount(request):
         if form.is_valid():
             form.save()
 
-            return redirect('account')
+            return redirect('courses')
     context = {'form': form}
-    return render(request, 'mainmenu/profile_form.html', context)
+    return render(request, 'mainmenu/edit-account.html', context)
 
 @login_required(login_url="login")
 def createCourse(request):
     form = CourseForm()
     profile = request.user.profile
 
-    # VideoFormset = modelformset_factory(Video, form=VideoForm, extra=0)
-    # formset = VideoFormset(request.POST or None)
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
@@ -138,7 +139,7 @@ def createCourse(request):
             return redirect('update_course', pk=course.id)
 
     context = {'form': form}
-    return render(request, "mainmenu/course_form.html", context)
+    return render(request, "mainmenu/edit-course.html", context)
 
 @login_required(login_url="login")
 def updateCourse(request, pk):
@@ -146,7 +147,7 @@ def updateCourse(request, pk):
     course = profile.course_set.get(id=pk)
     form = CourseForm(instance=course)
 
-    VideoFormset = modelformset_factory(Video, form=VideoForm, extra=0)
+    VideoFormset = modelformset_factory(Video, form=VideoForm, extra=1)
     queryset = Video.objects.filter(father=course)
     formset = VideoFormset(queryset=queryset)
     if request.method == 'POST':
@@ -159,14 +160,10 @@ def updateCourse(request, pk):
                 child = form.save(commit=False)
                 child.father = parent
                 child.save()
-                # parent.videos.add(child)
-            # formset.owner = course
-            # formset.save()
-            # course.videos.add(formset)
             return redirect('courses')
 
     context = {'form': form, 'formset': formset, 'course': course}
-    return render(request, "mainmenu/course_form.html", context)
+    return render(request, "mainmenu/edit-course.html", context)
 
 @login_required(login_url="login")
 def deleteCourse(request, pk):
@@ -176,10 +173,14 @@ def deleteCourse(request, pk):
         course.delete()
         return redirect('courses')
     context = {'object': course}
-    return render(request, 'mainmenu/course_delete.html', context)
+    return render(request, 'mainmenu/delete-course.html', context)
 
 
 def watchVideo(request, pk):
     video = Video.objects.get(id=pk)
     context = {'video': video}
     return render(request, 'mainmenu/video_watch.html', context)
+
+def premiumPage(request):
+    context = {}
+    return render(request, 'mainmenu/premium.html', context)

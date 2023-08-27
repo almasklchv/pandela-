@@ -1,67 +1,92 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block main %}
-<a href="{% url 'update_course' course.id %}">обновить</a>
-<a href="{% url 'delete_course' course.id %}">удалить</a>
-
-
-
-
-<div class="videos">
-    {% for video in course.video_set.all %}
-    <a href="{% url 'watch_video' video.id %}">
-        <p>{{video.title}}</p>
-    </a>
-    {% endfor %}
-</div>
-
- <div class="comments">
-                    <h3 class="singleProject__subtitle">Feedback</h3>
-                    <h5 class="course--rating">
-                        {{course.vote_ratio}}% Positive Feedback ({{course.vote_total}}
-                        Vote{{course.vote_total|pluralize:"s"}})
-                    </h5>
-
-                    {% if request.user.profile.id in course.reviewers %}
-                    <p>You have already submitted your review for this project</p>
-
-                    {% elif request.user.profile == course.owner %}
-                    <p>You cannot review your own work</p>
-
-                    {% elif request.user.is_authenticated %}
-                    <form class="form" action="{% url 'course' course.id %}" method="POST">
-                        {% csrf_token %}
-                        {% for field in form %}
-                        <div class="form__field">
-                            <label for="formInput#textarea">{{field.label}}</label>
-                            {{field}}
-                        </div>
-                        {% endfor %}
-                        <input class="btn btn--sub btn--lg" type="submit" value="Add Review" />
-                    </form>
-                    {% else %}
-                    <a href="{% url 'login' %}?next={{request.path}}">Please login to leave a review</a>
-                    {% endif %}
-
-                    <div class="commentList">
-                        {% for review in course.review_set.all %}
-                        {% if review.body %}
-                        <div class="comment">
-                            <a href="{% url 'user-profile' review.owner.id  %}">
-                                <img class="avatar avatar--md" src="{{review.owner.profile_image.url}}" alt="user" />
-                            </a>
+  {% block extra_head %}
+  <title>Страница курса - Pandela</title>
+  {% endblock %}
 
 
-                            <div class="comment__details">
-                                <a href="{% url 'user-profile' review.owner.id  %}"
-                                    class="comment__author">{{review.owner.name}}</a>
-                                <p class="comment__info">{{review.body|linebreaksbr}}</p>
-                            </div>
 
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+  {% block main %}
 
-                    </div>
+    <main>
+      <div class="course-page">
+
+        <div class="course-welcome">
+          <div class="left">
+            <h1>{{ course.title }}</h1>
+            <p class="course__description">{{ course.description }}</p>
+            <p class="course__likes">{{course.vote_ratio}}% Нравится({{course.vote_total}} отзыва)</p>
+
+
+          </div>
+          <div class="right">
+            <div class="video-player" id="player"></div>
+          </div>
+        </div>
+
+        <div class="course-program">
+          <h2 class="title">Программа курса</h2>
+          <div class="course-program__content">
+            {% for video in course.video_set.all %}
+              <a href="{% url 'watch_video' video.id %}">
+                <p class="course-program__name">{{video.title}}</p>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="course-reviews">
+          <h2 class="title">Отзывы</h2>
+            <h2 class="title">Этот курс понравился {{course.vote_ratio}}% пользователей. ({{course.vote_total}}
+                        Голос{{course.vote_total|pluralize:"ов"}})</h2>
+
+            {% if request.user.profile.id in course.reviewers %}
+                    <p>Вы уже написали отзыв к курсу</p>
+
+            {% elif request.user.profile == course.owner %}
+                    <p>Вы не можете оценить ваш собственный курс</p>
+
+            {% elif request.user.is_authenticated %}
+            <form class="course-reviews__write-review" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <label for="value" class="course-reviews__your-review">Ваша оценка курсу:</label>
+              {{ form.value }}
+              <br>
+              <label class="course-review__for-comment" for="id_body">Добавить комментарий с вашим голосом</label>
+              <br>
+              {{ form.body }}
+              <br>
+              <input class="form__btn" type="submit" value="Написать отзыв">
+          </form>
+          {% else %}
+                    <a href="{% url 'login' %}?next={{request.path}}">Зарегистрируйтесь, чтобы оставить отзыв</a>
+          {% endif %}
+          <div class="course-reviews__content">
+            {% for review in course.review_set.all %}
+              {% if review.body %}
+                <div class="course-review">
+                  <img class="profile-photo" src="{{review.owner.profile_image.url}}">
+                  <p class="review-name">{{review.owner.name}}</p>
+                  <p class="review">{{review.body|linebreaksbr}}</p>
                 </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+
+  {% endblock %}
+
+
+{% block extra_js %}
+  <script src="{% static '/script/playerjs-1.js' %}"></script>
+
+  <script>
+    let player = new Playerjs({id:"player", file:"/media/{{template.file}}"});
+  </script>
 {% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<div class="wrapper">
+    <div class="option">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h1>Вы уверены, что хотите удалить курс?</h1>
+            <div class="choice">
+                <div class="left-c">
+                    <a href="{% url 'Home' %}">Нет</a>
+                </div>
+
+                <div class="right-c">
+                    <input type="submit" class="yes size-btn" value="Да">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
