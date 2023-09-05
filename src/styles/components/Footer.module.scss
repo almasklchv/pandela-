@@ -1,0 +1,37 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 51px;
+  width: 98%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+
+  p {
+    color: #fff;
+    font-family: "Roboto";
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+}
+
+.socialMediaGroup {
+  display: flex;
+  margin-right: 32px;
+}
+
+.link {
+    margin-right: 8px;
+}
