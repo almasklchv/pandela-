@@ -1,0 +1,77 @@
+.card {
+  min-width: 350px;
+  min-height: 450px;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 42px;
+}
+
+.title,
+.price {
+  padding-left: 50px;
+}
+
+.title {
+  color: #000;
+  font-family: "Roboto";
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: -15px;
+}
+
+.price {
+  color: #000;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.opportunities {
+  margin-top: -20px;
+}
+
+.opportunity {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  margin-bottom: -60px;
+}
+
+.opportunityImg {
+  margin-right: 10px;
+}
+
+.opportunityName {
+  color: #000;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  max-width: 70%;
+  margin-top: 35px;
+}
+
+.line {
+  border: 1px solid #000;
+  width: 80%;
+  margin-top: -10px;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: #0f0f0f;
+
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 900;
+
+  padding: 12px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  margin-left: 35px;
+  margin-top: 110px;
+}

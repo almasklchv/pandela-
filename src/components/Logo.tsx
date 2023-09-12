@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/components/Logo.module.scss";
 import { useNavigate } from "react-router-dom";
 
-const Logo = () => {
+const Logo = (props: any) => {
   const navigate = useNavigate();
   return (
     <div>
@@ -11,6 +11,7 @@ const Logo = () => {
         onClick={() => {
           navigate("/");
         }}
+        {...props}
       >
         <img
           className={styles.logoImg}

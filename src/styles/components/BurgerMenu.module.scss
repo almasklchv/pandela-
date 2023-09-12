@@ -1,0 +1,51 @@
+.burger-menu.active {
+  position: absolute;
+  z-index: 100;
+  opacity: 1;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  margin-left: -35px;
+}
+
+.link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 5px;
+
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+li {
+  list-style: none;
+}
+
+.linkImg {
+  margin-right: 7px;
+}
+
+.linkText {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.3s ease;
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.linkText.visible {
+  opacity: 1;
+  position: static;
+}
+
+.link:hover,
+.selectedLink {
+  border-radius: 3px;
+  background: rgba(66, 66, 66, 0.5);
+}

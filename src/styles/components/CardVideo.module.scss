@@ -1,0 +1,52 @@
+.videoCover {
+  margin-bottom: -10px;
+}
+
+.videoTitle {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 16px;
+  font-weight: 700;
+
+  opacity: 0.87;
+
+  margin-bottom: -5px;
+}
+
+.videoAuthorName {
+  margin-bottom: -10px;
+}
+
+.videoStat,
+.videoAuthorName {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 400;
+
+  opacity: 0.6;
+}
+
+.card {
+  cursor: pointer;
+  margin-bottom: 17px;
+}
+
+.card.video {
+  display: flex;
+
+  .videoCover {
+    max-width: 167.532px;
+    max-height: 94px;
+    margin-right: 6px;
+  }
+
+  .videoTitle {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .videoAuthorName, .videoStat {
+    white-space: nowrap;
+  }
+}

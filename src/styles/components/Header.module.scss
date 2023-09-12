@@ -2,6 +2,8 @@
   display: flex;
   justify-content: space-between;
   max-height: 45px;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .left {
@@ -59,4 +61,14 @@
   display: flex;
   align-items: center;
   right: 25px;
+}
+
+.burgerMenu {
+  position: absolute;
+  top: 70px;
+}
+
+.burgerMenuBtn {
+  cursor: pointer;
+  margin-top: 20px;
 }

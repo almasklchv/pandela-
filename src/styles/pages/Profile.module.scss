@@ -1,0 +1,83 @@
+.channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileInfo {
+  margin-top: 15px;
+  margin-bottom: 92px;
+  display: flex;
+  align-items: center;
+}
+
+.nameWithSubscribe {
+  display: flex;
+  align-items: center;
+  margin-bottom: -40px;
+}
+
+.profilePhoto {
+  border-radius: 100%;
+}
+
+.name {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-weight: 700;
+
+  opacity: 0.89;
+
+  margin-right: 68px;
+}
+
+.username {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: 300;
+
+  opacity: 0.89;
+
+  margin-bottom: -10px;
+}
+
+.bio {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 14px;
+  font-weight: 700;
+
+  opacity: 0.89;
+}
+
+.subscribeBtn {
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  background: #4caf50;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: 500;
+
+  max-height: 82px;
+}
+
+.personInfo {
+  margin-left: 19px;
+}
+
+.videos {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  max-width: 1318px;
+  margin-left: -15px;
+  margin-bottom: 250px;
+}

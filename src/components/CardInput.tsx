@@ -1,5 +1,6 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import styles from "../styles/components/CardInput.module.scss";
+import classNames from "classnames";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,13 +11,14 @@ interface ICardInput {
   formTitle: string;
   buttonText: string;
   to: string;
-  linkText: string;
-  function: () => {};
+  linkText?: string;
+  function: (data: any) => {};
 }
 interface Inputs {
   title: string;
-  type: string;
+  type: string | string[];
   name: string;
+  hidden?: string;
 }
 
 const CardInput = (props: ICardInput) => {
@@ -63,11 +65,54 @@ const CardInput = (props: ICardInput) => {
             return (
               <>
                 <p className={styles.inputTitle}>{input.title}</p>
-                <input
-                  className={styles.input}
-                  type={input.type}
-                  {...register(input.name)}
-                />
+                {typeof input.type === "object" ? (
+                  <select className={styles.selectCategory}>
+                    {input.type.map((option: string) => (
+                      <option className={styles.optionCategory}>{option}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    className={classNames(styles.input, input.name)}
+                    type={input.type}
+                    hidden={input.hidden}
+                    {...register(input.name)}
+                  />
+                )}
+
+                {input.type === "file" && (
+                  <div className={styles.uploadFile}>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const uploadBtn: HTMLInputElement | null =
+                          document.querySelector(".profile_image");
+                        uploadBtn?.click();
+                        const uploadText: HTMLSpanElement =
+                          document.querySelector(
+                            `.${styles.uploadText}`
+                          ) as HTMLSpanElement;
+                        if (uploadBtn) {
+                          uploadBtn.addEventListener("change", (e: Event) => {
+                            const inputElement = e.target as HTMLInputElement;
+                            if (inputElement) {
+                              const match = inputElement.value.match(
+                                /[/\\]([\w\d\s.\-()]+)$/
+                              );
+                              if (match) {
+                                uploadText.innerText = match[1];
+                              }
+                            }
+                          });
+                        }
+                      }}
+                      className={styles.uploadFileBtn}
+                    >
+                      Выбрать файл
+                    </button>
+                    <span className={styles.uploadText}>Файл не выбран</span>
+                  </div>
+                )}
                 <p className={styles.error}>{error}</p>
               </>
             );
@@ -79,9 +124,11 @@ const CardInput = (props: ICardInput) => {
             value={props.buttonText}
           />
         </form>
-        <Link className={styles.link} to={props.to}>
-          {props.linkText}
-        </Link>
+        {props.linkText && (
+          <Link className={styles.link} to={props.to}>
+            {props.linkText}
+          </Link>
+        )}
       </div>
     </div>
   );

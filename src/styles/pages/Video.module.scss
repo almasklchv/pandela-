@@ -1,0 +1,154 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  margin-left: 5%;
+}
+
+.videoTitle {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 40px;
+  font-weight: 700;
+
+  opacity: 0.87;
+
+  margin-bottom: 20px;
+}
+
+.channelInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 650px;
+
+  margin-bottom: 39px;
+  margin-left: -20px;
+}
+
+.channelInfoContainer {
+  cursor: pointer;
+  margin-left: -25px;
+}
+
+.channelPhoto {
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+}
+
+.channelName {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 700;
+
+  opacity: 0.87;
+
+  margin-bottom: -12px;
+}
+
+.channelSubscribers {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+
+  opacity: 0.6;
+}
+
+.subscribeBtn {
+  cursor: pointer;
+  padding: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  border: none;
+  border-radius: 20px;
+  background: #424242;
+
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.subscribeBtn:hover {
+  background: #6b6767;
+}
+
+.channelActions {
+  display: flex;
+  border: none;
+  border-radius: 20px;
+  background: #424242;
+}
+
+.like,
+.dislike {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 7px;
+  padding: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  img {
+    margin-right: 7px;
+  }
+}
+
+.like:hover,
+.dislike:hover {
+  background: #6b6767;
+  border-radius: 20px;
+}
+
+.likesCount,
+.dislikesCount {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.description {
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+  background: #424242;
+
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 24px;
+  font-weight: 400;
+
+  opacity: 0.87;
+
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  max-width: 1150px;
+
+  span {
+    font-weight: bold;
+    font-size: 25px;
+  }
+}
+
+.description:hover {
+  background: #6b6767;
+}
+
+.videos {
+  margin-right: 7%;
+  margin-top: 45px;
+}
+
+.videoInfo {
+  margin-right: 70px;
+}

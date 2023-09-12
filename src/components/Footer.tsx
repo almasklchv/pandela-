@@ -10,7 +10,7 @@ const Footer = () => {
         <Logo />
         <Navbar
           data={[
-            { title: "Оформить подписку", to: "/" },
+            { title: "Оформить подписку", to: "/premium" },
             { title: "Выложить свой курс", to: "/" },
             { title: "О нас", to: "/" },
           ]}
@@ -28,7 +28,7 @@ const Footer = () => {
             <img src="icons/instagram.svg" alt="instagram" />
           </a>
         </div>
-        <p>© 2022 Все права защищены</p>
+        <p>© 2023 Все права защищены</p>
       </div>
     </footer>
   );
