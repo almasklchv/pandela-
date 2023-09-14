@@ -1,3 +1,5 @@
+@use "../components/Player.module.scss" as player;
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -149,6 +151,18 @@
   margin-top: 45px;
 }
 
+.player {
+  @extend .player; 
+}
+
 .videoInfo {
   margin-right: 70px;
+
+  &.theater {
+    margin-top: 0; 
+  }
+
+  &:not(.theater) {
+    margin-top: 38%;
+  }
 }

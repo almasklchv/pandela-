@@ -43,7 +43,7 @@ const Channel = (props: IChannel) => {
                 <button className={styles.subscribeBtn}>Подписаться</button>
               </div>
               <p className={styles.username}>
-                {user[0].username} {user[0].subscribersCount}
+                @{user[0].username} {user[0].subscribersCount}
               </p>
               <p className={styles.bio}>{user[0].bio}</p>
             </div>
