@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import { videos } from "../fake-db/main";
 
 const Main = () => {
-  return (
-    <div>
-        
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default Main
+export default Main;

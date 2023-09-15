@@ -52,6 +52,8 @@ const Channel = (props: IChannel) => {
             {videos.map((video) => {
               if (video.userId === props.userId || video.userId === userId) {
                 return <CardVideo {...video} />;
+              } else {
+                return ''
               }
             })}
           </div>

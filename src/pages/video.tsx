@@ -6,9 +6,10 @@ import styles from "../styles/pages/Video.module.scss";
 import stylesFromPlayer from "../styles/components/Player.module.scss";
 import CardVideo from "../components/CardVideo";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 const Video = () => {
-  const [isTheater, setIsTheater] = useState<boolean>(false);
+  // const [isTheater, setIsTheater] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const videoId = location.search.slice(4);
@@ -16,20 +17,14 @@ const Video = () => {
   const creatorOfVideo = users.filter(
     (user) => video[0].userId === user.userId
   );
+  const isTheater = useSelector((state: any) => state.videoPlayerMode.value)
+  
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setIsTheater(
-        document
-          .querySelector(`.${stylesFromPlayer["video-container"]}`)
-          ?.classList.contains(stylesFromPlayer.theater) || false
-      );
-    }, 2000);
-  }, []);
+  
 
   return (
     <div>
-      <Player />
+      <Player src={video[0].videoPath}/>
       <div className={styles.container}>
         <div
           className={classNames(styles.videoInfo, isTheater && styles.theater)}

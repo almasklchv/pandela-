@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/components/Player.module.scss";
 import { useLocation } from "react-router-dom";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { isTheaterMode } from "../store/playerModeSlice";
 
-const Player = () => {
+interface IPlayer {
+  src: string;
+}
+
+const Player = (props: IPlayer) => {
   // Состояния для управления плеером
   const [paused, setPaused] = useState<boolean>(true); // Приостановлено ли видео
   const [isTheater, setIsTheater] = useState<boolean>(false); // Включен ли режим театра
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false); // Находится ли видео в полноэкранном режиме
   const [isMuted, setIsMuted] = useState<boolean>(false); // Приглушено ли аудио
+  
+  const dispatch = useDispatch()
 
   // Обработчик контекстного меню для предотвращения его отображения
   const handleContextMenu = (e: any) => {
@@ -56,6 +65,7 @@ const Player = () => {
   // Обработчик переключения режима театра
   const handleTheaterMode = () => {
     setIsTheater(!isTheater);
+    dispatch(isTheaterMode(!isTheater));
   };
 
   // Обработчик переключения режима мини-плеера
@@ -189,7 +199,7 @@ const Player = () => {
       const percent =
         Math.min(Math.max(0, e.screenX - rect.x), rect.width) / rect.width;
       const isScrubbingg = (e.buttons & 1) === 1;
-      
+
       setIsScrubbing(isScrubbingg);
       if (isScrubbing) {
         setWasPaused(video.paused);
@@ -200,7 +210,7 @@ const Player = () => {
         video.currentTime = percent * video.duration;
         if (!wasPaused) {
           video.play();
-          setIsMuted(video.muted)
+          setPaused(false)
         }
       }
     }
@@ -436,7 +446,7 @@ const Player = () => {
         </div>
       </div>
       <video
-        src="videos/sample.mp4"
+        src={props.src}
         onClick={handlePlayPause}
         onDoubleClick={handleFullScreen}
         onLoadedData={handleLoadedVideo}
