@@ -1,0 +1,29 @@
+.videos {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 7%;
+  max-width: 85vw;
+  flex-wrap: wrap;
+}
+
+.title {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 8.5%;
+}
+
+.ad-banner {
+  width: 85vw;
+  height: 230px;
+  background-color: #fff;
+  margin-left: 7%;
+  margin-top: 20px;
+  margin-bottom: 30px;
+
+  color: #000;
+  font-family: "Montserrat";
+  font-size: 64px;
+  font-weight: 700;
+}

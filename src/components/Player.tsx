@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/components/Player.module.scss";
 import { useLocation } from "react-router-dom";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { isTheaterMode } from "../store/playerModeSlice";
 
@@ -16,8 +15,8 @@ const Player = (props: IPlayer) => {
   const [isTheater, setIsTheater] = useState<boolean>(false); // Включен ли режим театра
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false); // Находится ли видео в полноэкранном режиме
   const [isMuted, setIsMuted] = useState<boolean>(false); // Приглушено ли аудио
-  
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
 
   // Обработчик контекстного меню для предотвращения его отображения
   const handleContextMenu = (e: any) => {
@@ -193,7 +192,7 @@ const Player = (props: IPlayer) => {
       `.${styles["timeline-container"]}`
     );
     const video: HTMLVideoElement | null = document.querySelector("video");
-    console.log(timelineContainer, video);
+    
     if (timelineContainer && video) {
       const rect = timelineContainer.getBoundingClientRect();
       const percent =
@@ -206,11 +205,10 @@ const Player = (props: IPlayer) => {
         video.pause();
         setIsMuted(true);
       } else {
-        console.log(percent);
         video.currentTime = percent * video.duration;
         if (!wasPaused) {
           video.play();
-          setPaused(false)
+          setPaused(false);
         }
       }
     }
@@ -448,9 +446,13 @@ const Player = (props: IPlayer) => {
       <video
         src={props.src}
         onClick={handlePlayPause}
+        onPlay={() => {
+          setPaused(false);
+        }}
         onDoubleClick={handleFullScreen}
         onLoadedData={handleLoadedVideo}
         onTimeUpdate={handleLoadedVideo}
+        autoPlay
       ></video>
     </div>
   );

@@ -19,13 +19,13 @@ const Footer = () => {
       <div className={styles.right}>
         <div className={styles.socialMediaGroup}>
           <a className={styles.link} href="https://tiktok.com">
-            <img src="icons/tiktok.svg" alt="tiktok" />
+            <img src="/icons/tiktok.svg" alt="tiktok" />
           </a>
           <a className={styles.link} href="https://vk.com">
-            <img src="icons/vk.svg" alt="vk" />
+            <img src="/icons/vk.svg" alt="vk" />
           </a>
           <a className={styles.link} href="https://instagram.com">
-            <img src="icons/instagram.svg" alt="instagram" />
+            <img src="/icons/instagram.svg" alt="instagram" />
           </a>
         </div>
         <p>© 2023 Все права защищены</p>

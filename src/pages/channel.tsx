@@ -3,7 +3,7 @@ import styles from "../styles/pages/Profile.module.scss";
 import CardVideo from "../components/CardVideo";
 import { videos } from "../fake-db/main";
 import { users } from "../fake-db/main";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Error404 from "./404";
 
 interface IChannel {
@@ -11,14 +11,12 @@ interface IChannel {
 }
 
 const Channel = (props: IChannel) => {
+  const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   const location = useLocation();
   const userId = location.search.slice(4);
-  const user = users.filter((user) =>
-    userId ? userId === user.userId : user.userId === props.userId
-  );
-  console.log(userId);
-  console.log(user);
+  const user = users.filter((user) => id && id === user.userId);
 
   if (user[0]) {
     return (
@@ -50,10 +48,10 @@ const Channel = (props: IChannel) => {
           </div>
           <div className={styles.videos}>
             {videos.map((video) => {
-              if (video.userId === props.userId || video.userId === userId) {
+              if (video.userId === id) {
                 return <CardVideo {...video} />;
               } else {
-                return ''
+                return "";
               }
             })}
           </div>

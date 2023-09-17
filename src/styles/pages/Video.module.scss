@@ -136,10 +136,17 @@
 
   max-width: 1150px;
 
-  span {
-    font-weight: bold;
-    font-size: 25px;
+  a {
+    color: #3da2f9;
+    text-decoration: none;
   }
+}
+
+
+
+.readMore {
+  font-weight: bold;
+  font-size: 25px;
 }
 
 .description:hover {
@@ -152,14 +159,14 @@
 }
 
 .player {
-  @extend .player; 
+  @extend .player;
 }
 
 .videoInfo {
   margin-right: 70px;
 
   &.theater {
-    margin-top: 0; 
+    margin-top: 0;
   }
 
   &:not(.theater) {

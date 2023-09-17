@@ -3,19 +3,18 @@ import styles from "../styles/components/Logo.module.scss";
 import { useNavigate } from "react-router-dom";
 
 const Logo = (props: any) => {
-  const navigate = useNavigate();
   return (
     <div>
       <div
         className={styles.logo}
         onClick={() => {
-          navigate("/");
+          window.location.href = "/";
         }}
         {...props}
       >
         <img
           className={styles.logoImg}
-          src="icons/logo.png"
+          src="/icons/logo.png"
           alt="logo"
           height={25}
         />

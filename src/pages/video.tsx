@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Player from "../components/Player";
 import { videos, users } from "../fake-db/main";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/pages/Video.module.scss";
 import stylesFromPlayer from "../styles/components/Player.module.scss";
 import CardVideo from "../components/CardVideo";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
+import linkifyHtml from "linkify-html";
 
 const Video = () => {
   // const [isTheater, setIsTheater] = useState<boolean>(false);
@@ -17,14 +18,13 @@ const Video = () => {
   const creatorOfVideo = users.filter(
     (user) => video[0].userId === user.userId
   );
-  const isTheater = useSelector((state: any) => state.videoPlayerMode.value)
-  
+  const isTheater = useSelector((state: any) => state.videoPlayerMode.value);
+
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
-  
 
   return (
     <div>
-      <Player src={video[0].videoPath}/>
+      <Player src={video[0].videoPath} />
       <div className={styles.container}>
         <div
           className={classNames(styles.videoInfo, isTheater && styles.theater)}
@@ -35,15 +35,11 @@ const Video = () => {
               className={styles.channelPhoto}
               src={creatorOfVideo[0].profilePhoto}
               alt="Фото профиля"
-              onClick={() =>
-                navigate(`/channel?id=${creatorOfVideo[0].userId}`)
-              }
+              onClick={() => navigate(`/channel/${creatorOfVideo[0].userId}`)}
             />
             <div
               className={styles.channelInfoContainer}
-              onClick={() =>
-                navigate(`/channel?id=${creatorOfVideo[0].userId}`)
-              }
+              onClick={() => navigate(`/channel/${creatorOfVideo[0].userId}`)}
             >
               <p className={styles.channelName}>{creatorOfVideo[0].name}</p>
               <p className={styles.channelSubscribers}>
@@ -75,11 +71,26 @@ const Video = () => {
             <p>{video[0].views}</p>
             <p>
               {isDescriptionOpen ? (
-                <>{video[0].description}</>
+                <span
+                  className={styles.desctiptionText}
+                  dangerouslySetInnerHTML={{
+                    __html: linkifyHtml(video[0].description),
+                  }}
+                />
               ) : (
                 <>
-                  {video[0].description.slice(0, 81) + "..."}
-                  <span>Читать далее</span>
+                  <span
+                    className={styles.desctiptionText}
+                    dangerouslySetInnerHTML={{
+                      __html: linkifyHtml(video[0].description.slice(0, 81)),
+                    }}
+                  />
+                  {video[0].description.length > 81 && (
+                    <>
+                      ...
+                      <span className={styles.readMore}>Читать далее</span>
+                    </>
+                  )}
                 </>
               )}
             </p>

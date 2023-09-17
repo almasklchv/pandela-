@@ -18,7 +18,7 @@ const Header = (props: { isBurgerMenu: boolean }) => {
         {props.isBurgerMenu && (
           <img
             className={styles.burgerMenuBtn}
-            src="icons/burger-menu.svg"
+            src="/icons/burger-menu.svg"
             alt="burger menu icon"
             height={20}
             onClick={handleBurgerMenuClick}

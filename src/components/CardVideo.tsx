@@ -34,10 +34,10 @@ const CardVideo = (props: ICardVideo) => {
         alt={props.title}
       />
       <div>
-        <p className={styles.videoTitle}>{props.title}</p>
+        <p className={styles.videoTitle}>{props.title.slice(0, 30)}</p>
         {props.option === "video-page" && (<p className={styles.videoAuthorName}>{creatorOfVideo[0].name}</p>)}
         <p className={styles.videoStat}>
-          {props.views}&nbsp;&nbsp;&nbsp;&nbsp;{props.option === 'video-page' ? props.ago.slice(0, 7) + '...': props.ago}
+          {props.views}&nbsp;&nbsp;&nbsp;&nbsp;{props.option === 'video-page' ? props.ago.slice(0, 7) + (props.ago.length > 7 && '...'): props.ago}
         </p>
       </div>
     </div>

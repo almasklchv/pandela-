@@ -12,22 +12,22 @@ const BurgerMenu = (props: {burgerMenuClicked: boolean}) => {
     {
       text: "Главная",
       route: "/",
-      icon: "icons/home.svg",
+      icon: "/icons/home.svg",
     },
     {
       text: "Подписки",
       route: "/subscriptions",
-      icon: "icons/subscriptions.svg",
+      icon: "/icons/subscriptions.svg",
     },
     {
       text: "Курсы",
       route: "/courses",
-      icon: "icons/courses.svg",
+      icon: "/icons/courses.svg",
     },
     {
       text: "Видео",
       route: "/videos",
-      icon: "icons/videos.svg",
+      icon: "/icons/videos.svg",
     },
   ];
 

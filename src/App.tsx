@@ -92,7 +92,7 @@ function App() {
             }
           />
           <Route
-            path="/channel"
+            path="/channel/:id"
             element={
               <>
                 <Header isBurgerMenu={true} />
@@ -100,6 +100,7 @@ function App() {
               </>
             }
           />
+         
            <Route
             path="/video"
             element={
