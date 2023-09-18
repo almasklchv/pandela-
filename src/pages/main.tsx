@@ -20,7 +20,6 @@ const Main = () => {
 
   const handleAvailableCount = () => {
     const screenWidth = (window.innerWidth / 100) * 80;
-    console.log(screenWidth);
     const newCount = screenWidth / 300;
     setAvailableCount(newCount);
     dispatch(setCount(newCount));

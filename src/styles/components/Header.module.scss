@@ -72,3 +72,24 @@
   cursor: pointer;
   margin-top: 20px;
 }
+
+.right {
+  display: block;
+}
+
+
+@media (max-width: 710px) {
+  .search {
+    width: 25px;
+    border: none;
+  }
+
+  .searchForm {
+    width: 25px;
+  }
+
+  .search:focus {
+    width: 270px;
+    border: 1px solid #fff;
+  }
+}

@@ -87,7 +87,7 @@ function App() {
             element={
               <>
                 <Header isBurgerMenu={true} />
-                <Channel userId={'ff98f875-e36b-42a1-848a-9ee173cceacc'}/>
+                <Channel userId={"ff98f875-e36b-42a1-848a-9ee173cceacc"} />
               </>
             }
           />
@@ -100,8 +100,8 @@ function App() {
               </>
             }
           />
-         
-           <Route
+
+          <Route
             path="/video"
             element={
               <>

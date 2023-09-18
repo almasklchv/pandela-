@@ -12,6 +12,21 @@ const Header = (props: { isBurgerMenu: boolean }) => {
     setBurgerMenuClicked(!burgerMenuClicked);
   };
 
+  const handleSearchClicked = () => {
+    const search: HTMLInputElement | null = document.querySelector("#search");
+    search?.focus();
+    const right: HTMLDivElement | null = document.querySelector(
+      "." + styles.right
+    );
+    const left: HTMLDivElement | null = document.querySelector(
+      "." + styles.left
+    );
+    if (right && left) {
+      right.style.display = "none";
+      left.style.display = "none";
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -24,11 +39,15 @@ const Header = (props: { isBurgerMenu: boolean }) => {
             onClick={handleBurgerMenuClick}
           />
         )}
-        <Logo style={{marginTop: '15px'}} />
+        <Logo style={{ marginTop: "15px" }} />
       </div>
       <div className={styles.center}>
+        <span className={styles.back}></span>
         <form className={styles.searchForm}>
-          <span className={styles.searchIcon}></span>
+          <span
+            className={styles.searchIcon}
+            onClick={handleSearchClicked}
+          ></span>
           <input
             className={styles.search}
             type="search"

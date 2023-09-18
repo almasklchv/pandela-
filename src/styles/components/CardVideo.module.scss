@@ -32,6 +32,14 @@
   margin-bottom: 17px;
 }
 
+// .playerCover {
+//   max-width: 314px;
+//   max-height: 168px;
+//   margin-right: 6px;
+//   border-radius: 20px;
+//   display: none;
+// }
+
 .card.video {
   display: flex;
 
@@ -39,6 +47,7 @@
     max-width: 167.532px;
     max-height: 94px;
     margin-right: 6px;
+    border-radius: 20px;
   }
 
   .videoTitle {
@@ -46,7 +55,16 @@
     white-space: nowrap;
   }
 
-  .videoAuthorName, .videoStat {
+  .videoAuthorName,
+  .videoStat {
     white-space: nowrap;
   }
 }
+
+// .videoCover:hover { 
+//   display: none;
+// }
+
+// .videoCover:hover + .playerCover {
+//   display: block;
+// }

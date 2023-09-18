@@ -50,17 +50,17 @@ const Video = () => {
             <div className={styles.channelActions}>
               <div className={styles.like}>
                 <img
-                  src="https://4.downloader.disk.yandex.ru/preview/d57ff91b155322899f09c8439abebf36ca6e1c112e5e73f60bad9e52d674294f/inf/_0J5OM5mtjsY9nryWr2n8Val_GSfBuh7qGGWnkHdbyBpnwXKN-e6cO5WXbf4XcFkdWIx6LirQ2UwP6bppABgTQ%3D%3D?uid=1559815427&filename=like.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=1559815427&tknv=v2&size=1905x867"
+                  src="https://s668sas.storage.yandex.net/rdisk/95e6f82899cd8fd1c4df1309a349db06b4dd22cf68a827e57eb3b94959daa44e/65088411/7J95rr6kdzAcx7CEtM-ULsD_T8pRMUr6nuxNKUAiZy6W-YnTX5yCojRkPe-qnS0c_07lvhAIULZxEzNiOSin8Q==?uid=0&filename=heart-Filled_1_.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&fsize=319&hid=e804a923bef2bda4032e8b218f076a7c&media_type=image&tknv=v2&etag=b055694ee5077640dac89cea68b97a8c&rtoken=ZNzfiI4x4ug4&force_default=no&ycrid=na-152b78b835db2a9fb1333318c1ba048c-downloader15h&ts=605a5312c6640&s=e2efb6d282b480e9659e672d9559b342af034c19974da6ad24fb3725c6fd866a&pb=U2FsdGVkX1_fQh5yMWmNreAiwxzcz1v9KrQDZOm3ttW1WVRlWYOqAUhUDPjt_tiZW2NI9vD0OYhKkzMg5QkwLZSHAXp5KoXxoUBwzRkeqBg"
                   alt="Кнопка лайка"
                 />
                 <p className={styles.likesCount}>{video[0].likes}</p>
               </div>
               <div className={styles.dislike}>
                 <img
-                  src="https://1.downloader.disk.yandex.ru/preview/f3556b916196d49f49831cd786b98934d291c33d3985e35e771721587b1c5aa0/inf/Hyws5XLMlvZrufhoAqO-mHHk_3tF7ru242mYSOe-csG6SGcHzA4dY4kvIgw2VOLFOCwNMvs3TLJGxhGm5VNN3A%3D%3D?uid=1559815427&filename=dislike.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=1559815427&tknv=v2&size=1905x867"
-                  alt="Кнопка дизлайка"
+                  src="https://s188sas.storage.yandex.net/rdisk/5e6daceb6b39fe0c0af12501a7209729affedee8a9d2da2a49cfba3bbe276784/65088444/7J95rr6kdzAcx7CEtM-ULvlLO6KytyB2MBKQzKEyStVISAYdZjRmqQ6nfFgM_Uwv89eC9lulym03Ph20TPCrBg==?uid=0&filename=bookmark-Filled.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&fsize=248&hid=da3adcdc2abec7af0044126bc2a477c6&media_type=image&tknv=v2&etag=c59ccb5fcf99b98cda4f1ca12a836d60&rtoken=MVmwugxQuvCi&force_default=no&ycrid=na-591d624515bb36b9fe23b5709140c14d-downloader15h&ts=605a534369900&s=327fb07c5395e33a4846bcaebc1ecc9e74cd5e8bcbd89edce80a40e32b508f72&pb=U2FsdGVkX18iTJ9fCxYadAjor4pNRp-6WQzMIn02bNdnTEQiGgeImCQVZ8naulPTnjRjXRZ5IUm3zOSS49gOZZVg5jk3WWsF8WOmn8jiN_s"
+                  alt="Кнопка избранного"
                 />
-                <p className={styles.dislikesCount}>{video[0].dislikes}</p>
+                <p className={styles.dislikesCount}>{video[0].favorites}</p>
               </div>
             </div>
           </div>

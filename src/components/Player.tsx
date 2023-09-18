@@ -449,6 +449,9 @@ const Player = (props: IPlayer) => {
         onPlay={() => {
           setPaused(false);
         }}
+        onPause={() => {
+          setPaused(true);
+        }}
         onDoubleClick={handleFullScreen}
         onLoadedData={handleLoadedVideo}
         onTimeUpdate={handleLoadedVideo}
