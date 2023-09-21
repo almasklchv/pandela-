@@ -18,6 +18,10 @@ from dotenv import load_dotenv
 
 # ENV = os.environ.get("APP_ENV", "PROD")
 
+# import environ #postgresql things  #render
+
+# env = environ.Env() #render
+# environ.Env.read_env() #render
 load_dotenv()
 
 from pathlib import Path
@@ -59,7 +63,7 @@ SECRET_KEY = 'django-insecure-s80%fyx%g@z4(7bch4az24ma(d*jgmsp!4^7xz7+bn6uzh!@ux
 
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ["*"]
 # CORS_ORIGIN_WHITELIST = (CLIENT_URL,)
 # CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://blogbook\w+\.web\.app$"]
