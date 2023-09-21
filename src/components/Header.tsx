@@ -3,6 +3,7 @@ import styles from "../styles/components/Header.module.scss";
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import BurgerMenu from "./BurgerMenu";
+import classNames from "classnames";
 
 const Header = (props: { isBurgerMenu: boolean }) => {
   const navigate = useNavigate();
@@ -13,17 +14,55 @@ const Header = (props: { isBurgerMenu: boolean }) => {
   };
 
   const handleSearchClicked = () => {
-    const search: HTMLInputElement | null = document.querySelector("#search");
-    search?.focus();
+    if (window.innerWidth <= 710) {
+      const search: HTMLInputElement | null = document.querySelector("#search");
+      search?.focus();
+      const right: HTMLDivElement | null = document.querySelector(
+        "." + styles.right
+      );
+      const left: HTMLDivElement | null = document.querySelector(
+        "." + styles.left
+      );
+      const backBtn: HTMLSpanElement | null = document.querySelector(
+        `.${styles.back}`
+      );
+      if (right && left && backBtn) {
+        right.style.display = "none";
+        left.style.display = "none";
+        backBtn.style.display = "block";
+      }
+
+      if (window.innerWidth <= 600) {
+        const searchForm: HTMLDivElement | null =
+          document.querySelector(`.search-form`);
+        if (searchForm) {
+          searchForm.classList.add(styles.searchFormFocus);
+        }
+      }
+    }
+  };
+
+  const handleBackClicked = () => {
     const right: HTMLDivElement | null = document.querySelector(
       "." + styles.right
     );
     const left: HTMLDivElement | null = document.querySelector(
       "." + styles.left
     );
-    if (right && left) {
-      right.style.display = "none";
-      left.style.display = "none";
+    const backBtn: HTMLSpanElement | null = document.querySelector(
+      `.${styles.back}`
+    );
+    if (right && left && backBtn) {
+      right.style.display = "block";
+      left.style.display = "flex";
+      backBtn.style.display = "none";
+    }
+    if (window.innerWidth <= 600) {
+      const searchForm: HTMLDivElement | null =
+        document.querySelector(`.search-form`);
+      if (searchForm) {
+        searchForm.classList.remove(styles.searchFormFocus);
+      }
     }
   };
 
@@ -39,11 +78,11 @@ const Header = (props: { isBurgerMenu: boolean }) => {
             onClick={handleBurgerMenuClick}
           />
         )}
-        <Logo style={{ marginTop: "15px" }} />
+        <Logo />
       </div>
       <div className={styles.center}>
-        <span className={styles.back}></span>
-        <form className={styles.searchForm}>
+        <span className={styles.back} onClick={handleBackClicked}></span>
+        <form className={classNames(styles.searchForm, "search-form")}>
           <span
             className={styles.searchIcon}
             onClick={handleSearchClicked}
@@ -54,6 +93,8 @@ const Header = (props: { isBurgerMenu: boolean }) => {
             name="search"
             id="search"
             placeholder="Искать"
+            onFocus={handleSearchClicked}
+            onBlur={handleBackClicked}
           />
         </form>
       </div>

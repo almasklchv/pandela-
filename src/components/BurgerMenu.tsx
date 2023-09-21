@@ -8,31 +8,36 @@ const BurgerMenu = (props: {burgerMenuClicked: boolean}) => {
   const navigate = useNavigate();
   const [selectedLinkIndex, setSelectedLinkIndex] = useState(0);
 
+
+
   const menuItems = [
     {
       text: "Главная",
       route: "/",
-      icon: "/icons/home.svg",
+      icon:  `/icons/bottom-navigation-menu/non-active/home.svg`,
     },
     {
       text: "Подписки",
       route: "/subscriptions",
-      icon: "/icons/subscriptions.svg",
+      icon: "/icons/bottom-navigation-menu/non-active/subscriptions.svg",
     },
     {
       text: "Курсы",
       route: "/courses",
-      icon: "/icons/courses.svg",
+      icon: "/icons/bottom-navigation-menu/non-active/courses.svg",
     },
     {
       text: "Видео",
       route: "/videos",
-      icon: "/icons/videos.svg",
+      icon: "/icons/bottom-navigation-menu/non-active/videos.svg",
     },
   ];
 
   const handleItemClick = (index: number, route: string) => {
     setSelectedLinkIndex(index);
+    if (route === '/') {
+      window.location.href = route;
+    }
     navigate(route);
   };
 

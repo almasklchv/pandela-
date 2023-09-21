@@ -127,3 +127,117 @@
     margin-bottom: 36px;
   }
 }
+
+@media (max-width: 1120px) {
+  .opportunity {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .why {
+    .opportunityTitle {
+      font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .description,
+  .why,
+  .feel {
+    .title {
+      font-size: 35px;
+    }
+  }
+
+  .description {
+    .desc {
+      font-size: 18px;
+    }
+
+    .btn {
+      font-size: 15px;
+    }
+  }
+
+  .why {
+    .opportunities {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .opportunity {
+      flex-direction: row;
+    }
+  }
+
+  .opportunity {
+    max-width: 40%;
+    img {
+      margin-right: 10px;
+    }
+
+    margin-bottom: 70px;
+  }
+}
+
+@media (max-width: 735px) {
+  .description {
+    overflow: hidden;
+    .buttons {
+      .btn {
+        width: 87vw;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .why {
+    .opportunities {
+      flex-direction: column;
+    }
+
+    .opportunity {
+      max-width: none;
+    }
+  }
+
+  .description,
+  .why,
+  .feel {
+    .title {
+      font-size: 25px;
+    }
+  }
+
+  .description {
+    .desc {
+      font-size: 14px;
+    }
+  }
+
+  .why {
+    .opportunityTitle {
+      font-size: 14px;
+    }
+  }
+
+  .opportunity {
+    margin-bottom: 30px;
+
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  .feel {
+    p {
+      font-size: 14px;
+    }
+  }
+}

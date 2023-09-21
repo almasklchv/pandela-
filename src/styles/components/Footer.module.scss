@@ -37,11 +37,13 @@
   margin-right: 8px;
 }
 
-
 @media (max-width: 950px) {
   .footer {
     flex-direction: column;
     align-items: center;
+    right: 0;
+    width: 99vw;
+    overflow: hidden;
   }
 
   .left {
@@ -49,6 +51,30 @@
   }
 }
 
-@media (max-width: 710px) {
-  
+@media (max-width: 600px) {
+  .footer {
+    width: 93vw;
+  }
+
+  .left {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .right {
+    p {
+      font-size: 12px;
+    }
+  }
+
+  .link {
+    margin-right: 5px;
+    img {
+      height: 15px;
+    }
+  }
+
+  .socialMediaGroup {
+    margin-right: 15px;
+  }
 }

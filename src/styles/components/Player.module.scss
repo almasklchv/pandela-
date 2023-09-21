@@ -7,11 +7,11 @@
 
 // .player {
 //   position: relative;
-  // width: 90%;
-  // max-width: 1250px;
-  // display: flex;
-  // justify-content: center;
-  // margin-inline: 5%;
+// width: 90%;
+// max-width: 1250px;
+// display: flex;
+// justify-content: center;
+// margin-inline: 5%;
 //   background-color: $background-color_1;
 //   &:hover {
 //     .playerControlsContainer {
@@ -544,5 +544,20 @@ video {
   }
   .thumb-indicator {
     --scale: 1;
+  }
+}
+
+@media (max-width: 1400px) {
+  .video-container:not(.theater) {
+    width: 55vw;
+  }
+}
+
+@media (max-width: 1200px) {
+  .video-container:not(.theater) {
+    position: relative;
+    max-width: initial;
+    width: 90%;
+    max-height: 80vh;
   }
 }

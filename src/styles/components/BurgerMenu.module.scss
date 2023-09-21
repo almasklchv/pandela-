@@ -49,3 +49,19 @@ li {
   border-radius: 3px;
   background: rgba(66, 66, 66, 0.5);
 }
+
+@media (max-width: 710px) {
+  .burger-menu.active {
+    background: #000;
+    height: 100vh;
+    width: 146px;
+    top: -5px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .burger-menu {
+    display: none;
+  }
+}

@@ -28,3 +28,18 @@
     font-weight: 500;
   }
 }
+
+
+@media (max-width: 600px) {
+  .container {
+    width: 95vw;
+
+    h3 {
+      font-size: 88px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
+}

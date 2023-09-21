@@ -1,5 +1,5 @@
 import "./fonts/fonts.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./pages/main";
@@ -13,8 +13,24 @@ import EditCourse from "./pages/edit-course";
 import Video from "./pages/video";
 import Channel from "./pages/channel";
 import Error404 from "./pages/404";
+import BottomNavigationMenu from "./components/BottomNavigationMenu";
 
 function App() {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Удаление слушателя события при размонтировании компонента
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="App">
       <Router>
@@ -121,6 +137,7 @@ function App() {
           />
         </Routes>
         <Footer />
+        {screenWidth <= 600 && <BottomNavigationMenu />}
       </Router>
     </div>
   );

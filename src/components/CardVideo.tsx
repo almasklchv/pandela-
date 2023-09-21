@@ -55,14 +55,18 @@ const CardVideo = (props: ICardVideo) => {
         onMouseOut={handlePauseVideo}
       ></video> */}
       <div>
-        <p className={styles.videoTitle}>{props.title.slice(0, 30)}</p>
+        <p className={styles.videoTitle}>
+          {(window.innerWidth > 600 && props.option !== "video-page")
+            ? props.title
+            : props.title.slice(0, 20)}
+        </p>
         {props.option === "video-page" && (
           <p className={styles.videoAuthorName}>{creatorOfVideo[0].name}</p>
         )}
         <p className={styles.videoStat}>
           {props.views}&nbsp;&nbsp;&nbsp;&nbsp;
-          {props.option === "video-page"
-            ? props.ago.slice(0, 7) + (props.ago.length > 7 && "...")
+          {props.option === "video-page" && (window.innerWidth > 1200 || window.innerWidth <= 600)
+            ? props.ago.slice(0, 3) + (props.ago.length > 7 && "...")
             : props.ago}
         </p>
       </div>

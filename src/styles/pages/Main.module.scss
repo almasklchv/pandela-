@@ -27,3 +27,14 @@
   font-size: 64px;
   font-weight: 700;
 }
+
+@media (max-width: 600px) {
+  .videos {
+    margin: 0;
+    margin-inline: auto;
+  }
+
+  .ad-banner {
+    font-size: 34px;
+  }
+}

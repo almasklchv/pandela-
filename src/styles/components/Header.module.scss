@@ -34,10 +34,23 @@
 .searchIcon {
   position: absolute;
   background: url("../../../public/icons/search.svg");
+  background-size: cover;
   width: 25px;
   height: 25px;
   top: 3px;
   left: 3px;
+}
+
+.back {
+  cursor: pointer;
+  position: absolute;
+  background: url("../../../public/icons/back.png");
+  background-size: cover;
+  width: 25px;
+  height: 25px;
+  top: 17px;
+  left: 10px;
+  display: none;
 }
 
 .accountImg {
@@ -46,6 +59,7 @@
   width: 28px;
   height: 28px;
   background: url("../../../public/icons/account.svg");
+  background-size: cover;
 }
 
 .signInTitle {
@@ -77,11 +91,11 @@
   display: block;
 }
 
-
 @media (max-width: 710px) {
   .search {
     width: 25px;
     border: none;
+    font-size: 15px;
   }
 
   .searchForm {
@@ -91,5 +105,69 @@
   .search:focus {
     width: 270px;
     border: 1px solid #fff;
+  }
+
+  .center {
+    margin-left: 40%;
+    margin-top: 2px;
+  }
+
+  .right {
+    // width: 100px;
+    margin-left: 75px;
+
+    // .signIn {
+    //   right: 0;
+    // }
+
+    // .accountImg {
+    //   right: 59px;
+    // }
+
+    // .signInTitle {
+    //   margin-left: 50px;
+    // }
+  }
+}
+
+@media (max-width: 600px) {
+  .burgerMenuBtn {
+    display: none;
+  }
+
+  
+
+  .searchIcon {
+    width: 20px;
+    height: 20px;
+    top: 7px;
+  }
+
+  .search {
+    padding-left: 25px;
+  }
+
+  .searchForm {
+    top: 8px;
+    left: 36px;
+  }
+
+  .search:focus {
+    width: 150px;
+  }
+
+  .searchFormFocus {
+    left: -30px;
+  }
+
+  .accountImg {
+    width: 20px;
+    height: 20px;
+    right: -13px;
+    top: 17.3px;
+  }
+
+  .signInTitle {
+    display: none;
   }
 }

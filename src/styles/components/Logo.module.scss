@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   margin-right: 28px;
+  margin-top: 15px;
 }
 
 .logoImg {
@@ -16,4 +17,22 @@
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -1.5px;
+}
+
+
+@media (max-width: 600px) {
+  .logo {
+    margin: 0;
+    margin-bottom: -10px;
+    margin-top: 0px;
+  }
+
+  .logoImg {
+    height: 15px;
+    margin-left: 0;
+  }
+
+  .logoTitle {
+    font-size: 20px;
+  }
 }
