@@ -1,5 +1,5 @@
 # # from django.conf import settings
-# from writers.views import message
+# from profiles.views import message
 # import smtplib
 # from django.core.mail import EmailMessage
 # from django.template.loader import render_to_string

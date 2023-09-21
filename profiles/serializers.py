@@ -24,43 +24,43 @@ class EmailUsernameSerializer(serializers.ModelSerializer):
         fields = ["email", "username"]
 
 
-class PkWriterSerializer(serializers.ModelSerializer):
+class PkProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ["pk"]
 
 
-class MiniWriterSerializer(serializers.ModelSerializer):
-    followers = PkWriterSerializer(many=True)
+class MiniProfileSerializer(serializers.ModelSerializer):
+    followers = PkProfileSerializer(many=True)
 
     class Meta:
         model = get_user_model()
         fields = ["pk", "name", "username", "dp", "followers"]
 
 
-class FollowWriterSerializer(serializers.ModelSerializer):
-    followers = MiniWriterSerializer(many=True)
-    following = MiniWriterSerializer(many=True)
+class FollowProfileSerializer(serializers.ModelSerializer):
+    followers = MiniProfileSerializer(many=True)
+    following = MiniProfileSerializer(many=True)
 
     class Meta:
         model = get_user_model()
         fields = ["pk", "followers", "following"]
 
 
-class SearchWriterSerializer(serializers.ModelSerializer):
-    followers = MiniWriterSerializer(many=True)
+class SearchProfileSerializer(serializers.ModelSerializer):
+    followers = MiniProfileSerializer(many=True)
 
     class Meta:
         model = get_user_model()
         fields = ["pk", "name", "username", "dp", "followers"]
 
 
-class WriterSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     pub_blogs = BlogSerializer(many=True)
     arch_blogs = BlogSerializer(many=True)
     saved_blogs = BlogSerializer(many=True)
-    followers = MiniWriterSerializer(many=True)
-    following = MiniWriterSerializer(many=True)
+    followers = MiniProfileSerializer(many=True)
+    following = MiniProfileSerializer(many=True)
 
     class Meta:
         model = get_user_model()

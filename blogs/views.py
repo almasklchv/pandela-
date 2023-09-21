@@ -3,7 +3,7 @@ from rest_framework import generics, views, status
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
-from writers.views import message
+from profiles.views import message
 from .models import Blog, Comment
 from .serializers import BlogSerializer, BlogListSerializer, BlogDetailSerializer, CommentSerializer, CommentCreateUpdateSerializer
 from .pagination import SmallSetPagination,MediumSetPagination,LargeSetPagination
@@ -48,7 +48,7 @@ class ManageBlogAPI(generics.RetrieveUpdateDestroyAPIView):
 class LikeBlogAPI(views.APIView):
     def get(self, request, **kwargs):
         blog = Blog.objects.get(pk=kwargs["blog_pk"])
-        user = get_user_model().objects.get(pk=kwargs["writer_pk"])
+        user = get_user_model().objects.get(pk=kwargs["profile_pk"])
         if user in blog.likes.all():
             blog.likes.remove(user)
             message(
@@ -66,7 +66,7 @@ class LikeBlogAPI(views.APIView):
 class SaveBlogAPI(views.APIView):
     def get(self, request, **kwargs):
         blog = Blog.objects.get(pk=kwargs["blog_pk"])
-        user = get_user_model().objects.get(pk=kwargs["writer_pk"])
+        user = get_user_model().objects.get(pk=kwargs["profile_pk"])
         if user in blog.saves.all():
             blog.saves.remove(user)
             message(

@@ -10,16 +10,16 @@ class CreateBlogSerializer(serializers.ModelSerializer):
         fields = ["author", "title", "video", "description", "is_published"]
 
 
-class MiniBWriterSerializer(serializers.ModelSerializer):
+class MiniBProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ["pk", "name", "username", "dp", "followers"] #can be mistake with adding followers
 
 
 class BlogSerializer(serializers.ModelSerializer):
-    likes = MiniBWriterSerializer(many=True)
-    saves = MiniBWriterSerializer(many=True)
-    author = MiniBWriterSerializer()
+    likes = MiniBProfileSerializer(many=True)
+    saves = MiniBProfileSerializer(many=True)
+    author = MiniBProfileSerializer()
     thumbnail = serializers.CharField(source='get_thumbnail')
     video = serializers.CharField(source='get_video')
     comments = serializers.SerializerMethodField(read_only=True)
@@ -44,7 +44,7 @@ class BlogSerializer(serializers.ModelSerializer):
 class BlogListSerializer(serializers.ModelSerializer):
     # likes = MiniWriterSerializer(many=True)
     # saves = MiniWriterSerializer(many=True)
-    author = MiniBWriterSerializer()
+    author = MiniBProfileSerializer()
     thumbnail = serializers.CharField(source='get_thumbnail')
     # video = serializers.CharField(source='get_video')
     # comments = serializers.SerializerMethodField(read_only=True)
@@ -66,9 +66,9 @@ class BlogListSerializer(serializers.ModelSerializer):
         ]
 
 class BlogDetailSerializer(serializers.ModelSerializer):
-        likes = MiniBWriterSerializer(many=True)
-        saves = MiniBWriterSerializer(many=True)
-        author = MiniBWriterSerializer()
+        likes = MiniBProfileSerializer(many=True)
+        saves = MiniBProfileSerializer(many=True)
+        author = MiniBProfileSerializer()
         # thumbnail = serializers.CharField(source='get_thumbnail')
         video = serializers.CharField(source='get_video')
         comments = serializers.SerializerMethodField(read_only=True)

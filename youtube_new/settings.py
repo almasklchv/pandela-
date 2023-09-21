@@ -47,7 +47,7 @@ DEBUG = True
 #     DEBUG = False
 
 
-AUTH_USER_MODEL = "writers.Writer"
+AUTH_USER_MODEL = "profiles.Profile"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -67,7 +67,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'writers.apps.WritersConfig',
+    'profiles.apps.ProfilesConfig',
     'blogs.apps.BlogsConfig',
     'django.contrib.admin',
     'django.contrib.auth',

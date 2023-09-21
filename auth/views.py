@@ -9,8 +9,8 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.urls import reverse
 
-from writers.serializers import WriterSerializer, SignupSerializer
-from writers.views import message
+from profiles.serializers import ProfileSerializer, SignupSerializer
+from profiles.views import message
 
 # from .token import email_auth_token
 # from .utils import send_email
@@ -59,7 +59,7 @@ class SignInView(views.APIView):
             # if user.is_email_verified:
             login(request, user)
             message(f"{user.name} ({user.pk}) logged in.")
-            serializer = WriterSerializer(user)
+            serializer = ProfileSerializer(user)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
             # return Response(
             #     status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION,

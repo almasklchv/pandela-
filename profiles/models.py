@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from blogs.models import Blog
 
 
-class WriterManager(BaseUserManager):
+class ProfileManager(BaseUserManager):
     def create_user(self, name, email, password=None):
         if not name:
             raise ValueError("Пользователь должен иметь Имя и Фамилию")
@@ -29,7 +29,7 @@ class WriterManager(BaseUserManager):
         return user
 
 
-class Writer(AbstractUser):
+class Profile(AbstractUser):
     name = models.CharField("Имя и Фамилия", max_length=100)
     email = models.EmailField("Email", max_length=100, unique=True)
     username = models.CharField("Никнейм", max_length=100, unique=True)
@@ -37,7 +37,7 @@ class Writer(AbstractUser):
     shapka = models.ImageField(
         "Шапка Профиля", upload_to="shapki/", default=None, null=True, blank=True, max_length=512)
     dp = models.ImageField(
-        "Аватарка", upload_to="profiles/", default="profiles/writer.png"
+        "Аватарка", upload_to="profiles/", default="profiles/profile.png"
     )
     followers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="Follower", blank=True, symmetrical=False
@@ -52,7 +52,7 @@ class Writer(AbstractUser):
     # is_email_verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
-    objects = WriterManager()
+    objects = ProfileManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name"]

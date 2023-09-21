@@ -4,12 +4,12 @@ from django.shortcuts import redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.db.models import Q
 
-# Email sending and auth requirements
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.core.mail import EmailMessage
+# # Email sending and auth requirements
+# from django.utils.encoding import force_bytes
+# from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+# from django.contrib.sites.shortcuts import get_current_site
+# from django.template.loader import render_to_string
+# from django.core.mail import EmailMessage
 
 # dev tools
 from colorama import Fore, Style
@@ -17,10 +17,10 @@ import smtplib
 
 # local
 from .serializers import (
-    WriterSerializer,
-    FollowWriterSerializer,
+    ProfileSerializer,
+    FollowProfileSerializer,
     EmailUsernameSerializer,
-    SearchWriterSerializer,
+    SearchProfileSerializer,
 )
 
 
@@ -34,7 +34,7 @@ class UsernameAndEmails(views.APIView):
         return Response(status=200, data=serializer.data)
 
 
-class SetupWriterAPI(views.APIView):
+class SetupProfileAPI(views.APIView):
     def post(self, request, *args, **kwargs):
         user = get_user_model().objects.get(pk=kwargs["pk"])
         try:
@@ -51,13 +51,13 @@ class SetupWriterAPI(views.APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class ManageWriterAPI(generics.RetrieveUpdateAPIView):
-    serializer_class = WriterSerializer
+class ManageProfileAPI(generics.RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
     queryset = get_user_model().objects.all()
     lookup_field = "pk"
 
 
-class DeleteWriterAPI(views.APIView):
+class DeleteProfileAPI(views.APIView):
     def post(self, request, *args, **kwargs):
         email = get_user_model().objects.get(pk=kwargs["pk"]).email
         password = request.data.get("password", None)
@@ -69,33 +69,33 @@ class DeleteWriterAPI(views.APIView):
         return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
 
-class FollowWriterAPI(views.APIView):
+class FollowProfileAPI(views.APIView):
     def get(self, request, *args, **kwargs):
         user = get_user_model().objects.get(pk=kwargs["user_pk"])
-        writer = get_user_model().objects.get(pk=kwargs["writer_pk"])
-        if user in writer.followers.all():
-            writer.followers.remove(user)
-            user.following.remove(writer)
-            message(f"{user.name} ({user.pk}) unfollowed {writer.name} ({writer.pk})")
+        profile = get_user_model().objects.get(pk=kwargs["profile_pk"])
+        if user in profile.followers.all():
+            profile.followers.remove(user)
+            user.following.remove(profile)
+            message(f"{user.name} ({user.pk}) unfollowed {profile.name} ({profile.pk})")
         else:
-            writer.followers.add(user)
-            user.following.add(writer)
-            message(f"{user.name} ({user.pk}) followed {writer.name} ({writer.pk})")
-        serializer = FollowWriterSerializer(writer)
+            profile.followers.add(user)
+            user.following.add(profile)
+            message(f"{user.name} ({user.pk}) followed {profile.name} ({profile.pk})")
+        serializer = FollowProfileSerializer(profile)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 
 
-class SearchWriterAPI(views.APIView):
+class SearchProfileAPI(views.APIView):
     def post(self, request, **kwargs):
-        writer = request.data.get("username")
+        profile = request.data.get("username")
         bloggers = get_user_model().objects.filter(
-            Q(username__contains=writer) | Q(name__contains=writer)
+            Q(username__contains=profile) | Q(name__contains=profile)
         )
-        serializer = SearchWriterSerializer(bloggers, many=True)
+        serializer = SearchProfileSerializer(bloggers, many=True)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     def get(self, request, **kwargs):
         bloggers = get_user_model().objects.all()
-        serializer = SearchWriterSerializer(bloggers, many=True)
+        serializer = SearchProfileSerializer(bloggers, many=True)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
