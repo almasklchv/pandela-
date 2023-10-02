@@ -1,13 +1,18 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from .models import Blog, Comment
+from .models import Blog, Comment, Playlist
 
 
-class CreateBlogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Blog
-        fields = ["author", "title", "video", "description", "is_published"]
+# class CreateBlogSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Blog
+#         fields = ["author", "title", "video", "description", "is_published"]
+
+# class CreateCategorySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Blog
+#         fields = ["name", "parent_category",  "thumbnail"]
 
 
 class MiniBProfileSerializer(serializers.ModelSerializer):
@@ -39,7 +44,12 @@ class BlogSerializer(serializers.ModelSerializer):
             "views",
             "is_published",
             "comments",
+            "playlist_setting",
         ]
+
+    def get_comments(self, obj):
+        qs = Comment.objects.filter(parent=obj)
+        return qs
 
 class BlogListSerializer(serializers.ModelSerializer):
     # likes = MiniWriterSerializer(many=True)
@@ -60,7 +70,7 @@ class BlogListSerializer(serializers.ModelSerializer):
             # "video",
             # "likes",
             # "no_of_likes",
-            # "saves",
+            "pub_date",
             "views",
             "is_published",
         ]
@@ -88,6 +98,8 @@ class BlogDetailSerializer(serializers.ModelSerializer):
                 "is_published",
                 "comments",
                 "views",
+                "playlist_setting",
+                "pub_date",
             ]
 
         def get_comments(self, obj):
@@ -126,4 +138,45 @@ class CommentCreateUpdateSerializer(serializers.ModelSerializer):
             "author",
             "parent",
             "body",
+        ]
+
+class PlaylistSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.CharField(source='get_thumbnail')
+    class Meta:
+        model = Playlist
+        fields = [
+            "name",
+            "author",
+            "description",
+            "mod_date",
+            "videos",
+            "pub_date",
+            "thumbnail",
+        ]
+
+
+class PlaylistDetailSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.CharField(source='get_thumbnail')
+    class Meta:
+        model = Playlist
+        fields = [
+            "name",
+            "author",
+            "description",
+            "mod_date",
+            "videos",
+            "pub_date",
+        ]
+
+
+
+class PlaylistListSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.CharField(source='get_thumbnail')
+    class Meta:
+        model = Playlist
+        fields = [
+            "name",
+            "author",
+            "pub_date",
+            "thumbnail",
         ]

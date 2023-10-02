@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -25,6 +27,7 @@ class ProfileManager(BaseUserManager):
         user = self.create_user(name=name, email=email, password=password)
         user.is_staff = True
         user.is_superuser = True
+
         user.save(using=self._db)
         return user
 
@@ -37,7 +40,7 @@ class Profile(AbstractUser):
     shapka = models.ImageField(
         "Шапка Профиля", upload_to="shapki/", default=None, null=True, blank=True, max_length=512)
     dp = models.ImageField(
-        "Аватарка", upload_to="profiles/", default="profiles/profile.png"
+        "Аватарка", upload_to="profiles/", default="avatars/profile.png"
     )
     followers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="Follower", blank=True, symmetrical=False
@@ -48,9 +51,51 @@ class Profile(AbstractUser):
         blank=True,
         symmetrical=False,
     )
+    # id = models.UUIDField(default=uuid.uuid4, unique=True,
+    #                       primary_key=True, editable=False)
+    main_name = models.CharField("Название ссылки", max_length=100, blank=True, null=True)
+    main_link = models.URLField(
+        "Главная Ссылка",
+        max_length=128,
+        db_index=True,
+        unique=True,
+        blank=True, null=True
+    )
+    second_name = models.CharField("Имя и Фамилия", max_length=100, blank=True, null=True)
+    second_link = models.URLField(
+        "2 Ссылка",
+        max_length=128,
+        db_index=True,
+        unique=True,
+        blank=True, null=True
+    )
+    third_name = models.CharField("Имя и Фамилия", max_length=100, blank=True, null=True)
+    third_link = models.URLField(
+        "3 Ссылка",
+        max_length=128,
+        db_index=True,
+        unique=True,
+        blank=True, null=True
+    )
+    fourth_name = models.CharField("Имя и Фамилия", max_length=100, blank=True, null=True)
+    fourth_link = models.URLField(
+        "4 Ссылка",
+        max_length=128,
+        db_index=True,
+        unique=True,
+        blank=True, null=True
+    )
+    fifth_name = models.CharField("Имя и Фамилия", max_length=100, blank=True, null=True)
+    fifth_link = models.URLField(
+        "5 Ссылка",
+        max_length=128,
+        db_index=True,
+        unique=True,
+        blank=True, null=True
+    )
     # is_active = models.BooleanField(default=True)
     # is_email_verified = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
+    # is_staff = models.BooleanField(default=False)
 
     objects = ProfileManager()
 
@@ -84,7 +129,7 @@ class Profile(AbstractUser):
         return self.blog_set.filter(is_published=False)
 
     def saved_blogs(self):
-        return Blog.objects.filter(saves__id=self.pk)
+        return Blog.videoobjects.filter(saves__id=self.pk)
 
     def get_video(self):
         if self.video:
@@ -95,3 +140,12 @@ class Profile(AbstractUser):
         if self.thumbnail:
             return self.thumbnail.url
         return ''
+
+
+# class Relation(models.Model):
+#     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+#     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+#     created = models.DateTimeField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return f'{self.from_user} following {self.to_user}'

@@ -27,6 +27,7 @@ class SignUpView(views.APIView):
             user.is_active = True
             user.save()
             message(f"{user.name} ({user.pk}) created an account.")
+            #заменить id pk с тупого пикей
 
             # # START: send email auth mail
             # token = RefreshToken.for_user(user).access_token

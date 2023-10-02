@@ -27,7 +27,7 @@ class EmailUsernameSerializer(serializers.ModelSerializer):
 class PkProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["pk"]
+        fields = ["id"]
 
 
 class MiniProfileSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class MiniProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["pk", "name", "username", "dp", "followers"]
+        fields = ["id", "name", "username", "dp", "followers"]
 
 
 class FollowProfileSerializer(serializers.ModelSerializer):
@@ -44,7 +44,7 @@ class FollowProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["pk", "followers", "following"]
+        fields = ["id", "followers", "following"]
 
 
 class SearchProfileSerializer(serializers.ModelSerializer):
@@ -65,7 +65,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
-            "pk",
+            "id",
             "name",
             "username",
             "email",
@@ -77,4 +77,109 @@ class ProfileSerializer(serializers.ModelSerializer):
             "pub_blogs",
             "arch_blogs",
             "saved_blogs",
+            "shapka",
+            "main_name",
+            "main_link",
+            "second_name",
+            "second_link",
+            "third_name",
+            "third_link",
+            "fourth_name",
+            "fourth_link",
+            "fifth_name",
+            "fifth_link",
         ]
+
+class ProfileDetailSerializer(serializers.ModelSerializer):
+    pub_blogs = BlogSerializer(many=True)
+    # arch_blogs = BlogSerializer(many=True)
+    saved_blogs = BlogSerializer(many=True)
+    followers = MiniProfileSerializer(many=True)
+    # following = MiniProfileSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "id",
+            "name",
+            "username",
+            "email",
+            "bio",
+            "dp",
+            "shapka",
+            "followers",
+            # "following",
+            "pub_blogs",
+            # "arch_blogs",
+            # "saved_blogs",
+            "main_name",
+            "main_link",
+            "second_name",
+            "second_link",
+            "third_name",
+            "third_link",
+            "fourth_name",
+            "fourth_link",
+            "fifth_name",
+            "fifth_link",
+        ]
+
+
+class AccountDetailSerializer(serializers.ModelSerializer):
+    pub_blogs = BlogSerializer(many=True)
+    arch_blogs = BlogSerializer(many=True)
+    saved_blogs = BlogSerializer(many=True)
+    followers = MiniProfileSerializer(many=True)
+    following = MiniProfileSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            "id",
+            "name",
+            "username",
+            "email",
+            "bio",
+            "dp",
+            "shapka",
+            "followers",
+            "following",
+            "pub_blogs",
+            "arch_blogs",
+            "saved_blogs",
+            "main_name",
+            "main_link",
+            "second_name",
+            "second_link",
+            "third_name",
+            "third_link",
+            "fourth_name",
+            "fourth_link",
+            "fifth_name",
+            "fifth_link",
+        ]
+
+
+class ProfileEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            "name",
+            "username",
+            "email",
+            "bio",
+            "dp",
+            "shapka",
+            "main_name",
+            "main_link",
+            "second_name",
+            "second_link",
+            "third_name",
+            "third_link",
+            "fourth_name",
+            "fourth_link",
+            "fifth_name",
+            "fifth_link",
+        )
+
+# если эдит в get дает просто свой профиль, пусть там будут видны подписки и тд тп
