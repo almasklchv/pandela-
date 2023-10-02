@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import styles from "../styles/components/CardInput.module.scss";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -23,6 +23,7 @@ interface Inputs {
 
 const CardInput = (props: ICardInput) => {
   const schemaFields: any = {};
+  const navigate = useNavigate();
 
   props.inputsData.forEach((input) => {
     if (input.type === "email") {
@@ -64,11 +65,13 @@ const CardInput = (props: ICardInput) => {
 
             return (
               <>
-                <p className={styles.inputTitle}>{input.title}</p>
+                <p className={styles.inputTitle}>{input.title} {input.title === "Выберите плейлист" && <a href="/add-playlist" >· Создать новый плейлист</a>}</p>
                 {typeof input.type === "object" ? (
                   <select className={styles.selectCategory}>
                     {input.type.map((option: string) => (
-                      <option className={styles.optionCategory}>{option}</option>
+                      <option className={styles.optionCategory}>
+                        {option}
+                      </option>
                     ))}
                   </select>
                 ) : (
@@ -83,14 +86,22 @@ const CardInput = (props: ICardInput) => {
                 {input.type === "file" && (
                   <div className={styles.uploadFile}>
                     <button
-                      onClick={(e) => {
+                      onClick={(e: any) => {
                         e.preventDefault();
+                        console.log();
+
                         const uploadBtn: HTMLInputElement | null =
-                          document.querySelector(".profile_image");
+                          document.querySelector(
+                            e.target.classList.contains("video_file_btn")
+                              ? ".video_file"
+                              : ".profile_image"
+                          );
                         uploadBtn?.click();
                         const uploadText: HTMLSpanElement =
                           document.querySelector(
-                            `.${styles.uploadText}`
+                            e.target.classList.contains("video_file_btn")
+                              ? ".video_file_text"
+                              : ".profile_image_text"
                           ) as HTMLSpanElement;
                         if (uploadBtn) {
                           uploadBtn.addEventListener("change", (e: Event) => {
@@ -106,11 +117,21 @@ const CardInput = (props: ICardInput) => {
                           });
                         }
                       }}
-                      className={styles.uploadFileBtn}
+                      className={classNames(
+                        styles.uploadFileBtn,
+                        input.name + "_btn"
+                      )}
                     >
                       Выбрать файл
                     </button>
-                    <span className={styles.uploadText}>Файл не выбран</span>
+                    <span
+                      className={classNames(
+                        styles.uploadText,
+                        input.name + "_text"
+                      )}
+                    >
+                      Файл не выбран
+                    </span>
                   </div>
                 )}
                 <p className={styles.error}>{error}</p>

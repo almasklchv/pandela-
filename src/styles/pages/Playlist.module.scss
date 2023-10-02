@@ -1,0 +1,46 @@
+.playlist {
+    display: flex;
+    padding-left: 100px;
+}
+
+.playlistInfo {
+    // background: linear-gradient(to bottom, rgba(54,87,89,0.800) 0%, rgba(54,87,89,0.298) 33%, rgba(15,15,15,1.000) 100%);
+    padding: 25px;
+    border-radius: 10px 10px 0px 0px;
+    height: 100vh;    
+    margin-right: 15px;
+}
+
+.playlistThumbnail {
+    width: 312px;
+    height: 175px;
+    border-radius: 20px;
+    margin-bottom: -15px;
+}
+
+.videos {
+    position: relative;
+}
+
+.playlistTitle {
+    color: #fff;
+    font-size: 26px;
+    font-family: "Montserrat";
+    max-width: 312px;
+    margin-bottom: 0px;
+}
+
+.playlistAuthor {
+    font-size: 14px;
+    color: #fff;
+    font-family: "Montserrat";
+    margin-bottom: -10px;
+    cursor: pointer;
+}
+
+.playlistStats {
+    font-size: 12px;
+    color: #fff;
+    font-family: "Montserrat";
+    opacity: 0.7;
+}

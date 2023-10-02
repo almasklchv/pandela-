@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/components/Header.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import BurgerMenu from "./BurgerMenu";
 import classNames from "classnames";
@@ -8,6 +8,20 @@ import classNames from "classnames";
 const Header = (props: { isBurgerMenu: boolean }) => {
   const navigate = useNavigate();
   const [burgerMenuClicked, setBurgerMenuClicked] = useState(false);
+
+  const location = useLocation();
+  const searchQuery = location.search.slice(14);
+  useEffect(() => {
+    if (searchQuery !== "") {
+      const search: HTMLInputElement | null = document.querySelector(
+        `.${styles.search}`
+      );
+      if (search) {
+        search.value = decodeURIComponent(searchQuery);
+      }
+    }
+  }, [])
+  
 
   const handleBurgerMenuClick = () => {
     setBurgerMenuClicked(!burgerMenuClicked);
@@ -42,6 +56,14 @@ const Header = (props: { isBurgerMenu: boolean }) => {
     }
   };
 
+  const handleSearchSubmit = (e: any) => {
+    e.preventDefault();
+    const search: HTMLInputElement | null = document.querySelector(
+      `.${styles.search}`
+    );
+    navigate(`/results?search_query=${search?.value}`);
+  };
+
   const handleBackClicked = () => {
     const right: HTMLDivElement | null = document.querySelector(
       "." + styles.right
@@ -67,48 +89,53 @@ const Header = (props: { isBurgerMenu: boolean }) => {
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.left}>
+    <header className={styles.headerContainer}>
+      <div className={styles.header}>
+        <div className={styles.left}>
+          {props.isBurgerMenu && (
+            <img
+              className={styles.burgerMenuBtn}
+              src="/icons/burger-menu.svg"
+              alt="burger menu icon"
+              height={20}
+              onClick={handleBurgerMenuClick}
+            />
+          )}
+          <Logo />
+        </div>
+        <div className={styles.center}>
+          <span className={styles.back} onClick={handleBackClicked}></span>
+          <form
+            className={classNames(styles.searchForm, "search-form")}
+            onSubmit={handleSearchSubmit}
+          >
+            <span
+              className={styles.searchIcon}
+              onClick={handleSearchClicked}
+            ></span>
+            <input
+              className={styles.search}
+              type="search"
+              name="search"
+              id="search"
+              placeholder="Искать"
+              onFocus={handleSearchClicked}
+              onBlur={handleBackClicked}
+            />
+          </form>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.signIn} onClick={() => navigate("/login")}>
+            <span className={styles.accountImg}></span>
+            <p className={styles.signInTitle}>Войти</p>
+          </div>
+        </div>
         {props.isBurgerMenu && (
-          <img
-            className={styles.burgerMenuBtn}
-            src="/icons/burger-menu.svg"
-            alt="burger menu icon"
-            height={20}
-            onClick={handleBurgerMenuClick}
-          />
+          <div className={styles.burgerMenu}>
+            <BurgerMenu burgerMenuClicked={burgerMenuClicked} />
+          </div>
         )}
-        <Logo />
       </div>
-      <div className={styles.center}>
-        <span className={styles.back} onClick={handleBackClicked}></span>
-        <form className={classNames(styles.searchForm, "search-form")}>
-          <span
-            className={styles.searchIcon}
-            onClick={handleSearchClicked}
-          ></span>
-          <input
-            className={styles.search}
-            type="search"
-            name="search"
-            id="search"
-            placeholder="Искать"
-            onFocus={handleSearchClicked}
-            onBlur={handleBackClicked}
-          />
-        </form>
-      </div>
-      <div className={styles.right}>
-        <div className={styles.signIn} onClick={() => navigate("/login")}>
-          <span className={styles.accountImg}></span>
-          <p className={styles.signInTitle}>Войти</p>
-        </div>
-      </div>
-      {props.isBurgerMenu && (
-        <div className={styles.burgerMenu}>
-          <BurgerMenu burgerMenuClicked={burgerMenuClicked} />
-        </div>
-      )}
     </header>
   );
 };

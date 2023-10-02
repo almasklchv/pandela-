@@ -1,5 +1,10 @@
 .videoCover {
   margin-bottom: -10px;
+  width: 295.871px;
+  height: 166.371px;
+  margin-right: 6px;
+  border-radius: 20px;
+  background-size: cover;
 }
 
 .videoTitle {
@@ -61,6 +66,60 @@
   }
 }
 
+.card.results {
+  display: flex;
+  width: 85%;
+
+  .videoCover {
+    margin-right: 22px;
+  }
+
+  .profilePhoto {
+    width: 23.455px;
+    height: 23.455px;
+    border-radius: 100%;
+    margin-right: 5px;
+  }
+
+  span {
+    color: #fff;
+    font-family: "Roboto";
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.6;
+  }
+
+  .subscribersNumber {
+    color: #4caf50;
+    font-family: "Roboto";
+    opacity: 1;
+    font-size: 7px;
+    font-weight: 500;
+  }
+
+  .profileStat {
+    display: flex;
+    align-items: center;
+  }
+
+  .subscribersCount {
+    border-radius: 2px;
+    background: #1b1a1d;
+    padding: 5px;
+    font-size: 9px;
+  }
+
+  .description {
+    color: #fff;
+    font-family: "Roboto";
+    font-size: 10px;
+    font-weight: 400;
+
+    opacity: 0.89;
+    max-width: 50%;
+  }
+}
+
 // .videoCover:hover {
 //   display: none;
 // }
@@ -70,5 +129,4 @@
 // }
 
 @media (max-width: 600px) {
-  
 }

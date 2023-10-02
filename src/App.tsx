@@ -14,6 +14,12 @@ import Video from "./pages/video";
 import Channel from "./pages/channel";
 import Error404 from "./pages/404";
 import BottomNavigationMenu from "./components/BottomNavigationMenu";
+import Playlist from "./pages/playlist";
+import { users } from "./fake-db/main";
+import AddVideo from "./pages/add-video";
+import AddPlaylist from "./pages/add-playlist";
+import Subscriptions from "./pages/subscriptions";
+import Results from "./pages/results";
 
 function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -41,6 +47,15 @@ function App() {
               <>
                 <Header isBurgerMenu={true} />
                 <Main />
+              </>
+            }
+          />
+          <Route
+            path="/:username"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel />
               </>
             }
           />
@@ -108,6 +123,33 @@ function App() {
             }
           />
           <Route
+            path="/profile/videos"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel userId={"ff98f875-e36b-42a1-848a-9ee173cceacc"} />
+              </>
+            }
+          />
+          <Route
+            path="/profile/playlists"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel userId={"ff98f875-e36b-42a1-848a-9ee173cceacc"} />
+              </>
+            }
+          />
+          <Route
+            path="/profile/about"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel userId={"ff98f875-e36b-42a1-848a-9ee173cceacc"} />
+              </>
+            }
+          />
+          <Route
             path="/channel/:id"
             element={
               <>
@@ -116,13 +158,84 @@ function App() {
               </>
             }
           />
-
+          <Route
+            path="/channel/:id/videos"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel />
+              </>
+            }
+          />
+          <Route
+            path="/channel/:id/playlists"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel />
+              </>
+            }
+          />
+          <Route
+            path="/channel/:id/about"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Channel />
+              </>
+            }
+          />
           <Route
             path="/video"
             element={
               <>
                 <Header isBurgerMenu={true} />
                 <Video />
+              </>
+            }
+          />
+          <Route
+            path="/playlist/:id"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Playlist />
+              </>
+            }
+          />
+          <Route
+            path="/add-video"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <AddVideo />
+              </>
+            }
+          />
+          <Route
+            path="/add-playlist"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <AddPlaylist />
+              </>
+            }
+          />
+          <Route 
+            path="/subscriptions"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Subscriptions />
+              </>
+            }
+          />
+          <Route 
+            path="/results"
+            element={
+              <>
+                <Header isBurgerMenu={true} />
+                <Results />
               </>
             }
           />

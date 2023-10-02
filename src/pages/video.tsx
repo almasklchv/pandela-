@@ -4,7 +4,7 @@ import { videos, users } from "../fake-db/main";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/pages/Video.module.scss";
 import stylesFromPlayer from "../styles/components/Player.module.scss";
-import CardVideo from "../components/CardVideo";
+import CardVideo, { formatNumbers } from "../components/CardVideo";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import linkifyHtml from "linkify-html";
@@ -49,7 +49,7 @@ const Video = () => {
                 >
                   <p className={styles.channelName}>{creatorOfVideo[0].name}</p>
                   <p className={styles.channelSubscribers}>
-                    {creatorOfVideo[0].subscribersCount}
+                    {formatNumbers(creatorOfVideo[0].subscribersCount) + " подписчиков"}
                   </p>
                 </div>
               </div>
@@ -77,7 +77,7 @@ const Video = () => {
             className={styles.description}
             onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
           >
-            <p>{video[0].views}</p>
+            <p>{isDescriptionOpen ? video[0].views + ' просмотров' : formatNumbers(video[0].views) + ' просмотров'}</p>
             <p>
               {isDescriptionOpen ? (
                 <span

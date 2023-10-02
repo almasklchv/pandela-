@@ -26,7 +26,7 @@ const Player = (props: IPlayer) => {
   // Обработчик нажатия клавиш
   const handleKeyDown = (e: any) => {
     const tagName = document.activeElement?.tagName.toLowerCase();
-    e.preventDefault();
+    // e.preventDefault();
 
     if (tagName === "input") return;
 
@@ -35,6 +35,9 @@ const Player = (props: IPlayer) => {
         window.location.reload();
         break;
       case " ":
+        e.preventDefault();
+        handlePlayPause();
+        break;
       case "k":
         handlePlayPause();
         break;
@@ -192,7 +195,7 @@ const Player = (props: IPlayer) => {
       `.${styles["timeline-container"]}`
     );
     const video: HTMLVideoElement | null = document.querySelector("video");
-    
+
     if (timelineContainer && video) {
       const rect = timelineContainer.getBoundingClientRect();
       const percent =

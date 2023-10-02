@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  width: 55vw;
+}
+
+.profilePhoto {
+  cursor: pointer;
+  width: 128px;
+  height: 128px;
+  border-radius: 100%;
+  margin-right: 80px;
+}
+
+.profileInfo {
+  cursor: pointer;
+  margin-right: 27px;
+
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: -6px;
+}
+
+.username {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.bio {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.subscribeBtn {
+  cursor: pointer;
+  padding: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
+  border-radius: 20px;
+  background: #fff;
+
+  color: #0f0f0f;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 700;
+
+  margin-top: -50px;
+}

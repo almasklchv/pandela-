@@ -2,15 +2,15 @@ import React from "react";
 import CardInput from "../components/CardInput";
 
 interface User {
+  name: string;
   username: string;
   email: string;
-  password1: string;
-  password2: string;
+  password: string;
 }
 
 const Register = () => {
   const onRegister = (user: User) => {
-    return fetch("https://aphinapandela.onrender.com/api/users/token/", {
+    return fetch("https://youtube-new-s0hr.onrender.com/api/auth/signup/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,10 +27,10 @@ const Register = () => {
     <div>
       <CardInput
         inputsData={[
-          { title: "Никнейм", type: "text", name: "username" },
+          { title: "Ваше имя", type: "text", name: "name" },
+          { title: "Придумайте никнейм", type: "text", name: "username" },
           { title: "Почта", type: "email", name: "email" },
-          { title: "Пароль", type: "password", name: "password1" },
-          { title: "Подтвердите пароль", type: "password", name: "password2" },
+          { title: "Пароль", type: "password", name: "password" },
         ]}
         formTitle="Регистрация"
         buttonText="Зарегистрироваться"

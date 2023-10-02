@@ -10,10 +10,23 @@ interface ICardVideo {
   coverPath: string;
   videoPath: string;
   title: string;
-  views: string;
+  views: number;
   ago: string;
+  description: string;
   option?: string;
 }
+
+export const formatNumbers = (number: number) => {
+  if (number >= 1e9) {
+    return `${(number / 1e9).toFixed(1)} млрд`;
+  } else if (number >= 1e6) {
+    return `${(number / 1e6).toFixed(1)} млн`;
+  } else if (number >= 1e3) {
+    return `${(number / 1e3).toFixed(1)} тыс`;
+  } else {
+    return `${number}`;
+  }
+};
 
 const CardVideo = (props: ICardVideo) => {
   // const handlePlayVideo = () => {
@@ -40,6 +53,7 @@ const CardVideo = (props: ICardVideo) => {
     <div
       className={classNames(styles.card, {
         [styles.video]: props.option === "video-page",
+        [styles.results]: props.option === "results-page",
       })}
       onClick={openVideo}
     >
@@ -56,7 +70,7 @@ const CardVideo = (props: ICardVideo) => {
       ></video> */}
       <div>
         <p className={styles.videoTitle}>
-          {(window.innerWidth > 600 && props.option !== "video-page")
+          {window.innerWidth > 600 && props.option !== "video-page"
             ? props.title
             : props.title.slice(0, 20)}
         </p>
@@ -64,11 +78,36 @@ const CardVideo = (props: ICardVideo) => {
           <p className={styles.videoAuthorName}>{creatorOfVideo[0].name}</p>
         )}
         <p className={styles.videoStat}>
-          {props.views}&nbsp;&nbsp;&nbsp;&nbsp;
-          {props.option === "video-page" && (window.innerWidth > 1200 || window.innerWidth <= 600)
+          {formatNumbers(props.views)} просмотров&nbsp;&nbsp;&nbsp;&nbsp;
+          {props.option === "video-page" &&
+          (window.innerWidth > 1200 || window.innerWidth <= 600)
             ? props.ago.slice(0, 3) + (props.ago.length > 7 && "...")
             : props.ago}
         </p>
+        {props.option === "results-page" && (
+          <div className={styles.videoAuthor}>
+            <div className={styles.profileStat}>
+              <img
+                className={styles.profilePhoto}
+                src={creatorOfVideo[0].profilePhoto}
+                alt="profilephoto"
+              />
+              <span className={styles.username}>
+                @{creatorOfVideo[0].username} ·&nbsp;
+              </span>
+              <span className={styles.subscribersCount}>
+                <span className={styles.subscribersNumber}>
+                  {formatNumbers(creatorOfVideo[0].subscribersCount)}
+                </span>{" "}
+                подписчиков
+              </span>
+            </div>
+
+            <p className={styles.description}>
+              {props.description.slice(0, 110)}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

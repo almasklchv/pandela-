@@ -5,7 +5,7 @@
 }
 
 .profileInfo {
-  margin-top: 15px;
+  margin-top: 30px;
   margin-bottom: 92px;
   display: flex;
   align-items: center;
@@ -19,6 +19,8 @@
 
 .profilePhoto {
   border-radius: 100%;
+  width: 128px;
+  height: 128px;
 }
 
 .name {
@@ -30,6 +32,8 @@
   opacity: 0.89;
 
   margin-right: 68px;
+  margin-top: -15px;
+  margin-bottom: -17px;
 }
 
 .username {
@@ -40,7 +44,7 @@
 
   opacity: 0.89;
 
-  margin-bottom: -10px;
+  margin-bottom: 10px;
 }
 
 .bio {
@@ -55,17 +59,22 @@
 .subscribeBtn {
   cursor: pointer;
   border: none;
-  border-radius: 3px;
-  background: #4caf50;
-  padding-left: 30px;
-  padding-right: 30px;
+  border-radius: 20px;
+  background: #fff;
+  padding: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
 
-  color: #fff;
-  font-family: "Roboto";
-  font-size: 18px;
-  font-weight: 500;
+  color: #0f0f0f;
+  font-family: "Montserrat";
+  font-size: 12px;
+  font-weight: 700;
 
   max-height: 82px;
+  margin-inline-start: auto;
+
+  margin-right: 25px;
+  margin-top: -70px;
 }
 
 .personInfo {
@@ -80,4 +89,152 @@
   max-width: 1318px;
   margin-left: -15px;
   margin-bottom: 250px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  width: 98%;
+
+  border-bottom: 1px solid rgb(255, 255, 255, 0.3);
+
+  margin-top: -50px;
+  margin-bottom: 35px;
+  padding-bottom: 8px;
+}
+
+.navbarItem {
+  cursor: pointer;
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.navbarItem.selected {
+  position: relative;
+  // padding-bottom: 7px;
+  // border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.navbarItem.selected::after {
+  content: "";
+  position: absolute;
+  left: -25%;
+  bottom: -8px; /* Выберите нужное значение для толщины бордера */
+  width: 150%; /* Расширьте до 100% ширины родительского элемента */
+  height: 2px; /* Выберите нужную толщину бордера */
+  background-color: rgb(255, 255, 255, 0.7); /* Цвет бордера */
+}
+
+.playlists {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1300px;
+}
+
+.playlist {
+  cursor: pointer;
+  margin-right: 3px;
+  margin-bottom: 20px;
+}
+
+.playlistCover {
+  width: 210px;
+  height: 118px;
+  border-radius: 20px;
+}
+
+.thumbnail {
+  position: relative;
+}
+
+.playlistInfo {
+  position: absolute;
+  height: 25px;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  bottom: -8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 15px 15px;
+  opacity: 0.8;
+
+  font-size: 13px;
+  color: #fff;
+}
+
+.playlistTitle {
+  color: #fff;
+  font-family: "Montserrat";
+  font-weight: 700;
+  opacity: 0.87;
+  font-size: 13px;
+  max-width: 210px;
+  margin-top: 7px;
+}
+
+.viewPlaylist {
+  display: none;
+  position: absolute;
+  top: -16px;
+  background: #000;
+  color: #fff;
+  width: 210px;
+  height: 120px;
+  // padding-left: 20%;
+  padding-top: 24%;
+  border-radius: 15px;
+  opacity: 0.6;
+
+  font-family: "Montserrat";
+  font-size: 14px;
+  text-align: center;
+}
+
+.about {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  padding-left: 100px;
+  padding-right: 150px;
+}
+
+.description,
+.links,
+.stats > .title,
+.views {
+  border-bottom: 1px solid rgb(255, 255, 255, 0.3);
+  padding-bottom: 10px;
+}
+
+.left {
+  width: 650px;
+}
+
+.title {
+  font-size: 17px;
+}
+
+.links {
+  padding-bottom: 30px;
+}
+
+.linksItems {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.linksItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  a {
+    color: #3da2f9;
+    text-decoration: none;
+  }
 }
