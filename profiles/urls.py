@@ -14,6 +14,8 @@ urlpatterns = [
     ),
     path('edit-profile/', EditProfileView.as_view(), name='edit_profile'),
     # path для отдельного профиля с пафом видео/плейлистов/о канале
-    path('profile/<int:id>', UserProfileView.as_view(), name='profile'),
+    path('profile/<int:id>/', UserProfileView.as_view(), name='profile'),
+    path('profile/info/<int:id>/', UserInfoView.as_view(), name='profile'),
     path('account/', UserAccountView.as_view(), name='account'),
+    path('saves/', AccountSavesView.as_view(), name='account'),
 ]

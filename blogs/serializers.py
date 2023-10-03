@@ -28,6 +28,7 @@ class BlogSerializer(serializers.ModelSerializer):
     thumbnail = serializers.CharField(source='get_thumbnail')
     video = serializers.CharField(source='get_video')
     comments = serializers.SerializerMethodField(read_only=True)
+    views = MiniBProfileSerializer(many=True)
 
     class Meta:
         model = Blog
@@ -40,6 +41,7 @@ class BlogSerializer(serializers.ModelSerializer):
             "video",
             "likes",
             "no_of_likes",
+            "no_of_saves",
             "saves",
             "views",
             "is_published",
@@ -58,6 +60,7 @@ class BlogListSerializer(serializers.ModelSerializer):
     thumbnail = serializers.CharField(source='get_thumbnail')
     # video = serializers.CharField(source='get_video')
     # comments = serializers.SerializerMethodField(read_only=True)
+    views = MiniBProfileSerializer(many=True)
 
     class Meta:
         model = Blog
@@ -79,6 +82,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
         likes = MiniBProfileSerializer(many=True)
         saves = MiniBProfileSerializer(many=True)
         author = MiniBProfileSerializer()
+        views = MiniBProfileSerializer(many=True)
         # thumbnail = serializers.CharField(source='get_thumbnail')
         video = serializers.CharField(source='get_video')
         comments = serializers.SerializerMethodField(read_only=True)
@@ -94,6 +98,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
                 "video",
                 "likes",
                 "no_of_likes",
+                "no_of_saves",
                 "saves",
                 "is_published",
                 "comments",
@@ -166,6 +171,7 @@ class PlaylistDetailSerializer(serializers.ModelSerializer):
             "mod_date",
             "videos",
             "pub_date",
+            "thumbnail",
         ]
 
 
@@ -176,6 +182,7 @@ class PlaylistListSerializer(serializers.ModelSerializer):
         model = Playlist
         fields = [
             "name",
+            "description",
             "author",
             "pub_date",
             "thumbnail",

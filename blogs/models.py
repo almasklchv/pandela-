@@ -90,6 +90,13 @@ class Blog(models.Model):
             return self.likes.count()
         return 0
 
+    def no_of_saves(self):
+        if self.saves.count():
+            if self.saves.count() == 1:
+                return self.saves.count()
+            return self.saves.count()
+        return 0
+
     def get_video(self):
         if self.video:
             return self.video.url

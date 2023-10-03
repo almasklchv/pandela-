@@ -49,18 +49,21 @@ class FollowProfileSerializer(serializers.ModelSerializer):
 
 class SearchProfileSerializer(serializers.ModelSerializer):
     followers = MiniProfileSerializer(many=True)
+    no_of_blogs = BlogSerializer(many=True)
 
     class Meta:
         model = get_user_model()
-        fields = ["pk", "name", "username", "dp", "followers"]
+        fields = ["pk", "name", "username", "dp", "no_of_blogs", "no_of_followers", "followers", "bio"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     pub_blogs = BlogSerializer(many=True)
     arch_blogs = BlogSerializer(many=True)
     saved_blogs = BlogSerializer(many=True)
+    no_of_blogs = BlogSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
     following = MiniProfileSerializer(many=True)
+
 
     class Meta:
         model = get_user_model()
@@ -88,49 +91,17 @@ class ProfileSerializer(serializers.ModelSerializer):
             "fourth_link",
             "fifth_name",
             "fifth_link",
+            "no_of_blogs",
+            "no_of_followers",
         ]
 
 class ProfileDetailSerializer(serializers.ModelSerializer):
     pub_blogs = BlogSerializer(many=True)
     # arch_blogs = BlogSerializer(many=True)
-    saved_blogs = BlogSerializer(many=True)
+    # saved_blogs = BlogSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
     # following = MiniProfileSerializer(many=True)
-
-    class Meta:
-        model = get_user_model()
-        fields = [
-            "id",
-            "name",
-            "username",
-            "email",
-            "bio",
-            "dp",
-            "shapka",
-            "followers",
-            # "following",
-            "pub_blogs",
-            # "arch_blogs",
-            # "saved_blogs",
-            "main_name",
-            "main_link",
-            "second_name",
-            "second_link",
-            "third_name",
-            "third_link",
-            "fourth_name",
-            "fourth_link",
-            "fifth_name",
-            "fifth_link",
-        ]
-
-
-class AccountDetailSerializer(serializers.ModelSerializer):
-    pub_blogs = BlogSerializer(many=True)
-    arch_blogs = BlogSerializer(many=True)
-    saved_blogs = BlogSerializer(many=True)
-    followers = MiniProfileSerializer(many=True)
-    following = MiniProfileSerializer(many=True)
+    no_of_blogs = BlogSerializer(many=True)
 
     class Meta:
         model = get_user_model()
@@ -145,18 +116,132 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             "followers",
             "following",
             "pub_blogs",
+            # "arch_blogs",
+            # "saved_blogs",
+            # "main_name",
+            # "main_link",
+            # "second_name",
+            # "second_link",
+            # "third_name",
+            # "third_link",
+            # "fourth_name",
+            # "fourth_link",
+            # "fifth_name",
+            # "fifth_link",
+            "no_of_blogs",
+            "no_of_followers",
+        ]
+
+        class ProfileInfoSerializer(serializers.ModelSerializer):
+            pub_blogs = BlogSerializer(many=True)
+            # arch_blogs = BlogSerializer(many=True)
+            # saved_blogs = BlogSerializer(many=True)
+            followers = MiniProfileSerializer(many=True)
+            no_of_blogs = BlogSerializer(many=True)
+
+            following = MiniProfileSerializer(many=True)
+
+            class Meta:
+                model = get_user_model()
+                fields = [
+                    "id",
+                    "name",
+                    "username",
+                    "email",
+                    "bio",
+                    "dp",
+                    "shapka",
+                    "followers",
+                    # "following",
+                    # "pub_blogs",
+                    # "arch_blogs",
+                    # "saved_blogs",
+                    "main_name",
+                    "main_link",
+                    "second_name",
+                    "second_link",
+                    "third_name",
+                    "third_link",
+                    "fourth_name",
+                    "fourth_link",
+                    "fifth_name",
+                    "fifth_link",
+                    "no_of_blogs",
+                    "no_of_followers",
+                ]
+
+
+class AccountDetailSerializer(serializers.ModelSerializer):
+    pub_blogs = BlogSerializer(many=True)
+    arch_blogs = BlogSerializer(many=True)
+    saved_blogs = BlogSerializer(many=True)
+    followers = MiniProfileSerializer(many=True)
+    following = MiniProfileSerializer(many=True)
+    no_of_blogs = BlogSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            # "id",
+            "name",
+            "username",
+            "email",
+            "bio",
+            "dp",
+            "shapka",
+            "followers",
+            "following",
+            "pub_blogs",
             "arch_blogs",
             "saved_blogs",
-            "main_name",
-            "main_link",
-            "second_name",
-            "second_link",
-            "third_name",
-            "third_link",
-            "fourth_name",
-            "fourth_link",
-            "fifth_name",
-            "fifth_link",
+            # "main_name",
+            # "main_link",
+            # "second_name",
+            # "second_link",
+            # "third_name",
+            # "third_link",
+            # "fourth_name",
+            # "fourth_link",
+            # "fifth_name",
+            # "fifth_link",
+            "no_of_blogs",
+            "no_of_followers",
+        ]
+
+class AccountSavesSerializer(serializers.ModelSerializer):
+    # pub_blogs = BlogSerializer(many=True)
+    # arch_blogs = BlogSerializer(many=True)
+    saved_blogs = BlogSerializer(many=True)
+    # followers = MiniProfileSerializer(many=True)
+    # following = MiniProfileSerializer(many=True)
+    # no_of_blogs = BlogSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            # "id",
+            # "name",
+            # "username",
+            # "email",
+            # "bio",
+            # "dp",
+            # "shapka",
+            # "followers",
+            # "following",
+            # "pub_blogs",
+            # "arch_blogs",
+            "saved_blogs",
+            # "main_name",
+            # "main_link",
+            # "second_name",
+            # "second_link",
+            # "third_name",
+            # "third_link",
+            # "fourth_name",
+            # "fourth_link",
+            # "fifth_name",
+            # "fifth_link",
+            # "no_of_blogs",
         ]
 
 

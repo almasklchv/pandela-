@@ -42,6 +42,7 @@ class Profile(AbstractUser):
     dp = models.ImageField(
         "Аватарка", upload_to="profiles/", default="avatars/profile.png"
     )
+    # number_views = models.PositiveIntegerField(('number_views'), default=0)
     followers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="Follower", blank=True, symmetrical=False
     )
@@ -114,13 +115,19 @@ class Profile(AbstractUser):
             return self.followers.count()
         return 0
 
+    # def videos(self): my code
+    #     self.number_views = self.blog_set.count()
+    #     self.save(update_fields=['number_views'])
+
     def no_of_following(self):
         if self.following.count():
             return self.following.count()
         return 0
 
     def no_of_blogs(self):
-        return self.blog_set.count()
+        if self.blog_set.count():
+            return self.blog_set.count()
+        return 0
 
     def pub_blogs(self):
         return self.blog_set.filter(is_published=True)
