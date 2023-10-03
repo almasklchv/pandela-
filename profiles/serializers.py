@@ -114,12 +114,12 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             "dp",
             "shapka",
             "followers",
-            "following",
+            # "following",
             "pub_blogs",
             # "arch_blogs",
             # "saved_blogs",
             # "main_name",
-            # "main_link",
+            "main_link",
             # "second_name",
             # "second_link",
             # "third_name",
@@ -139,7 +139,7 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             followers = MiniProfileSerializer(many=True)
             no_of_blogs = BlogSerializer(many=True)
 
-            following = MiniProfileSerializer(many=True)
+            # following = MiniProfileSerializer(many=True)
 
             class Meta:
                 model = get_user_model()
@@ -173,10 +173,10 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
 
 class AccountDetailSerializer(serializers.ModelSerializer):
     pub_blogs = BlogSerializer(many=True)
-    arch_blogs = BlogSerializer(many=True)
-    saved_blogs = BlogSerializer(many=True)
+    # arch_blogs = BlogSerializer(many=True)
+    # saved_blogs = BlogSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
-    following = MiniProfileSerializer(many=True)
+    # following = MiniProfileSerializer(many=True)
     no_of_blogs = BlogSerializer(many=True)
 
     class Meta:
@@ -190,12 +190,49 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             "dp",
             "shapka",
             "followers",
-            "following",
+            # "following",
             "pub_blogs",
-            "arch_blogs",
+            # "arch_blogs",
             "saved_blogs",
             # "main_name",
-            # "main_link",
+            "main_link",
+            # "second_name",
+            # "second_link",
+            # "third_name",
+            # "third_link",
+            # "fourth_name",
+            # "fourth_link",
+            # "fifth_name",
+            # "fifth_link",
+            "no_of_blogs",
+            "no_of_followers",
+        ]
+
+class AccountArchiveSerializer(serializers.ModelSerializer):
+    pub_blogs = BlogSerializer(many=True)
+    arch_blogs = BlogSerializer(many=True)
+    saved_blogs = BlogSerializer(many=True)
+    followers = MiniProfileSerializer(many=True)
+    # following = MiniProfileSerializer(many=True)
+    no_of_blogs = BlogSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            # "id",
+            "name",
+            "username",
+            "email",
+            "bio",
+            "dp",
+            "shapka",
+            "followers",
+            # "following",
+            # "pub_blogs",
+            "arch_blogs",
+            # "saved_blogs",
+            # "main_name",
+            "main_link",
             # "second_name",
             # "second_link",
             # "third_name",
@@ -244,6 +281,41 @@ class AccountSavesSerializer(serializers.ModelSerializer):
             # "no_of_blogs",
         ]
 
+
+class AccountFollowingSerializer(serializers.ModelSerializer):
+    # pub_blogs = BlogSerializer(many=True)
+    # arch_blogs = BlogSerializer(many=True)
+    # saved_blogs = BlogSerializer(many=True)
+    # followers = MiniProfileSerializer(many=True)
+    following = MiniProfileSerializer(many=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            # "id",
+            # "name",
+            # "username",
+            # "email",
+            # "bio",
+            # "dp",
+            # "shapka",
+            # "followers",
+            "following",
+            # "pub_blogs",
+            # "arch_blogs",
+            # "saved_blogs",
+            # "main_name",
+            # "main_link",
+            # "second_name",
+            # "second_link",
+            # "third_name",
+            # "third_link",
+            # "fourth_name",
+            # "fourth_link",
+            # "fifth_name",
+            # "fifth_link",
+            "no_of_following",
+        ]
 
 class ProfileEditSerializer(serializers.ModelSerializer):
     class Meta:

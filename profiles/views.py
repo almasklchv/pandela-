@@ -225,3 +225,46 @@ class AccountSavesView(APIView):
 
     # def post(self, request, pk): WTF IS THIS??
     #     form = self.form_class(request.POST)
+
+class AccountArchiveView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_pro = AccountArchiveSerializer
+
+    def get(self, request):
+            # is_followig = False
+        user = request.user.profile
+        srz = self.serializer_pro(instance=user)
+
+            # relation = Relation.objects.filter(from_user=request.user, to_user=user)
+            # if relation.exists():
+            #     is_followig = True
+
+        srz_data = srz.data
+            # srz_data['is_following'] = is_followig
+
+        return Response(srz_data, status=status.HTTP_200_OK)
+
+        # def post(self, request, pk): WTF IS THIS??
+        #     form = self.form_class(request.POST)
+
+
+class AccountFollowingView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_pro = AccountFollowingSerializer
+
+    def get(self, request):
+            # is_followig = False
+        user = request.user.profile
+        srz = self.serializer_pro(instance=user)
+
+            # relation = Relation.objects.filter(from_user=request.user, to_user=user)
+            # if relation.exists():
+            #     is_followig = True
+
+        srz_data = srz.data
+            # srz_data['is_following'] = is_followig
+
+        return Response(srz_data, status=status.HTTP_200_OK)
+
+        # def post(self, request, pk): WTF IS THIS??
+        #     form = self.form_class(request.POST)
