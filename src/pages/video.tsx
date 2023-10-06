@@ -22,6 +22,37 @@ const Video = () => {
 
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 
+  const handleCommentInput = (e: any) => {
+    const submitBtn: HTMLButtonElement | null = document.querySelector(
+      `.${styles.submitBtn}`
+    );
+    const buttons: HTMLDivElement | null = document.querySelector(
+      `.${styles.buttons}`
+    );
+
+    if (buttons) {
+      buttons.style.display = "flex";
+    }
+
+    if (e.currentTarget.value !== "" && submitBtn) {
+      submitBtn.removeAttribute("disabled");
+    } else {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+    }
+  };
+
+  const handleCancelButton = () => {
+    const buttons: HTMLDivElement | null = document.querySelector(
+      `.${styles.buttons}`
+    );
+
+    if (buttons) {
+      buttons.style.display = "none";
+    }
+  };
+
   return (
     <div>
       <Player src={video[0].videoPath} />
@@ -49,7 +80,8 @@ const Video = () => {
                 >
                   <p className={styles.channelName}>{creatorOfVideo[0].name}</p>
                   <p className={styles.channelSubscribers}>
-                    {formatNumbers(creatorOfVideo[0].subscribersCount) + " подписчиков"}
+                    {formatNumbers(creatorOfVideo[0].subscribersCount) +
+                      " подписчиков"}
                   </p>
                 </div>
               </div>
@@ -77,7 +109,11 @@ const Video = () => {
             className={styles.description}
             onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
           >
-            <p>{isDescriptionOpen ? video[0].views + ' просмотров' : formatNumbers(video[0].views) + ' просмотров'}</p>
+            <p>
+              {isDescriptionOpen
+                ? video[0].views + " просмотров"
+                : formatNumbers(video[0].views) + " просмотров"}
+            </p>
             <p>
               {isDescriptionOpen ? (
                 <span
@@ -103,6 +139,71 @@ const Video = () => {
                 </>
               )}
             </p>
+          </div>
+          <div className={styles.commentInput}>
+            <img
+              className={styles.profilePhoto}
+              src={creatorOfVideo[0].profilePhoto}
+              alt="profilephoto"
+            />
+            <div className={styles.inputBtns}>
+              <input
+                type="text"
+                placeholder="Добавить комментарий..."
+                onChange={handleCommentInput}
+                onClick={handleCommentInput}
+              />
+              <div className={styles.buttons}>
+                <button
+                  className={styles.cancelBtn}
+                  onClick={handleCancelButton}
+                >
+                  Отменить
+                </button>
+                <button className={styles.submitBtn} disabled>
+                  Комментировать
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.comments}>
+            {video[0].comments.map((comment) => {
+              const commentAuthor = users.filter(
+                (user) => user.userId === comment.userId
+              )[0];
+
+              return (
+                <div className={styles.comment}>
+                  <img
+                    onClick={() =>
+                      navigate(`/channel/${comment.userId}/videos`)
+                    }
+                    className={styles.profilePhoto}
+                    src={commentAuthor.profilePhoto}
+                    alt=""
+                  />
+                  <div className={styles.commentInfo}>
+                    <div
+                      className={styles.commentAuthorInfo}
+                      onClick={() =>
+                        navigate(`/channel/${comment.userId}/videos`)
+                      }
+                    >
+                      <span className={styles.commentAuthorUsername}>
+                        @{commentAuthor.username}&nbsp;
+                      </span>
+                      <span className={styles.commentAuthorSubscribers}>
+                        <span className={styles.subscribersNumber}>
+                          {formatNumbers(commentAuthor.subscribersCount)}
+                        </span>
+                        &nbsp;подписчиков
+                      </span>
+                    </div>
+                    <p className={styles.commentText}>{comment.text}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className={styles.videos}>

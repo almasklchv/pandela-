@@ -65,7 +65,12 @@ const CardInput = (props: ICardInput) => {
 
             return (
               <>
-                <p className={styles.inputTitle}>{input.title} {input.title === "Выберите плейлист" && <a href="/add-playlist" >· Создать новый плейлист</a>}</p>
+                <p className={styles.inputTitle}>
+                  {input.title}{" "}
+                  {input.title === "Выберите плейлист" && (
+                    <a href="/add-playlist">· Создать новый плейлист</a>
+                  )}
+                </p>
                 {typeof input.type === "object" ? (
                   <select className={styles.selectCategory}>
                     {input.type.map((option: string) => (
@@ -88,20 +93,27 @@ const CardInput = (props: ICardInput) => {
                     <button
                       onClick={(e: any) => {
                         e.preventDefault();
-                        console.log();
+
+                        let isVideoFile =
+                          e.target.classList.contains("video_file_btn");
+                        let isProfileImage =
+                          e.target.classList.contains("profile_image_btn");
+                        let isBannerImage =
+                          e.target.classList.contains("banner_image_btn");
 
                         const uploadBtn: HTMLInputElement | null =
                           document.querySelector(
-                            e.target.classList.contains("video_file_btn")
-                              ? ".video_file"
-                              : ".profile_image"
+                            (isVideoFile && ".video_file") ||
+                              (isProfileImage && ".profile_image") ||
+                              (isBannerImage && ".banner_image")
                           );
+                        console.log(uploadBtn);
                         uploadBtn?.click();
                         const uploadText: HTMLSpanElement =
                           document.querySelector(
-                            e.target.classList.contains("video_file_btn")
-                              ? ".video_file_text"
-                              : ".profile_image_text"
+                            (isVideoFile && ".video_file_text") ||
+                              (isProfileImage && ".profile_image_text") ||
+                              (isBannerImage && ".banner_image_text")
                           ) as HTMLSpanElement;
                         if (uploadBtn) {
                           uploadBtn.addEventListener("change", (e: Event) => {

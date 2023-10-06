@@ -13,7 +13,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
-    subscriptions: [],
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -29,6 +29,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -44,6 +45,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -59,6 +61,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "eb23870c-a499-4682-b31b-f8db7815dadd",
@@ -74,6 +77,7 @@ export const videos = [
     description:
       "Learn more about iPhone 15 and iPhone 15 Plus: https://apple.co/3PiE9T0",
     isAd: true,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -89,6 +93,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -104,6 +109,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -119,6 +125,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -134,6 +141,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -149,6 +157,7 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [],
   },
   {
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
@@ -164,6 +173,16 @@ export const videos = [
     description:
       "Я очень модное и крутое описание. Рассказываю людям насколько классный это курс и что он из себя представляет",
     isAd: false,
+    comments: [
+      {
+        userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
+        text: "Красава! Удачи с проектом!"
+      },
+      {
+        userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
+        text: "Супер!"
+      },
+    ],
   },
 ];
 
@@ -210,6 +229,7 @@ export const users = [
 export const playlists = [
   {
     title: "Стартап / Тестирование",
+    description: "Описание для плейлистов, просто для тестирования",
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
     playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
     videos: [
@@ -220,146 +240,7 @@ export const playlists = [
   },
   {
     title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование",
-    userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
-    playlistId: "7d204dcb-ff52-4b88-9d63-fe9bd8795625",
-    videos: [
-      "9f339715-57c0-4547-b8d9-93a9a3fd789f",
-      "33351d7e-e301-467c-b067-b9305cc6dea8",
-      "48f8f6be-5b46-4431-ac64-e2c2b3da949e",
-    ],
-  },
-  {
-    title: "Стартап / Тестирование 2",
+    description: "Описание для плейлистов, просто для тестирования",
     userId: "ff98f875-e36b-42a1-848a-9ee173cceacc",
     playlistId: "a2eb4fd6-cfbd-42b4-81b1-514a96420c16",
     videos: [

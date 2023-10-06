@@ -1,4 +1,3 @@
-
 .container {
   display: flex;
   justify-content: space-between;
@@ -146,6 +145,8 @@
   padding-left: 15px;
   padding-right: 15px;
 
+  margin-bottom: 30px;
+
   max-width: 1150px;
 
   a {
@@ -196,7 +197,6 @@
   .container {
     flex-direction: column;
   }
-
 }
 
 @media (max-width: 730px) {
@@ -235,10 +235,10 @@
     }
   }
 
-  .likesCount, .dislikesCount {
+  .likesCount,
+  .dislikesCount {
     font-size: 10px;
   }
-
 
   .description {
     font-size: 16.5px;
@@ -261,12 +261,10 @@
     justify-content: space-between;
     margin-left: 12%;
   }
-  
 
   .channelActions {
     margin-inline-start: auto;
     margin-right: -20px;
-    
   }
 
   .description {
@@ -277,4 +275,117 @@
   .videoTitle {
     font-size: 18px;
   }
+}
+
+.commentInput {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.profilePhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.inputBtns {
+  margin-left: 12px;
+
+  input {
+    width: 55vw;
+    background: transparent;
+    border: none;
+
+    font-size: 14px;
+    color: #fff;
+    font-family: "Roboto";
+
+    border-bottom: 1px solid rgb(255, 255, 255, 0.5);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+
+  input:focus {
+    outline: none;
+    border-bottom: 1px solid rgb(255, 255, 255);
+  }
+}
+
+.buttons {
+  display: none;
+  justify-content: flex-end;
+}
+
+.submitBtn,
+.cancelBtn {
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  float: right;
+}
+
+.cancelBtn {
+  margin-right: 10px;
+}
+
+.submitBtn {
+  background: #4caf50;
+  color: #fff;
+}
+
+.submitBtn:hover {
+  background: #59d35d;
+}
+
+.submitBtn:disabled {
+  background: #7c7c7c;
+  color: #0f0f0f;
+  cursor: default;
+}
+
+.cancelBtn {
+  background: #0f0f0f;
+  color: #fff;
+}
+
+.cancelBtn:hover {
+  background: #3b3a3a;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+
+  color: #fff;
+
+  .profilePhoto {
+    cursor: pointer;
+    margin-right: 15px;
+  }
+}
+
+.commentAuthorInfo {
+  cursor: pointer;
+  margin-top: 12px;
+  margin-bottom: -10px;
+  font-size: 12px;
+}
+
+.commentAuthorSubscribers {
+  padding: 3px;
+  border-radius: 2px;
+  background: #1b1a1d;
+}
+
+.subscribersNumber {
+  color: #4caf50;
+  font-size: 11px;
+}
+
+.commentText {
+  font-size: 14px;
 }

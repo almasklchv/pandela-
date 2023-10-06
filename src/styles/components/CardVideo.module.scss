@@ -33,6 +33,7 @@
 }
 
 .card {
+  position: relative;
   cursor: pointer;
   margin-bottom: 17px;
 }
@@ -120,6 +121,46 @@
   }
 }
 
+.videoTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    margin-top: 20px;
+    position: relative;
+    right: 20px;
+  }
+}
+
+.contextMenu {
+  border-radius: 0px 10px 10px 10px;
+  background: #1b1a1d;
+  width: 160px;
+  height: 60px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: -32px;
+  right: -135px;
+  z-index: 100;
+}
+
+.contextMenuItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: -15px;
+  margin-top: -5px;
+
+  p {
+    color: #fff;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 300;
+    margin-left: 2px;
+  }
+}
 // .videoCover:hover {
 //   display: none;
 // }

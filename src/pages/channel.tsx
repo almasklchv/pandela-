@@ -25,6 +25,8 @@ const Channel = (props: IChannel) => {
   const {username} = useParams();
   const location = useLocation();
   const userIdFromUsername = users.filter((user) => user.username === username)[0]?.userId
+  const path = location.pathname.slice(0, 8);
+  
   
 
   if (userIdFromUsername) {

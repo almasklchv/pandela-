@@ -20,6 +20,11 @@ const AddVideo = () => {
             name: "playlist",
           },
           {
+            title: "Кто увидит видео?",
+            type: ["Только я", "Все люди"],
+            name: "is_published"
+          },
+          {
             title: "Добавить обложку",
             type: "file",
             name: "profile_image",

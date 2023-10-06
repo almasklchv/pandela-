@@ -6,6 +6,7 @@ import CardVideo from "../components/CardVideo";
 import styles from "../styles/pages/Results.module.scss";
 import CardChannel from "../components/CardChannel";
 import Error404 from "./404";
+import classNames from "classnames";
 
 const Results = () => {
   const location = useLocation();
@@ -23,15 +24,27 @@ const Results = () => {
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  console.log(choose)
+
   if (searchQuery !== "") {
     return (
       <div className={styles.container}>
         <div className={styles.buttons}>
-          <button className={styles.btn} onClick={() => setChoose("video")}>
-            Искать видео
+          <button
+            className={classNames(styles.btn, {
+              [styles.selected]: choose === "video" || choose === '',
+            })}
+            onClick={() => setChoose("video")}
+          >
+            Искать Видео
           </button>
-          <button className={styles.btn} onClick={() => setChoose("people")}>
-            Искать людей
+          <button
+            className={classNames(styles.btn, {
+              [styles.selected]: choose === "people",
+            })}
+            onClick={() => setChoose("people")}
+          >
+            Искать Людей
           </button>
         </div>
         {(choose === "video" || choose === "") && (

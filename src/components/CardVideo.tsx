@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/components/CardVideo.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { users } from "../fake-db/main";
 
@@ -45,8 +45,42 @@ const CardVideo = (props: ICardVideo) => {
 
   const creatorOfVideo = users.filter((user) => user.userId === props.userId);
   const navigate = useNavigate();
-  const openVideo = () => {
-    navigate(`/video?id=${props.videoId}`);
+  const openVideo = (e: any) => {
+    let menuBtn;
+    document.querySelectorAll(".menu-icon").forEach((item) => {
+      if (item.classList.contains(props.videoId)) {
+        menuBtn = item;
+      }
+    });
+    console.log(menuBtn);
+    if (e.target !== menuBtn) {
+      navigate(`/video?id=${props.videoId}`);
+    }
+  };
+  const location = useLocation();
+  const isProfile = [
+    "/profile",
+    "/profile/videos",
+    "/profile/playlists",
+    "/profile/about",
+  ].includes(location.pathname);
+
+  const handleVideoContextMenu = () => {
+    const menu = document.querySelectorAll(`.${styles.contextMenu}`);
+    let currentMenu: any;
+    menu.forEach((menu) => {
+      if (menu.classList.contains(props.videoId)) {
+        currentMenu = menu;
+      }
+    });
+    if (
+      currentMenu &&
+      (currentMenu.style.display === "" || currentMenu.style.display === "none")
+    ) {
+      currentMenu.style.display = "flex";
+    } else if (currentMenu && currentMenu.style.display === "flex") {
+      currentMenu.style.display = "none";
+    }
   };
 
   return (
@@ -69,11 +103,23 @@ const CardVideo = (props: ICardVideo) => {
         onMouseOut={handlePauseVideo}
       ></video> */}
       <div>
-        <p className={styles.videoTitle}>
-          {window.innerWidth > 600 && props.option !== "video-page"
-            ? props.title
-            : props.title.slice(0, 20)}
-        </p>
+        <div className={styles.videoTitleContainer}>
+          {" "}
+          <p className={styles.videoTitle}>
+            {window.innerWidth > 600 && props.option !== "video-page"
+              ? props.title
+              : props.title.slice(0, 20)}
+          </p>
+          {isProfile && (
+            <img
+              className={classNames("menu-icon", props.videoId)}
+              src="/icons/menu.svg"
+              alt="иконка менюшки"
+              onClick={handleVideoContextMenu}
+            />
+          )}
+        </div>
+
         {props.option === "video-page" && (
           <p className={styles.videoAuthorName}>{creatorOfVideo[0].name}</p>
         )}
@@ -108,6 +154,16 @@ const CardVideo = (props: ICardVideo) => {
             </p>
           </div>
         )}
+      </div>
+      <div className={classNames(styles.contextMenu, props.videoId)}>
+        <div className={styles.contextMenuItem}>
+          <img src="/icons/edit-video.svg" alt="Изменить видео" />
+          <p>Изменить видео</p>
+        </div>
+        <div className={styles.contextMenuItem}>
+          <img src="/icons/delete-video.svg" alt="Удалить видео" />
+          <p>Удалить видео</p>
+        </div>
       </div>
     </div>
   );

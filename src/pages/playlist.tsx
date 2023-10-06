@@ -90,6 +90,7 @@ const Playlist = () => {
             onLoad={handlePlaylistInfoGradient}
           />
           <h3 className={styles.playlistTitle}>{playlist[0].title}</h3>
+          <p className={styles.description}>{playlist[0].description}</p>
           <p className={styles.playlistAuthor} onClick={() => navigate(`/channel/${playlist[0].userId}/videos`)}>{user.name}</p>
           <p className={styles.playlistStats}>
             {videosFromPlaylist.length} видео {formatNumbers(allViews)} просмотров
@@ -97,7 +98,7 @@ const Playlist = () => {
         </div>
         <div className={styles.videos}>
           {videosFromPlaylist.map((video) => {
-            return <CardVideo {...video} option="video-page" />;
+            return <CardVideo {...video} option="results-page" />;
           })}
         </div>
       </div>
