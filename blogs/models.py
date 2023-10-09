@@ -1,5 +1,6 @@
 import uuid
 
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.conf import settings
 
@@ -62,6 +63,7 @@ class Blog(models.Model):
     )
     videoobjects = VideoObjects()
     views = models.PositiveIntegerField(('views'), default=0)
+    # tags = models.ManyToManyField(Tag, related_name='posts', blank=False)
     playlist_setting = models.ForeignKey(
         'Playlist',
         on_delete=models.CASCADE,
@@ -213,3 +215,19 @@ class Playlist(models.Model):
 #         return categorys
 
 
+
+
+
+# class Tag(models.Model):
+#     name = models.CharField(max_length=35,validators=[MinLengthValidator(2,)])
+#     slug = models.SlugField(default="slug", editable=False)
+#
+#     def __str__(self) -> str:
+#         return self.name
+#
+#     def save(self, *args, **kwargs) -> None:
+#         self.slug = slugify(self.name)
+#         super(Tag, self).save(*args, **kwargs)
+#
+#     def post_count(self):
+#         return self.posts.all().count()
