@@ -52,8 +52,8 @@ class Profile(AbstractUser):
         blank=True,
         symmetrical=False,
     )
-    # id = models.UUIDField(default=uuid.uuid4, unique=True,
-    #                       primary_key=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
     main_name = models.CharField("Название ссылки", max_length=100, blank=True, null=True)
     main_link = models.URLField(
         "Главная Ссылка",

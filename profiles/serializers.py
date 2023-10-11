@@ -60,7 +60,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     pub_blogs = BlogSerializer(many=True)
     arch_blogs = BlogSerializer(many=True)
     saved_blogs = BlogSerializer(many=True)
-    no_of_blogs = BlogSerializer(many=True)
+    # no_of_blogs = BlogSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
     following = MiniProfileSerializer(many=True)
 

@@ -19,14 +19,14 @@ import jwt
 
 
 class SignUpView(views.APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             user.name = user.name.title()
-            user.is_active = True
+            # user.is_active = True
             user.save()
-            message(f"{user.name} ({user.pk}) created an account.")
+            message(f"{user.name} created an account.")
             #заменить id pk с тупого пикей
 
             # # START: send email auth mail
@@ -51,30 +51,23 @@ class SignUpView(views.APIView):
 
 
 class SignInView(views.APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         data = request.data
         user = authenticate(
-            username=data.get("email", None), password=data.get("password", None)
+            email=data.get("email", None), password=data.get("password", None)
         )
         if user is not None:
-            # if user.is_email_verified:
             login(request, user)
-            message(f"{user.name} ({user.pk}) logged in.")
+            # message(f"{user.name} ({user.id}) logged in.")
             serializer = ProfileSerializer(user)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
-            # return Response(
-            #     status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION,
-            #     data={
-            #         "msg": "A verification mail is send to your email address. Please verify your email address to Login."
-            #     },
-            # )
         message("User not found.")
-        return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, data="youdont haveanaccount")
 
 
 class SignOutView(views.APIView):
-    def get(self, request, **kwargs):
-        user = get_user_model().objects.get(pk=kwargs["pk"])
+    def get(self, request, pk):
+        user = get_user_model().objects.get(id=pk)
         message(f"{user.name} ({user.pk}) logged out. ")
         logout(request)
         return Response(status=status.HTTP_200_OK)
