@@ -13,16 +13,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
-# import dj_database_url DJ DATABASE  СКОРЕЕ ВСЕГО СТЕРЕТЬ ИЗРЕКВАЙРМЕНТОВ
+import dj_database_url #for postgress db (environdjdbpsyco - fordb
 from dotenv import load_dotenv
-
+#environ скрывает данные изз сеттингов в env
 # ENV = os.environ.get("APP_ENV", "PROD")
 
-# import environ #postgresql things  #render
+import environ
 
-# env = environ.Env() #render
-# environ.Env.read_env() #render
-load_dotenv()
+env = environ.Env() #render
+environ.Env.read_env() #render
+load_dotenv() #render
 
 from pathlib import Path
 
@@ -135,11 +135,18 @@ WSGI_APPLICATION = 'youtube_new.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASES = { #not  secure to show external password  in  db  default
+
+    'default': dj_database_url.parse(env('DATABASE_URL')) #env скрывает данные из settings в env
+
+
 }
 
 
