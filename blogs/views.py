@@ -1,6 +1,6 @@
 # from blogs.utils import get_summary
 from rest_framework import generics, views, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
@@ -16,6 +16,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status,permissions
 
+from rest_framework.generics import (
+    # CreateAPIView,
+    # DestroyAPIView,
+    # ListAPIView,
+    # UpdateAPIView,
+    # RetrieveAPIView,
+    # RetrieveUpdateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 
 
 from django.db.models.query_utils import Q
@@ -26,6 +35,9 @@ from django.views.generic.list import ListView
 
 
 class CreateBlogAPI(views.APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
     def post(self, request, pk):
         blog = Blog(
             author=get_user_model().objects.get(pk=request.data.get("author")),
@@ -52,8 +64,11 @@ class ManageBlogAPI(generics.RetrieveUpdateDestroyAPIView):
 
 
 class LikeBlogAPI(views.APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
     def get(self, request, pk):
-        blog = Blog.objects.get(id=pk)
+        blog = Blog.videoobjects.get(id=pk)
         user = request.user.profile
         if user in blog.likes.all():
             blog.likes.remove(user)
@@ -70,8 +85,11 @@ class LikeBlogAPI(views.APIView):
 
 
 class SaveBlogAPI(views.APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
     def get(self, request, pk):
-        blog = Blog.objects.get(id=pk)
+        blog = Blog.videoobjects.get(id=pk)
         user = request.user.profile
         if user in blog.saves.all():
             blog.saves.remove(user)
@@ -90,6 +108,9 @@ class SaveBlogAPI(views.APIView):
 
 
 class BlogListView(APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]#схуяли бляяяяять все же работало нормально  а сейчас только с перимишинами какого хуя?? может из-за добавленных настроек в модели. короче надо скинуть алмазу, а завтра все подправить ибо что-то стрранное надо чтобьы открывалось без акканута.   плейлисты норм открываются
     def get(self, request, format=None):
         if Blog.videoobjects.all().exists():
             blogs = Blog.videoobjects.all()
@@ -103,12 +124,64 @@ class BlogListView(APIView):
             return Response({'error': 'Posts not found!'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class PostDetailView(APIView):
-    def get(self, request, pk): #THERE WEREN'T  PK ONLY POST_SLUG BUT I THINK SLUG WILL SUCK WITH RUSSIAN LUNGUAGE(CHECK WIKIPEDIA)
-        post = get_object_or_404(Blog, id=pk)
-        post.viewed()
-        serializer = BlogDetailSerializer(post)
-        return Response({'post': serializer.data}, status=status.HTTP_200_OK)
+
+class PostDetailView(views.APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
+    def get(self, request, pk):
+        blog = Blog.videoobjects.get(id=pk)
+        blog.viewed()
+        # user = request.user.profile
+        # if user in blog.saves.all():
+        #     blog.saves.remove(user)
+            # message(
+            #     f"{user.name} ({user.id}) unsaved the blog '{blog.title}' ({blog.id})"
+            # )
+        # else:
+        #     blog.saves.add(user)
+            # message(
+            #     f"{user.name} ({user.pk}) сохранил видео '{blog.title}' ({blog.pk})"
+            # )
+        serializer = BlogDetailSerializer(blog)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+# class PostDetailView(APIView):
+#
+#
+#     # """
+#     #     get:
+#     #         Returns the details of a post instance. Searches post using slug field.
+#     #
+#     #     put:
+#     #         Updates an existing post. Returns updated post data
+#     #
+#     #         parameters: [slug, title, body, description, image]
+#     #
+#     #     delete:
+#     #         Delete an existing post
+#     #
+#     #         parameters = [slug]
+#     #     """
+#     # queryset = Blog.videoobjects.all()
+#     # lookup_field = "id"
+#     # serializer_class = BlogDetailSerializer
+#     # permission_classes = [IsAuthenticatedOrReadOnly]
+#
+#     # def get_object(self, *args, **kwargs):
+#     #     # pk = self.kwargs.get('pk')
+#     #     queryset = self.filter_queryset(self.get_queryset())
+#     #     # make sure to catch 404's below
+#     #     obj = queryset.get(kwargs={"id": self.object.pk})
+#     #     # obj.viewed()
+#     #     self.check_object_permissions(self.request, obj)
+#     #     return obj
+#
+#     def get(self, request, pk): #THERE WEREN'T  PK ONLY POST_SLUG BUT I THINK SLUG WILL SUCK WITH RUSSIAN LUNGUAGE(CHECK WIKIPEDIA)
+#         post = get_object_or_404(Blog, id=pk)
+#         post.viewed()
+#         serializer = BlogDetailSerializer(post)
+#         return Response({'post': serializer.data}, status=status.HTTP_200_OK)
 
 
 #надо как-то совместить поиск аккаунтов и видео в одну копилку
@@ -192,11 +265,15 @@ class ListCommentAPIView(APIView):
 #     serializer_class = CommentCreateUpdateSerializer
 
 
-class PlaylistDetailView(APIView):
+class PlaylistDetailView(views.APIView):
+    # permission_classes = [
+    #     IsAuthenticated,
+    # ]
     def get(self, request, pk): #THERE WEREN'T  PK ONLY POST_SLUG BUT I THINK SLUG WILL SUCK WITH RUSSIAN LUNGUAGE(CHECK WIKIPEDIA)
-        playlist = get_object_or_404(Blog, id=pk)
+        # playlist = get_object_or_404(Blog, id=pk)
+        playlist = Playlist.objects.get(id=pk)
         serializer = PlaylistDetailSerializer(playlist)
-        return Response({'playlist': serializer.data}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 # class PlaylistDetailView(ListView):
 #     queryset = Playlist.objects.all()
@@ -223,7 +300,7 @@ class PlaylistDetailView(APIView):
     #         playlistname=playlistname, page=self.page_number)
     #     return cache_key
     #
-    # def get_context_data(self, **kwargs): #хуй знает что это
+    # def get_context_data(self, **kwargs): #это дополнительные штуки от жесткого чела контекстные модные крутые
     #
     #     playlistname = self.playlistname
     #     try:

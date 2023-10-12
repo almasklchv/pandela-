@@ -69,8 +69,8 @@ class Blog(models.Model):
         on_delete=models.CASCADE,
         blank=True,
         null=True)
-    # id = models.UUIDField(default=uuid.uuid4, unique=True,
-    #                       primary_key=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
     pub_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, auto_now_add=False)
 
@@ -126,13 +126,31 @@ class Blog(models.Model):
         self.views += 1
         self.save(update_fields=['views'])
 
+    # def create_slug(instance, new_slug=None): for id mb
+    #     slug = slugify(instance.title)
+    #     if new_slug is not None:
+    #         slug = new_slug
+    #     qs = Post.objects.filter(slug=slug).order_by("-id")
+    #     exists = qs.exists()
+    #     if exists:
+    #         new_slug = "%s-%s" % (slug, qs.first().id)
+    #         return create_slug(instance, new_slug=new_slug)
+    #     return slug
+
+    def get_api_url(self):
+        try:
+            return reverse("posts_api:post_detail", kwargs={"id": self.id})
+        except:
+            None
+
+
 
 class Comment(models.Model):
     parent = models.ForeignKey(Blog, on_delete=models.CASCADE)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField()
-    # id = models.UUIDField(default=uuid.uuid4, unique=True,
-    #                       primary_key=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
     pub_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     #честно ну на всякиц случай пусть будет айдишник у комма

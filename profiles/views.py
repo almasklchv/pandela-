@@ -108,6 +108,8 @@ class DeleteProfileAPI(views.APIView):
 
 
 class FollowProfileAPI(views.APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, pk):
         user = request.user.profile
         profile = get_user_model().objects.get(id=pk)
@@ -139,132 +141,129 @@ class SearchProfileAPI(views.APIView):
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 
-class UserProfileView(APIView):
-    # permission_classes = [IsAuthenticated]
-    serializer_pro = ProfileDetailSerializer
-
+class UserProfileView(views.APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
     def get(self, request, pk):
-        # is_followig = False
         user = get_user_model().objects.get(id=pk)
-        srz = self.serializer_pro(instance=user)
+        serializer = ProfileDetailSerializer(user)
 
         # relation = Relation.objects.filter(from_user=request.user, to_user=user)
         # if relation.exists():
         #     is_followig = True
 
-        srz_data = srz.data
+        # srz_data = srz.data
         # srz_data['is_following'] = is_followig
 
-        return Response(srz_data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     # def post(self, request, pk): WTF IS THIS??
     #     form = self.form_class(request.POST)
 
 
 
-class UserAccountView(APIView):
+class UserAccountView(views.APIView):
     permission_classes = [IsAuthenticated]
-    serializer_pro = AccountDetailSerializer
 
     def get(self, request):
         # is_followig = False
         user = request.user.profile
-        srz = self.serializer_pro(instance=user)
+        # srz = self.serializer_pro(instance=user)
+        serializer = AccountDetailSerializer(user)
 
         # relation = Relation.objects.filter(from_user=request.user, to_user=user)
         # if relation.exists():
         #     is_followig = True
 
-        srz_data = srz.data
+        # srz_data = srz.data
         # srz_data['is_following'] = is_followig
 
-        return Response(srz_data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
 
     # def post(self, request, pk): WTF IS THIS??
     #     form = self.form_class(request.POST)
 
 
-class UserInfoView(APIView):
-    # permission_classes = [IsAuthenticated]
-    serializer_pro = ProfileDetailSerializer
-    def get(self, request, pk):
+class UserInfoView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
         # is_followig = False
-        # user = get_user_model().objects.get(id=pk)
-        srz = self.serializer_pro(instance=user)
+        user = request.user.profile
+        # srz = self.serializer_pro(instance=user)
+        serializer = ProfileInfoSerializer(user)
+
+        # relation = Relation.objects.filter(from_user=request.user, to_user=user)
+        # if relation.exists():
+        #     is_followig = True
+
+        # srz_data = srz.data
+        # srz_data['is_following'] = is_followig
+
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+
+class AccountSavesView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # is_followig = False
+        user = request.user.profile
+        serializer = AccountSavesSerializer(user)
+
+        # relation = Relation.objects.filter(from_user=request.user, to_user=user)
+        # if relation.exists():
+        #     is_followig = True
+
+        # srz_data = srz.data
+        # srz_data['is_following'] = is_followig
+
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+    # def post(self, request, pk): WTF IS THIS??
+    #     form = self.form_class(request.POST)
+
+class AccountArchiveView(views.APIView):
+    permission_classes = [IsAuthenticated]
+    # serializer_pro = AccountArchiveSerializer
+
+    def get(self, request):
+            # is_followig = False
+        user = request.user.profile
+        serializer = AccountArchiveSerializer(user)
 
             # relation = Relation.objects.filter(from_user=request.user, to_user=user)
             # if relation.exists():
             #     is_followig = True
 
-        srz_data = srz.data
+        # srz_data = srz.data
             # srz_data['is_following'] = is_followig
 
-        return Response(srz_data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
 
         # def post(self, request, pk): WTF IS THIS??
         #     form = self.form_class(request.POST)
 
 
-class AccountSavesView(APIView):
+class AccountFollowingView(views.APIView):
     permission_classes = [IsAuthenticated]
-    serializer_pro = AccountSavesSerializer
-
-    def get(self, request):
-        # is_followig = False
-        user = request.user.profile
-        srz = self.serializer_pro(instance=user)
-
-        # relation = Relation.objects.filter(from_user=request.user, to_user=user)
-        # if relation.exists():
-        #     is_followig = True
-
-        srz_data = srz.data
-        # srz_data['is_following'] = is_followig
-
-        return Response(srz_data, status=status.HTTP_200_OK)
-
-    # def post(self, request, pk): WTF IS THIS??
-    #     form = self.form_class(request.POST)
-
-class AccountArchiveView(APIView):
-    permission_classes = [IsAuthenticated]
-    serializer_pro = AccountArchiveSerializer
+    # serializer_pro = AccountFollowingSerializer
 
     def get(self, request):
             # is_followig = False
         user = request.user.profile
-        srz = self.serializer_pro(instance=user)
+        serializer = AccountFollowingSerializer(user)
+        # srz = self.serializer_pro(instance=user)
 
             # relation = Relation.objects.filter(from_user=request.user, to_user=user)
             # if relation.exists():
             #     is_followig = True
 
-        srz_data = srz.data
+        # srz_data = srz.data
             # srz_data['is_following'] = is_followig
 
-        return Response(srz_data, status=status.HTTP_200_OK)
-
-        # def post(self, request, pk): WTF IS THIS??
-        #     form = self.form_class(request.POST)
-
-
-class AccountFollowingView(APIView):
-    permission_classes = [IsAuthenticated]
-    serializer_pro = AccountFollowingSerializer
-
-    def get(self, request):
-            # is_followig = False
-        user = request.user.profile
-        srz = self.serializer_pro(instance=user)
-
-            # relation = Relation.objects.filter(from_user=request.user, to_user=user)
-            # if relation.exists():
-            #     is_followig = True
-
-        srz_data = srz.data
-            # srz_data['is_following'] = is_followig
-
-        return Response(srz_data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
 
         # def post(self, request, pk): WTF IS THIS??
         #     form = self.form_class(request.POST)

@@ -18,7 +18,7 @@ from .models import Blog, Comment, Playlist
 class MiniBProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["pk", "name", "username", "dp", "followers"] #can be mistake with adding followers
+        fields = ["id", "name", "username", "dp", "followers"] #can be mistake with adding followers
 
 
 class BlogSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
         fields = [
-            "pk",
+            "id",
             "author",
             "title",
             "description",
@@ -65,7 +65,7 @@ class BlogListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
         fields = [
-            "pk",
+            "id",
             "author",
             "title",
             # "description",
@@ -79,6 +79,7 @@ class BlogListSerializer(serializers.ModelSerializer):
         ]
 
 class BlogDetailSerializer(serializers.ModelSerializer):
+        id = serializers.SerializerMethodField(read_only=True)
         likes = MiniBProfileSerializer(many=True)
         saves = MiniBProfileSerializer(many=True)
         author = MiniBProfileSerializer()
@@ -90,7 +91,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
         class Meta:
             model = Blog
             fields = [
-                "pk",
+                "id",
                 "author",
                 "title",
                 "description",
@@ -107,6 +108,8 @@ class BlogDetailSerializer(serializers.ModelSerializer):
                 "pub_date",
             ]
 
+        def get_id(self, obj):
+            return obj.id
         def get_comments(self, obj):
             qs = Comment.objects.filter(parent=obj)
             return qs
@@ -133,6 +136,7 @@ class CommentSerializer(serializers.ModelSerializer):
             "body",
             "created_at",
             "updated_at",
+            "updated_at",
         ]
 
 
@@ -157,11 +161,13 @@ class PlaylistSerializer(serializers.ModelSerializer):
             "videos",
             "pub_date",
             "thumbnail",
+            "id",
         ]
 
 
 class PlaylistDetailSerializer(serializers.ModelSerializer):
     thumbnail = serializers.CharField(source='get_thumbnail')
+    author = MiniBProfileSerializer()
     class Meta:
         model = Playlist
         fields = [
@@ -172,6 +178,7 @@ class PlaylistDetailSerializer(serializers.ModelSerializer):
             "videos",
             "pub_date",
             "thumbnail",
+            "id",
         ]
 
 

@@ -53,7 +53,7 @@ class SearchProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["pk", "name", "username", "dp", "no_of_blogs", "no_of_followers", "followers", "bio"]
+        fields = ["id", "name", "username", "dp", "no_of_blogs", "no_of_followers", "followers", "bio"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -132,18 +132,18 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             "no_of_followers",
         ]
 
-        class ProfileInfoSerializer(serializers.ModelSerializer):
-            pub_blogs = BlogSerializer(many=True)
+class ProfileInfoSerializer(serializers.ModelSerializer):
+    pub_blogs = BlogSerializer(many=True)
             # arch_blogs = BlogSerializer(many=True)
             # saved_blogs = BlogSerializer(many=True)
-            followers = MiniProfileSerializer(many=True)
-            no_of_blogs = BlogSerializer(many=True)
+    followers = MiniProfileSerializer(many=True)
+    no_of_blogs = BlogSerializer(many=True)
 
             # following = MiniProfileSerializer(many=True)
 
-            class Meta:
-                model = get_user_model()
-                fields = [
+    class Meta:
+        model = get_user_model()
+        fields = [
                     "id",
                     "name",
                     "username",
@@ -168,7 +168,7 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
                     "fifth_link",
                     "no_of_blogs",
                     "no_of_followers",
-                ]
+        ]
 
 
 class AccountDetailSerializer(serializers.ModelSerializer):
