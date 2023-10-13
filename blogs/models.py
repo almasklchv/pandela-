@@ -162,9 +162,10 @@ class Playlist(models.Model):
     name = models.CharField('Название Плейлиста', max_length=30, unique=True)
     description = models.TextField(max_length=1500, blank=True, null=True)
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-        blank=True,
-        null=True)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+        # blank=True,
+        # null=True
+    )
     videos = models.ManyToManyField("Blog", blank=True)
     thumbnail = models.ImageField(upload_to="previews/", default="previews/defaultpreview.png", max_length=512)  # new
     id = models.UUIDField(default=uuid.uuid4, unique=True,

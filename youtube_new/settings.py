@@ -87,6 +87,7 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
+        # 'rest_framework.authentication.SessionAuthentication',
     )
 }
 
@@ -135,19 +136,19 @@ WSGI_APPLICATION = 'youtube_new.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# DATABASES = { #not  secure to show external password  in  db  default
-#
-#     'default': dj_database_url.parse(env('DATABASE_URL')) #env скрывает данные из settings в env
-#
-#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+DATABASES = { #not  secure to show external password  in  db  default
+
+    'default': dj_database_url.parse(env('DATABASE_URL')) #env скрывает данные из settings в env
+
+
+}
 
 
 # Password validation

@@ -236,7 +236,7 @@ class ListCommentAPIView(APIView):
     # permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, pk):
-        blog = Blog.objects.get(id=pk)
+        blog = Blog.videoobjects.get(id=pk)
         comments = Comment.objects.filter(parent=blog)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=200)
