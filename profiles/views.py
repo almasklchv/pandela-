@@ -100,6 +100,7 @@ class EditProfileView(APIView):
 
 
 class DeleteProfileAPI(views.APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request, pk):
         email = get_user_model().objects.get(id=pk).email
         password = request.data.get("password", None)

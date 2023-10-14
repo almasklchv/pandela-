@@ -1,9 +1,35 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from blogs.serializers import BlogSerializer
+# from blogs.serializers import BlogSerializer
 from blogs.models import Blog
 
+class BlogPSerializer(serializers.ModelSerializer):
+    # likes = MiniBProfileSerializer(many=True)
+    # saves = MiniBProfileSerializer(many=True)
+    # author = MiniBProfileSerializer()
+    thumbnail = serializers.CharField(source='get_thumbnail')
+    video = serializers.CharField(source='get_video')
+    # comments = serializers.SerializerMethodField(read_only=True)
+    # views = MiniBProfileSerializer(many=True)
+    class Meta:
+        model = Blog
+        fields = [
+            "id",
+            # "author",
+            "title",
+            "description",
+            "thumbnail",
+            "video",
+            # "likes",
+            # "no_of_likes",
+            # "no_of_saves",
+            # "saves",
+            # "views",
+            "is_published",
+            # "comments",
+            # "playlist_setting",
+        ]
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -37,7 +63,7 @@ class MiniProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["id", "name", "username", "dp", "followers"]
+        fields = ["id", "name", "username", "dp"]
 
 
 class FollowProfileSerializer(serializers.ModelSerializer):
@@ -50,19 +76,17 @@ class FollowProfileSerializer(serializers.ModelSerializer):
 
 
 class SearchProfileSerializer(serializers.ModelSerializer):
-    followers = MiniProfileSerializer(many=True)
-    no_of_blogs = BlogSerializer(many=True)
-
     class Meta:
         model = get_user_model()
-        fields = ["id", "name", "username", "dp", "no_of_blogs", "no_of_followers", "followers", "bio"]
+        fields = ["id", "name", "username", "dp",
+                  "no_of_blogs", "no_of_followers",
+                  "bio"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    pub_blogs = BlogSerializer(many=True)
-    arch_blogs = BlogSerializer(many=True)
-    saved_blogs = BlogSerializer(many=True)
-    # no_of_blogs = BlogSerializer(many=True)
+    pub_blogs = BlogPSerializer(many=True)
+    arch_blogs = BlogPSerializer(many=True)
+    saved_blogs = BlogPSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
     following = MiniProfileSerializer(many=True)
 
@@ -95,17 +119,18 @@ class ProfileSerializer(serializers.ModelSerializer):
             "fifth_link",
             "no_of_blogs",
             "no_of_followers",
+            "no_of_following",
         ]
 
 class ProfileDetailSerializer(serializers.ModelSerializer):
-    # pub_blogs = BlogSerializer(many=True)
-    # # arch_blogs = BlogSerializer(many=True)
+    pub_blogs = BlogPSerializer(many=True)
+    # arch_blogs = BlogSerializer(many=True)
     # # saved_blogs = BlogSerializer(many=True)
-    # # followers = MiniProfileSerializer(many=True)
-    # # following = MiniProfileSerializer(many=True)
-    # no_of_blogs = BlogSerializer(many=True)
+    # followers = MiniProfileSerializer(many=True)
+    # following = MiniProfileSerializer(many=True)
+    # no_of_blogs = BlogPSerializer(many=True)
     # posts = serializers.SerializerMethodField('get_user_posts')
-    # posts = BlogSerializer(many=True)
+    # posts = BlogPSerializer(many=True)
 
     class Meta:
         model = get_user_model()
@@ -119,7 +144,7 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             "shapka",
             # "followers",
             # "following",
-            # "pub_blogs",
+            "pub_blogs",
             # "arch_blogs",
             # "saved_blogs",
             # "main_name",
@@ -132,18 +157,19 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             # "fourth_link",
             # "fifth_name",
             # "fifth_link",
-            # "no_of_blogs",
-            # "no_of_followers",
+            "no_of_blogs",
+            "no_of_followers",
+            # "no_of_following",
             # "posts",
         ]
 
     # def get_posts(self, obj):
     #     result = obj.author_posts.all()
     #     return BlogSerializer(instance=result, many=True).data
-    # # def get_user_posts(self, author):
-    # #     post = Blog.videoobjects.filter(author=author.id)
-    # #     serializer = BlogSerializer(post, many=True)
-    # #     return serializer.data
+    # def get_user_posts(self, author):
+    #     post = Blog.videoobjects.filter(author=author.id)
+    #     serializer = BlogPSerializer(post, many=True)
+    #     return serializer.data
 
 class ProfileInfoSerializer(serializers.ModelSerializer):
     # pub_blogs = BlogSerializer(many=True)
@@ -160,7 +186,7 @@ class ProfileInfoSerializer(serializers.ModelSerializer):
                     "id",
                     "name",
                     "username",
-                    "email",
+                    # "email",
                     "bio",
                     "dp",
                     "shapka",
@@ -181,16 +207,17 @@ class ProfileInfoSerializer(serializers.ModelSerializer):
                     "fifth_link",
                     "no_of_blogs",
                     "no_of_followers",
+                    # "no_of_no_of_following",
         ]
 
 
 class AccountDetailSerializer(serializers.ModelSerializer):
-    # pub_blogs = BlogSerializer(many=True)
+    pub_blogs = BlogPSerializer(many=True)
     # arch_blogs = BlogSerializer(many=True)
     # saved_blogs = BlogSerializer(many=True)
-    followers = MiniProfileSerializer(many=True)
+    # followers = MiniProfileSerializer(many=True)
     # following = MiniProfileSerializer(many=True)
-    no_of_blogs = BlogSerializer(many=True)
+    # no_of_blogs = BlogPSerializer(many=True)
 
     class Meta:
         model = get_user_model()
@@ -202,9 +229,9 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             "bio",
             "dp",
             "shapka",
-            "followers",
+            # "followers",
             # "following",
-            # "pub_blogs",
+            "pub_blogs",
             # "arch_blogs",
             # "saved_blogs",
             # "main_name",
@@ -219,15 +246,16 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             # "fifth_link",
             "no_of_blogs",
             "no_of_followers",
+            # "no_of_following",
         ]
 
 class AccountArchiveSerializer(serializers.ModelSerializer):
-    pub_blogs = BlogSerializer(many=True)
-    arch_blogs = BlogSerializer(many=True)
-    saved_blogs = BlogSerializer(many=True)
+    # pub_blogs = BlogPSerializer(many=True)
+    arch_blogs = BlogPSerializer(many=True)
+    # saved_blogs = BlogPSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
     # following = MiniProfileSerializer(many=True)
-    no_of_blogs = BlogSerializer(many=True)
+    # no_of_blogs = BlogPSerializer(many=True)
 
     class Meta:
         model = get_user_model()
@@ -254,14 +282,17 @@ class AccountArchiveSerializer(serializers.ModelSerializer):
             # "fourth_link",
             # "fifth_name",
             # "fifth_link",
+            # "no_of_blogs",
+            # "no_of_followers",
             "no_of_blogs",
             "no_of_followers",
+            # "no_of_following",
         ]
 
 class AccountSavesSerializer(serializers.ModelSerializer):
     # pub_blogs = BlogSerializer(many=True)
     # arch_blogs = BlogSerializer(many=True)
-    saved_blogs = BlogSerializer(many=True)
+    saved_blogs = BlogPSerializer(many=True)
     # followers = MiniProfileSerializer(many=True)
     # following = MiniProfileSerializer(many=True)
     # no_of_blogs = BlogSerializer(many=True)
@@ -327,6 +358,9 @@ class AccountFollowingSerializer(serializers.ModelSerializer):
             # "fourth_link",
             # "fifth_name",
             # "fifth_link",
+            # "no_of_following",
+            # "no_of_blogs",
+            # "no_of_followers",
             "no_of_following",
         ]
 

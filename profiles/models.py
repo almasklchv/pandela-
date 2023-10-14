@@ -128,17 +128,17 @@ class Profile(AbstractUser):
         return 0
 
     def no_of_blogs(self):
-        if self.blog_set.count():
-            return self.blog_set.count()
+        if Blog.videoobjects.count():
+            return Blog.videoobjects.count()
         return 0
 
     # def posts(self):
     #     return Blog.videoobjects.all()
     def pub_blogs(self):
-        return self.blog_set.filter(is_published=True)
+        return Blog.videoobjects.filter(is_published=True)
 
     def arch_blogs(self):
-        return self.blog_set.filter(is_published=False)
+        return Blog.videoobjects.filter(is_published=False)
 
     def saved_blogs(self):
         return Blog.videoobjects.filter(saves__id=self.pk)

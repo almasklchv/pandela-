@@ -106,7 +106,7 @@ class BlogListSerializer(serializers.ModelSerializer):
             # "likes",
             # "no_of_likes",
             "pub_date",
-            # "views",
+            "views",
             "is_published",
         ]
 
@@ -135,7 +135,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
                 # "saves",
                 "is_published",
                 # "comments",
-                # "views",
+                "views",
                 "playlist_setting",
                 "pub_date",
             ]

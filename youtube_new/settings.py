@@ -96,8 +96,8 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    "USER_ID_FIELD": "pk",
-    "USER_ID_CLAIM": "user_pk",
+    "USER_ID_FIELD": "id", #previously was pk
+    "USER_ID_CLAIM": "id",
 }
 
 MIDDLEWARE = [
