@@ -1,10 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from rest_framework import generics, serializers, views, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.db.models import Q
+from .models import Profile
+from django.shortcuts import get_object_or_404
+# from hitcount.models import HitCount
+# from hitcount.views import HitCountMixin
 
 # # Email sending and auth requirements
 # from django.utils.encoding import force_bytes
@@ -141,13 +145,16 @@ class SearchProfileAPI(views.APIView):
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 
-class UserProfileView(views.APIView):
+class UserProfileView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
+    serializer_pro = ProfileDetailSerializer
     def get(self, request, pk):
-        user = get_user_model().objects.get(id=pk)
-        serializer = ProfileDetailSerializer(user)
+        profile = get_user_model().objects.get(id=pk)
+        # serializer = ProfileDetailSerializer(user)
+        srz = self.serializer_pro(instance=profile)
+        # data_list = [serializer.data, []]
 
         # relation = Relation.objects.filter(from_user=request.user, to_user=user)
         # if relation.exists():
@@ -156,12 +163,38 @@ class UserProfileView(views.APIView):
         # srz_data = srz.data
         # srz_data['is_following'] = is_followig
 
-        return Response(status=status.HTTP_200_OK, data=serializer.data)
+        return Response(srz.data, status=status.HTTP_200_OK)
 
     # def post(self, request, pk): WTF IS THIS??
     #     form = self.form_class(request.POST)
 
 
+# class UserProfileView(APIView): #APIView,HitCountMixin
+#
+#     def get(self, request, profileName, format=None):
+#         self.object = get_object_or_404(Profile, username=profileName)
+#         # hit_count = HitCount.objects.get_for_object(self.object)
+#         # hit_count = self.hit_count(request, hit_count)
+#         serializer = ProfileSerializer(self.object)
+#         return Response(serializer.data)
+
+# class UserProfileView(APIView):
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+#     serializer_pro = ProfileDetailSerializer
+#
+#     def get(self, request, pk):
+#         # is_followig = False
+#         user = get_user_model().objects.get(id=pk)
+#         srz = self.serializer_pro(instance=user)
+#
+#         # relation = Relation.objects.filter(from_user=request.user, to_user=user)
+#         # if relation.exists():
+#         #     is_followig = True
+#
+#         srz_data = srz.data
+#         # srz_data['is_following'] = is_followig
+#
+#         return Response(srz_data, status=status.HTTP_200_OK)
 
 class UserAccountView(views.APIView):
     permission_classes = [IsAuthenticated]
@@ -186,13 +219,13 @@ class UserAccountView(views.APIView):
 
 
 class UserInfoView(views.APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get(self, request):
+    def get(self, request, pk):
         # is_followig = False
-        user = request.user.profile
+        self.object = get_object_or_404(Profile, id=pk)
         # srz = self.serializer_pro(instance=user)
-        serializer = ProfileInfoSerializer(user)
+        serializer = ProfileInfoSerializer(self.object)
 
         # relation = Relation.objects.filter(from_user=request.user, to_user=user)
         # if relation.exists():

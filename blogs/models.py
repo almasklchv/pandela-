@@ -46,7 +46,7 @@ class Blog(models.Model):
         def get_queryset(self):
             return super().get_queryset().filter(is_published=True)
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_posts')
     title = models.CharField(max_length=40, blank=False, null=False)
     description = models.TextField(max_length=1500, blank=True, null=True)
     #i deleted content and summary. content can be as a description

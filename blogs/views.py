@@ -6,9 +6,9 @@ from django.contrib.auth import get_user_model
 
 from profiles.views import message
 from .models import Blog, Comment, Playlist
-from .serializers import BlogSerializer, BlogListSerializer, BlogDetailSerializer, CommentSerializer, CommentCreateUpdateSerializer, PlaylistSerializer, PlaylistListSerializer, PlaylistDetailSerializer
+from .serializers import EditBlogSerializer, BlogListSerializer, BlogDetailSerializer, CommentSerializer, CommentCreateUpdateSerializer, PlaylistSerializer, PlaylistListSerializer, PlaylistDetailSerializer
 from .pagination import SmallSetPagination,MediumSetPagination,LargeSetPagination
-from .mixins import MultipleFieldLookupMixin
+# from .mixins import MultipleFieldLookupMixin
 
 from django.shortcuts import render,get_object_or_404
 
@@ -38,9 +38,9 @@ class CreateBlogAPI(views.APIView):
     permission_classes = [
         IsAuthenticated,
     ]
-    def post(self, request, pk):
+    def post(self, request):
         blog = Blog(
-            author=get_user_model().objects.get(pk=request.data.get("author")),
+            author=request.user.profile.data.get("author"),#changed
             title=request.data.get("title"),
             video=request.data.get("video"),
             description=request.data.get("dscription"),
@@ -53,15 +53,41 @@ class CreateBlogAPI(views.APIView):
 
 
 class ManageBlogAPI(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = BlogSerializer
-    queryset = Blog.videoobjects.all()
-    lookup_field = "id"
+    serializer = EditBlogSerializer
+    # queryset = Blog.videoobjects.all()
+    permission_classes = [IsAuthenticated]
+    # lookup_field = "id"
+
+    # def get_queryset(self, *args, **kwargs):
+    #     id = self.request.query_params.get('id')
+    #     queryset = Blog.videoobjects.filter(id=kwargs["pk"])
+    #     return queryset
 
     # def patch(self, request, *args, **kwargs):
     #     # if request.data["content"]:
     #     #     request.data["summary"] = get_summary(request.data.get("content"))
     #     return super().patch(request, *args, **kwargs)
 
+    # def get(self, request): в профиле  есть. может пригодиться или надо будет из профиля убрать
+    #     srz = self.serializer(instance=request.user.profile)
+
+        # return Response(srz.data, status=status.HTTP_200_OK)
+    def post(self, request, pk):
+        srz = self.serializer(data=request.POST)
+        blog = Blog.videoobjects.get(id=pk)
+        if srz.is_valid():
+            # blog.author = request.user.profile(это то что я добавлю если выяснится что аккаунт сможет сам выстава=лять  кто автор. вмес те с тем что уже есть)
+            blog.author = srz.data['author']
+            blog.title = srz.data['title']
+            blog.description = srz.data['description']
+            blog.thumbnail = srz.data['thumbnail']
+            blog.video = srz.data['video']
+            blog.is_published = srz.data['is_published']
+            blog.playlist_setting = srz.data['playlist_setting']
+            blog.save()
+
+            Response(srz.data, status=status.HTTP_200_OK)
+        return Response(srz.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LikeBlogAPI(views.APIView):
     permission_classes = [
@@ -109,12 +135,12 @@ class SaveBlogAPI(views.APIView):
 
 class BlogListView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]#схуяли бляяяяять все же работало нормально  а сейчас только с перимишинами какого хуя?? может из-за добавленных настроек в модели. короче надо скинуть алмазу, а завтра все подправить ибо что-то стрранное надо чтобьы открывалось без акканута.   плейлисты норм открываются
     def get(self, request, format=None):
         if Blog.videoobjects.all().exists():
             blogs = Blog.videoobjects.all()
-            paginator = SmallSetPagination()
+            paginator = LargeSetPagination()
             results = paginator.paginate_queryset(blogs, request)
             serializer = BlogListSerializer(results, many=True)
 
@@ -127,11 +153,11 @@ class BlogListView(APIView):
 
 class PostDetailView(views.APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
     def get(self, request, pk):
         blog = Blog.videoobjects.get(id=pk)
-        blog.viewed()
+        blog.viewed()#хиты добавить после всмех багов
         # user = request.user.profile
         # if user in blog.saves.all():
         #     blog.saves.remove(user)
@@ -233,7 +259,7 @@ class ListCommentAPIView(APIView):
         Returns the list of comments on a particular post
     """
 
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, pk):
         blog = Blog.videoobjects.get(id=pk)
@@ -267,7 +293,7 @@ class ListCommentAPIView(APIView):
 
 class PlaylistDetailView(views.APIView):
     # permission_classes = [
-    #     IsAuthenticated,
+    #     IsAuthenticatedOrReadOnly,
     # ]
     def get(self, request, pk): #THERE WEREN'T  PK ONLY POST_SLUG BUT I THINK SLUG WILL SUCK WITH RUSSIAN LUNGUAGE(CHECK WIKIPEDIA)
         # playlist = get_object_or_404(Blog, id=pk)
@@ -337,6 +363,9 @@ class DeletePlaylistView(generics.DestroyAPIView):
 
 
 class PlaylistListView(APIView):
+    permission_classes = [
+        IsAuthenticatedOrReadOnly,
+    ]
     def get(self, request, format=None):
         if Playlist.objects.all().exists():
             playlists = Playlist.objects.all()

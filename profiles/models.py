@@ -41,7 +41,7 @@ class Profile(AbstractUser):
     shapka = models.ImageField(
         "Шапка Профиля", upload_to="shapki/", default=None, null=True, blank=True, max_length=512)
     dp = models.ImageField(
-        "Аватарка", upload_to="profiles/", default="avatars/profile.png"
+        "Аватарка", upload_to="avatars/", default="avatars/profile.png"
     )
     # number_views = models.PositiveIntegerField(('number_views'), default=0)
     followers = models.ManyToManyField(
@@ -132,6 +132,8 @@ class Profile(AbstractUser):
             return self.blog_set.count()
         return 0
 
+    # def posts(self):
+    #     return Blog.videoobjects.all()
     def pub_blogs(self):
         return self.blog_set.filter(is_published=True)
 
@@ -141,14 +143,24 @@ class Profile(AbstractUser):
     def saved_blogs(self):
         return Blog.videoobjects.filter(saves__id=self.pk)
 
-    def get_video(self):
-        if self.video:
-            return self.video.url
+    # def get_video(self):
+    #     if self.video:
+    #         return self.video.url
+    #     return ''
+    #
+    # def get_thumbnail(self):
+    #     if self.thumbnail:
+    #         return self.thumbnail.url
+    #     return ''
+
+    def get_shapka(self):
+        if self.shapka:
+            return self.shapka.url
         return ''
 
-    def get_thumbnail(self):
-        if self.thumbnail:
-            return self.thumbnail.url
+    def get_dp(self):
+        if self.dp:
+            return self.dp.url
         return ''
 
 

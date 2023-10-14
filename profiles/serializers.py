@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 from blogs.serializers import BlogSerializer
+from blogs.models import Blog
+
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -96,12 +98,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         ]
 
 class ProfileDetailSerializer(serializers.ModelSerializer):
-    pub_blogs = BlogSerializer(many=True)
-    # arch_blogs = BlogSerializer(many=True)
-    # saved_blogs = BlogSerializer(many=True)
-    followers = MiniProfileSerializer(many=True)
-    # following = MiniProfileSerializer(many=True)
-    no_of_blogs = BlogSerializer(many=True)
+    # pub_blogs = BlogSerializer(many=True)
+    # # arch_blogs = BlogSerializer(many=True)
+    # # saved_blogs = BlogSerializer(many=True)
+    # # followers = MiniProfileSerializer(many=True)
+    # # following = MiniProfileSerializer(many=True)
+    # no_of_blogs = BlogSerializer(many=True)
+    # posts = serializers.SerializerMethodField('get_user_posts')
+    # posts = BlogSerializer(many=True)
 
     class Meta:
         model = get_user_model()
@@ -109,13 +113,13 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "username",
-            "email",
+            # "email",
             "bio",
             "dp",
             "shapka",
-            "followers",
+            # "followers",
             # "following",
-            "pub_blogs",
+            # "pub_blogs",
             # "arch_blogs",
             # "saved_blogs",
             # "main_name",
@@ -128,16 +132,25 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             # "fourth_link",
             # "fifth_name",
             # "fifth_link",
-            "no_of_blogs",
-            "no_of_followers",
+            # "no_of_blogs",
+            # "no_of_followers",
+            # "posts",
         ]
 
+    # def get_posts(self, obj):
+    #     result = obj.author_posts.all()
+    #     return BlogSerializer(instance=result, many=True).data
+    # # def get_user_posts(self, author):
+    # #     post = Blog.videoobjects.filter(author=author.id)
+    # #     serializer = BlogSerializer(post, many=True)
+    # #     return serializer.data
+
 class ProfileInfoSerializer(serializers.ModelSerializer):
-    pub_blogs = BlogSerializer(many=True)
+    # pub_blogs = BlogSerializer(many=True)
             # arch_blogs = BlogSerializer(many=True)
             # saved_blogs = BlogSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
-    no_of_blogs = BlogSerializer(many=True)
+    # no_of_blogs = BlogSerializer(many=True)
 
             # following = MiniProfileSerializer(many=True)
 
@@ -172,7 +185,7 @@ class ProfileInfoSerializer(serializers.ModelSerializer):
 
 
 class AccountDetailSerializer(serializers.ModelSerializer):
-    pub_blogs = BlogSerializer(many=True)
+    # pub_blogs = BlogSerializer(many=True)
     # arch_blogs = BlogSerializer(many=True)
     # saved_blogs = BlogSerializer(many=True)
     followers = MiniProfileSerializer(many=True)
@@ -191,9 +204,9 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             "shapka",
             "followers",
             # "following",
-            "pub_blogs",
+            # "pub_blogs",
             # "arch_blogs",
-            "saved_blogs",
+            # "saved_blogs",
             # "main_name",
             "main_link",
             # "second_name",

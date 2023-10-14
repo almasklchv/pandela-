@@ -62,13 +62,13 @@ class SignInView(views.APIView):
             serializer = ProfileSerializer(user)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
         message("User not found.")
-        return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, data="youdont haveanaccount")
+        return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, data="Аккаунт не найден")
 
 
 class SignOutView(views.APIView):
     def get(self, request, pk):
         user = get_user_model().objects.get(id=pk)
-        message(f"{user.name} ({user.pk}) logged out. ")
+        # message(f"{user.name} ({user.pk}) logged out. ")
         logout(request)
         return Response(status=status.HTTP_200_OK)
 

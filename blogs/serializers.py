@@ -40,12 +40,44 @@ class BlogSerializer(serializers.ModelSerializer):
             "thumbnail",
             "video",
             "likes",
-            "no_of_likes",
-            "no_of_saves",
+            # "no_of_likes",
+            # "no_of_saves",
             "saves",
             "views",
             "is_published",
             "comments",
+            "playlist_setting",
+        ]
+
+    def get_comments(self, obj):
+        qs = Comment.objects.filter(parent=obj)
+        return qs
+
+class EditBlogSerializer(serializers.ModelSerializer):
+    # likes = MiniBProfileSerializer(many=True)
+    # saves = MiniBProfileSerializer(many=True)
+    author = MiniBProfileSerializer()
+    thumbnail = serializers.CharField(source='get_thumbnail')
+    video = serializers.CharField(source='get_video')
+    # comments = serializers.SerializerMethodField(read_only=True)
+    # views = MiniBProfileSerializer(many=True)
+
+    class Meta:
+        model = Blog
+        fields = [
+            "id",
+            "author",
+            "title",
+            "description",
+            "thumbnail",
+            "video",
+            # "likes",
+            # "no_of_likes",
+            # "no_of_saves",
+            # "saves",
+            # "views",
+            "is_published",
+            # "comments",
             "playlist_setting",
         ]
 
@@ -60,8 +92,8 @@ class BlogListSerializer(serializers.ModelSerializer):
     thumbnail = serializers.CharField(source='get_thumbnail')
     # video = serializers.CharField(source='get_video')
     # comments = serializers.SerializerMethodField(read_only=True)
-    views = MiniBProfileSerializer(many=True)
-
+    # views = MiniBProfileSerializer(many=True)
+    #ADD NUMBER  OF VIEWS NOT VIEWS
     class Meta:
         model = Blog
         fields = [
@@ -74,19 +106,19 @@ class BlogListSerializer(serializers.ModelSerializer):
             # "likes",
             # "no_of_likes",
             "pub_date",
-            "views",
+            # "views",
             "is_published",
         ]
 
 class BlogDetailSerializer(serializers.ModelSerializer):
-        id = serializers.SerializerMethodField(read_only=True)
-        likes = MiniBProfileSerializer(many=True)
-        saves = MiniBProfileSerializer(many=True)
-        author = MiniBProfileSerializer()
-        views = MiniBProfileSerializer(many=True)
+        # id = serializers.SerializerMethodField(read_only=True)
+        # likes = MiniBProfileSerializer(many=True)
+        # saves = MiniBProfileSerializer(many=True)
+        # views = MiniBProfileSerializer(many=True)
         # thumbnail = serializers.CharField(source='get_thumbnail')
         video = serializers.CharField(source='get_video')
-        comments = serializers.SerializerMethodField(read_only=True)
+        # comments = serializers.SerializerMethodField(read_only=True)
+        author = MiniBProfileSerializer()
 
         class Meta:
             model = Blog
@@ -97,13 +129,13 @@ class BlogDetailSerializer(serializers.ModelSerializer):
                 "description",
                 # "thumbnail",
                 "video",
-                "likes",
+                # "likes",
                 "no_of_likes",
                 "no_of_saves",
-                "saves",
+                # "saves",
                 "is_published",
-                "comments",
-                "views",
+                # "comments",
+                # "views",
                 "playlist_setting",
                 "pub_date",
             ]
@@ -134,9 +166,8 @@ class CommentSerializer(serializers.ModelSerializer):
             "parent",
             "author",
             "body",
-            "created_at",
-            "updated_at",
-            "updated_at",
+            "pub_date",
+            "mod_date",
         ]
 
 
