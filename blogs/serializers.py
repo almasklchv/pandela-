@@ -91,7 +91,6 @@ class BlogListSerializer(serializers.ModelSerializer):
     author = MiniBProfileSerializer()
     thumbnail = serializers.CharField(source='get_thumbnail')
     video = serializers.CharField(source='get_video')
-    # comments = serializers.SerializerMethodField(read_only=True)
     # views = MiniBProfileSerializer(many=True)
     #ADD NUMBER  OF VIEWS NOT VIEWS
     class Meta:
@@ -119,6 +118,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
         video = serializers.CharField(source='get_video')
         # comments = serializers.SerializerMethodField(read_only=True)
         author = MiniBProfileSerializer()
+        comments = serializers.SerializerMethodField('get_comments')
 
         class Meta:
             model = Blog
@@ -134,7 +134,7 @@ class BlogDetailSerializer(serializers.ModelSerializer):
                 "no_of_saves",
                 # "saves",
                 "is_published",
-                # "comments",
+                "comments",
                 "views",
                 "playlist_setting",
                 "pub_date",
@@ -144,7 +144,8 @@ class BlogDetailSerializer(serializers.ModelSerializer):
             return obj.id
         def get_comments(self, obj):
             qs = Comment.objects.filter(parent=obj)
-            return qs
+            serializer = CommentSerializer(qs, many=True)
+            return serializer.data
 
 # class DeleteWriterAPI(views.APIView):
 #     def post(self, request, *args, **kwargs):
