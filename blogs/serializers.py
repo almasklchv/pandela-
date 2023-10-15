@@ -90,7 +90,7 @@ class BlogListSerializer(serializers.ModelSerializer):
     # saves = MiniWriterSerializer(many=True)
     author = MiniBProfileSerializer()
     thumbnail = serializers.CharField(source='get_thumbnail')
-    # video = serializers.CharField(source='get_video')
+    video = serializers.CharField(source='get_video')
     # comments = serializers.SerializerMethodField(read_only=True)
     # views = MiniBProfileSerializer(many=True)
     #ADD NUMBER  OF VIEWS NOT VIEWS
@@ -100,11 +100,11 @@ class BlogListSerializer(serializers.ModelSerializer):
             "id",
             "author",
             "title",
-            # "description",
+            "description",
             "thumbnail",
-            # "video",
-            # "likes",
-            # "no_of_likes",
+            "video",
+            "no_of_saves",
+            "no_of_likes",
             "pub_date",
             "views",
             "is_published",

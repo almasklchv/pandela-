@@ -38,6 +38,7 @@ class UsernameAndEmails(views.APIView):
 
 
 class SetupProfileAPI(views.APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request, pk):
         user = get_user_model().objects.get(id=pk)
         try:
@@ -61,6 +62,7 @@ class SetupProfileAPI(views.APIView):
 
 class EditProfileView(APIView):
     permission_classes = [IsAuthenticated]
+    queryset = get_user_model().objects.all()
     serializer = ProfileEditSerializer
 
     #по идее, если все правильно получилось, get - получить свой профиль. post - редактирование

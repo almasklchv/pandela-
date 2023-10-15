@@ -38,7 +38,7 @@ urlpatterns = [
     #     PlaylistDetailView.as_view(),
     #     name='playlist_detail_page'),
     #нужен паф страницы добавления удаления categories
-    path('playlist/create/', CreatePlaylistView.as_view(), name='create-playlist'),
+    path('create/playlist', CreatePlaylistView.as_view(), name='create-playlist'),
     path('playlist/update/<str:pk>/', UpdatePlaylistView.as_view(), name='update-playlist'),
     path('playlist/delete/<str:pk>/', DeletePlaylistView.as_view(), name='delete-playlist'),
 ]

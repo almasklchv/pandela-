@@ -53,8 +53,8 @@ class CreateBlogAPI(views.APIView):
 
 
 class ManageBlogAPI(generics.RetrieveUpdateDestroyAPIView):
-    serializer = EditBlogSerializer
-    # queryset = Blog.videoobjects.all()
+    serializer_class = EditBlogSerializer
+    queryset = Blog.videoobjects.all()
     permission_classes = [IsAuthenticated]
     # lookup_field = "id"
 
@@ -339,6 +339,7 @@ class PlaylistDetailView(views.APIView):
 
 
 class CreatePlaylistView(views.APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request, pk):
         playlist = Playlist(
             author=get_user_model().objects.get(id=pk),
