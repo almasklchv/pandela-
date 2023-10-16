@@ -6,7 +6,8 @@ from django.contrib.auth import get_user_model
 
 from profiles.views import message
 from .models import Blog, Comment, Playlist
-from .serializers import EditBlogSerializer, BlogListSerializer, BlogDetailSerializer, CommentSerializer, CommentCreateUpdateSerializer, PlaylistSerializer, PlaylistListSerializer, PlaylistDetailSerializer
+from .serializers import EditBlogSerializer, BlogListSerializer, BlogDetailSerializer, CommentSerializer, \
+    CommentCreateUpdateSerializer, PlaylistSerializer, PlaylistListSerializer, PlaylistDetailSerializer, BlogSerializer
 from .pagination import SmallSetPagination,MediumSetPagination,LargeSetPagination
 # from .mixins import MultipleFieldLookupMixin
 
@@ -73,7 +74,7 @@ class ManageBlogAPI(generics.RetrieveUpdateDestroyAPIView):
 
         # return Response(srz.data, status=status.HTTP_200_OK)
     def post(self, request, pk):
-        srz = self.serializer(data=request.POST)
+        srz = self.serializer_class(data=request.POST)
         blog = Blog.videoobjects.get(id=pk)
         if srz.is_valid():
             # blog.author = request.user.profile(это то что я добавлю если выяснится что аккаунт сможет сам выстава=лять  кто автор. вмес те с тем что уже есть)
@@ -106,7 +107,7 @@ class LikeBlogAPI(views.APIView):
             # message(
             #     f"{user.name} ({user.pk}) лайкнул видео '{blog.title}' ({blog.pk})"
             # )
-        serializer = BlogDetailSerializer(blog)
+        serializer = BlogSerializer(blog)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 
@@ -127,7 +128,7 @@ class SaveBlogAPI(views.APIView):
             # message(
             #     f"{user.name} ({user.pk}) сохранил видео '{blog.title}' ({blog.pk})"
             # )
-        serializer = BlogDetailSerializer(blog)
+        serializer = BlogSerializer(blog)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 
@@ -136,7 +137,7 @@ class SaveBlogAPI(views.APIView):
 class BlogListView(APIView):
     permission_classes = [
         IsAuthenticatedOrReadOnly,
-    ]#схуяли бляяяяять все же работало нормально  а сейчас только с перимишинами какого хуя?? может из-за добавленных настроек в модели. короче надо скинуть алмазу, а завтра все подправить ибо что-то стрранное надо чтобьы открывалось без акканута.   плейлисты норм открываются
+    ]
     def get(self, request, format=None):
         if Blog.videoobjects.all().exists():
             blogs = Blog.videoobjects.all()
@@ -218,7 +219,7 @@ class BlogAdvancedSearchTermView(APIView):
             Q(description__icontains=search_term) |
             Q(author__name__icontains=search_term) |
             Q(author__username__icontains=search_term) |# i added it. mb terminal will be angry cause profiles is another app
-            # Q(content__icontains=search_term) | #change!!
+            # Q(content__icontains=search_term) | #changed!!
             Q(playlist__name__icontains=search_term)
         )
 
@@ -340,13 +341,13 @@ class PlaylistDetailView(views.APIView):
 
 class CreatePlaylistView(views.APIView):
     permission_classes = [IsAuthenticated]
-    def post(self, request, pk):
+    def post(self, request):
         playlist = Playlist(
-            author=get_user_model().objects.get(id=pk),
+            author=request.user.profile.data.get("author"),
             name=request.data.get("name"),
             description=request.data.get("description"),
             videos=request.data.get("videos"),
-            # thumbnail=request.data.get("thumbnail"),
+            thumbnail=request.data.get("thumbnail"),
         )
         playlist.save()
         return Response(status=status.HTTP_200_OK)
