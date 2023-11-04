@@ -11,7 +11,7 @@ from django.conf import settings
 from django.urls import reverse
 
 # def blog_directory_path(instance,filename):
-#     return 'blog/{0}/{1}' .format(instance.title,filename)
+#     return 'blogs/{0}/{1}' .format(instance.title,filename)
 # ???? slug? pagination? pk?
 
 
@@ -182,7 +182,7 @@ class Playlist(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse(
-    #         'blog:playlist_detail', kwargs={
+    #         'blogs:playlist_detail', kwargs={
     #             'playlist_name': self.slug})
 
     def __str__(self):
@@ -237,16 +237,3 @@ class Playlist(models.Model):
 
 
 
-# class Tag(models.Model):
-#     name = models.CharField(max_length=35,validators=[MinLengthValidator(2,)])
-#     slug = models.SlugField(default="slug", editable=False)
-#
-#     def __str__(self) -> str:
-#         return self.name
-#
-#     def save(self, *args, **kwargs) -> None:
-#         self.slug = slugify(self.name)
-#         super(Tag, self).save(*args, **kwargs)
-#
-#     def post_count(self):
-#         return self.posts.all().count()

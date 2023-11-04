@@ -1,5 +1,12 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import *
+
+from haystack.views import search_view_factory
+from .elasticsearch_backend import ElasticSearchModelSearchForm
+from .views import EsSearchView
+
+
+
 
 urlpatterns = [
     path("create/", CreateBlogAPI.as_view(), name="blog_create"),
@@ -41,4 +48,7 @@ urlpatterns = [
     path('create/playlist', CreatePlaylistView.as_view(), name='create-playlist'),
     path('playlist/update/<str:pk>/', UpdatePlaylistView.as_view(), name='update-playlist'),
     path('playlist/delete/<str:pk>/', DeletePlaylistView.as_view(), name='delete-playlist'),
+
+    re_path('^search', search_view_factory(view_class=EsSearchView, form_class=ElasticSearchModelSearchForm),
+            name='search'),
 ]

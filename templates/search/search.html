@@ -1,0 +1,39 @@
+{% extends 'share_layout/base.html' %}
+{% load profile_tags %}
+{% load blog_tags %}
+{% load static %}
+{% block header %}
+    <title>Pandela</title>
+{% endblock %}
+{% block content %}
+    <div id="primary" class="site-content">
+        <div id="content" role="main">
+            {% if query %}
+                <header class="archive-header">
+                    {% if suggestion %}
+                        <h2 class="archive-title">
+                            <span style="color: red"> “{{ suggestion }}” </span>
+                            <a style="text-transform: none;" href="/search/?q={{ query }}&is_suggest=no">{{ query }}</a> <br>
+                        </h2>
+                    {% else %}
+                        <h2 class="archive-title">
+                            Поиск：<span style="color: red">{{ query }} </span> &nbsp;&nbsp;
+                        </h2>
+                    {% endif %}
+                </header><!-- .archive-header -->
+            {% endif %}
+            {% if query and page.object_list %}
+                {% for blog in page.object_list %}
+                    {% load_article_detail blog.object user %}
+                {% endfor %}
+            {% endif %}
+            {% if query and page.object_list %}
+            <p>wwww</p>
+                {% for profile in page.object_list %}
+            <p>ddddd</p>
+                    {% load_profile_detail profile %}
+                {% endfor %}
+            {% endif %}
+        </div><!-- #content -->
+    </div><!-- #primary -->
+{% endblock %}

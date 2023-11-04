@@ -26,6 +26,8 @@ from rest_framework.views import APIView
 # local
 from .serializers import *
 
+from haystack.views import SearchView
+
 
 def message(msg):
     print(Fore.MAGENTA, Style.BRIGHT, "\b\b[#]", Fore.RED, msg, Style.RESET_ALL)
@@ -303,3 +305,20 @@ class AccountFollowingView(views.APIView):
 
         # def post(self, request, pk): WTF IS THIS??
         #     form = self.form_class(request.POST)
+
+
+class EsUserSearchView(SearchView):
+    def get_context(self):
+        paginator, page = self.build_page()
+        context = {
+            "query": self.query,
+            "form": self.form,
+            "page": page,
+            "paginator": paginator,
+            "suggestion": None,
+        }
+        if hasattr(self.results, "query") and self.results.query.backend.include_spelling:
+            context["suggestion"] = self.results.query.get_spelling_suggestion()
+        context.update(self.extra_context())
+
+        return context

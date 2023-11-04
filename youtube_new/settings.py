@@ -31,6 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / "templates"
 MEDIA_DIR = BASE_DIR / "media"
 STATIC_URL = "/static/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -60,7 +62,7 @@ SECRET_KEY = 'django-insecure-s80%fyx%g@z4(7bch4az24ma(d*jgmsp!4^7xz7+bn6uzh!@ux
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
 
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -82,6 +84,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     "corsheaders",
     "rest_framework",
+    'haystack',
 ]
 
 REST_FRAMEWORK = {
@@ -136,19 +139,19 @@ WSGI_APPLICATION = 'youtube_new.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = { #not  secure to show external password  in  db  default
-
-    'default': dj_database_url.parse(env('DATABASE_URL')) #env скрывает данные из settings в env
-
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = { #not  secure to show external password  in  db  default
+#
+#     'default': dj_database_url.parse(env('DATABASE_URL')) #env скрывает данные из settings в env
+#
+#
+# }
 
 
 # Password validation
@@ -194,8 +197,30 @@ DATETIME_INPUT_FORMATS = (('%d E %H:%i'),)
 
 
 
-
+HAYSTACK_CONNECTIONS = {
+    'default': {#надо изменить паф
+        'ENGINE': 'youtube_new.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}#надо изменить паф
+# Automatically update searching index
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+# Allow user login with username and password
+# AUTHENTICATION_BACKENDS = [#надо изменить паф seem loike smth i don't need
+#     'accounts.user_login_backend.EmailOrUsernameModelBackend']
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if os.environ.get('DJANGO_ELASTICSEARCH_HOST'):
+    ELASTICSEARCH_DSL = {
+        'default': {
+            'hosts': '127.0.0.1:9200'
+        },
+    }
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'djangoblog.elasticsearch_backend.ElasticSearchEngine',
+        },
+    }

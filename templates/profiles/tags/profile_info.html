@@ -1,0 +1,12 @@
+{% load profile_tags %}
+{% load cache %}
+<article id="user-{{ profile.id }}">
+
+    <div class="entry-content">
+        <p>{{profile.name}}</p>
+        <p>{{profile.username}}</p>
+        <p>{{profile.id}}</p>
+
+    </div><!-- .entry-content -->
+
+</article><!-- #post -->

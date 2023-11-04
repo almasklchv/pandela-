@@ -15,7 +15,10 @@ from django.shortcuts import render,get_object_or_404
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status,permissions
+from rest_framework import status, permissions
+
+from haystack.views import SearchView
+
 
 from rest_framework.generics import (
     # CreateAPIView,
@@ -77,7 +80,7 @@ class ManageBlogAPI(generics.RetrieveUpdateDestroyAPIView):
         srz = self.serializer_class(data=request.POST)
         blog = Blog.videoobjects.get(id=pk)
         if srz.is_valid():
-            # blog.author = request.user.profile(это то что я добавлю если выяснится что аккаунт сможет сам выстава=лять  кто автор. вмес те с тем что уже есть)
+            # blogs.author = request.user.profile(это то что я добавлю если выяснится что аккаунт сможет сам выстава=лять  кто автор. вмес те с тем что уже есть)
             blog.author = srz.data['author']
             blog.title = srz.data['title']
             blog.description = srz.data['description']
@@ -100,12 +103,12 @@ class LikeBlogAPI(views.APIView):
         if user in blog.likes.all():
             blog.likes.remove(user)
             # message(
-            #     f"{user.name} ({user.pk}) убрал лайк с видео '{blog.title}' ({blog.pk})"
+            #     f"{user.name} ({user.pk}) убрал лайк с видео '{blogs.title}' ({blogs.pk})"
             # )
         else:
             blog.likes.add(user)
             # message(
-            #     f"{user.name} ({user.pk}) лайкнул видео '{blog.title}' ({blog.pk})"
+            #     f"{user.name} ({user.pk}) лайкнул видео '{blogs.title}' ({blogs.pk})"
             # )
         serializer = BlogSerializer(blog)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
@@ -121,12 +124,12 @@ class SaveBlogAPI(views.APIView):
         if user in blog.saves.all():
             blog.saves.remove(user)
             # message(
-            #     f"{user.name} ({user.id}) unsaved the blog '{blog.title}' ({blog.id})"
+            #     f"{user.name} ({user.id}) unsaved the blogs '{blogs.title}' ({blogs.id})"
             # )
         else:
             blog.saves.add(user)
             # message(
-            #     f"{user.name} ({user.pk}) сохранил видео '{blog.title}' ({blog.pk})"
+            #     f"{user.name} ({user.pk}) сохранил видео '{blogs.title}' ({blogs.pk})"
             # )
         serializer = BlogSerializer(blog)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
@@ -160,15 +163,15 @@ class PostDetailView(views.APIView):
         blog = Blog.videoobjects.get(id=pk)
         blog.viewed()#хиты добавить после всмех багов
         # user = request.user.profile
-        # if user in blog.saves.all():
-        #     blog.saves.remove(user)
+        # if user in blogs.saves.all():
+        #     blogs.saves.remove(user)
             # message(
-            #     f"{user.name} ({user.id}) unsaved the blog '{blog.title}' ({blog.id})"
+            #     f"{user.name} ({user.id}) unsaved the blogs '{blogs.title}' ({blogs.id})"
             # )
         # else:
-        #     blog.saves.add(user)
+        #     blogs.saves.add(user)
             # message(
-            #     f"{user.name} ({user.pk}) сохранил видео '{blog.title}' ({blog.pk})"
+            #     f"{user.name} ({user.pk}) сохранил видео '{blogs.title}' ({blogs.pk})"
             # )
         serializer = BlogDetailSerializer(blog)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
@@ -287,7 +290,7 @@ class ListCommentAPIView(APIView):
 #
 #     # permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 #
-#     queryset = Comment.objects.all()
+#     queryset = сomment.objects.all()
 #     lookup_fields = ["parent"] #["parent", "id"]
 #     serializer_class = CommentCreateUpdateSerializer
 
@@ -380,3 +383,19 @@ class PlaylistListView(APIView):
         else:
             return Response({'error': 'Плейлисты не найдены!'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class EsSearchView(SearchView):
+    def get_context(self):
+        paginator, page = self.build_page()
+        context = {
+            "query": self.query,
+            "form": self.form,
+            "page": page,
+            "paginator": paginator,
+            "suggestion": None,
+        }
+        if hasattr(self.results, "query") and self.results.query.backend.include_spelling:
+            context["suggestion"] = self.results.query.get_spelling_suggestion()
+        context.update(self.extra_context())
+
+        return context

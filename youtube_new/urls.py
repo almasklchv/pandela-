@@ -7,14 +7,13 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 
-
 schema_view = get_schema_view(
    openapi.Info(
       title="Pandela API",
       default_version='v1',
-      description="По сути auth - вход, выход, регистрация(но это вообще чисто мини-веточка от account так-то. вся инфа в account), account - вся инфа об аккаунте, ужее сам профиль и его оформление и также инфа, идущая в auth, blog - видосики. чтоб нее путался: ",
+      description="По сути auth - вход, выход, регистрация(но это вообще чисто мини-веточка от account так-то. вся инфа в account), account - вся инфа об аккаунте, ужее сам профиль и его оформление и также инфа, идущая в auth, blogs - видосики. чтоб нее путался: ",
       terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
+      # contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
    ),
    public=True,

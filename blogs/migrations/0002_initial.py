@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='playlist',
             name='videos',
-            field=models.ManyToManyField(blank=True, to='blogs.blog'),
+            field=models.ManyToManyField(blank=True, to='blogs.blogs'),
         ),
         migrations.AddField(
             model_name='comment',
@@ -33,25 +33,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='parent',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blogs.blog'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blogs.blogs'),
         ),
         migrations.AddField(
-            model_name='blog',
+            model_name='blogs',
             name='author',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
-            model_name='blog',
+            model_name='blogs',
             name='likes',
             field=models.ManyToManyField(blank=True, related_name='likes', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
-            model_name='blog',
+            model_name='blogs',
             name='playlist_setting',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='blogs.playlist'),
         ),
         migrations.AddField(
-            model_name='blog',
+            model_name='blogs',
             name='saves',
             field=models.ManyToManyField(blank=True, related_name='saves', to=settings.AUTH_USER_MODEL),
         ),

@@ -1,0 +1,16 @@
+{% load blog_tags %}
+{% load cache %}
+<article id="post-{{ blog.id }}">
+
+    <div class="entry-content">
+        <p>{{blog.title}}</p>
+        <p>{{blog.description}}</p>
+        <p>{{blog.author.name}}</p>
+        <p>{{blog.author.username}}</p>
+        <p>{{blog.author.id}}</p>
+        <p>{{blog.views}}</p>
+        <img class="profile-photo" src="{{blog.thumbnail.url}}">
+
+    </div><!-- .entry-content -->
+
+</article><!-- #post -->

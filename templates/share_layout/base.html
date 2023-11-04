@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    {% block header %}
+    {% endblock %}
+</head>
+
+<body class="home blog custom-font-enabled">
+
+    <div id="main" class="wrapper">
+
+        {% block content %}
+        {% endblock %}
+
+
+        {% block sidebar %}
+        {% endblock %}
+
+
+    </div><!-- #main .wrapper -->
+</div><!-- #page -->
+
+</body>
+</html>
