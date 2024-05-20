@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardInput from "../components/CardInput";
+import { useSignUpMutation } from "../api/auth";
+import { useNavigate } from "react-router-dom";
+import { USER } from "../consts/user";
 
 interface User {
   name: string;
@@ -9,19 +12,24 @@ interface User {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [signUp, result] = useSignUpMutation();
   const onRegister = (user: User) => {
-    return fetch("https://youtube-new-s0hr.onrender.com/api/auth/signup/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("DATA:", data);
-      });
+    signUp(user);
   };
+
+  useEffect(() => {
+    if (result.data) {
+      localStorage.setItem("token", result.data?.access);
+      navigate("/login");
+    }
+  }, [result]);
+
+  useEffect(() => {
+    if (USER) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div>

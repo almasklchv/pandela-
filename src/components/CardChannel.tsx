@@ -1,38 +1,32 @@
 import React from "react";
 import styles from "../styles/components/CardChannel.module.scss";
-import { users, videos } from "../fake-db/main";
 import { formatNumbers } from "./CardVideo";
 import { useNavigate } from "react-router-dom";
+import { UserType } from "../types/user.type";
+import { useInfoQuery } from "../api/profiles";
 
-interface User {
-  userId: string;
-  name: string;
-  username: string;
-  profilePhoto: string;
-  subscribersCount: number;
-  bio: string;
-}
-
-const CardChannel = (props: User) => {
+const CardChannel = (props: UserType) => {
   const navigate = useNavigate();
-  const channelVideos = videos.filter((video) => video.userId === props.userId);
+  const { data: profile } = useInfoQuery(props.id);
+  console.log(props);
 
   return (
     <div className={styles.container}>
       <div
         className={styles.profileInfo}
-        onClick={() => navigate(`/channel/${props.userId}/videos`)}
+        onClick={() => navigate(`/channel/${props.id}/videos`)}
       >
         <img
           className={styles.profilePhoto}
-          src={props.profilePhoto}
+          src={profile?.dp}
           alt="profilephoto"
         />
         <div>
           <p className={styles.name}>{props.name}</p>
           <p className={styles.username}>
-            {props.username} {formatNumbers(props.subscribersCount) + " подписчиков"}
-            {formatNumbers(channelVideos.length)} видео
+            {props.username}{" "}
+            {formatNumbers(profile?.no_of_followers ?? 0) + " подписчиков"}
+            {formatNumbers(profile?.no_of_blogs ?? 0)} видео
           </p>
           <p className={styles.bio}>{props.bio}</p>
         </div>

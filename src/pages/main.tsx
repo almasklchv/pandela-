@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { videos } from "../fake-db/main";
 import CardVideo from "../components/CardVideo";
 import styles from "../styles/pages/Main.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setCount } from "../store/availableCountSlice";
+import { useBlogsQuery } from "../api/blogs";
 
 interface RootState {
   availableCount: {
@@ -12,6 +12,7 @@ interface RootState {
 }
 
 const Main = () => {
+  const { data: videos } = useBlogsQuery("");
   const [availableCount, setAvailableCount] = useState(0);
   const dispatch = useDispatch();
   const availableCountFromRedux = useSelector(
@@ -36,7 +37,7 @@ const Main = () => {
   }, []);
 
   const renderVideos = (start: number, end: number) => {
-    return videos.slice(start, end).map((video: any) => {
+    return videos?.results.blogs.slice(start, end).map((video: any) => {
       if (!video.isAd) {
         return <CardVideo key={video.id} {...video} />;
       } else {
@@ -45,21 +46,19 @@ const Main = () => {
     });
   };
 
+
+  console.log(videos?.results.blogs)
   const initialVideoCount = availableCount > 2 ? availableCount - 1 : 3;
 
   return (
     <div>
       <div className={styles.videos}>
         {renderVideos(0, initialVideoCount)}
-        {videos.map(
-          (video: any) =>
-            video.isAd === true && <CardVideo key={video.id} {...video} />
-        )}
       </div>
-      <h3 className={styles.title}>Недосмотренные видео</h3>
+      {/* <h3 className={styles.title}>Недосмотренные видео</h3>
       <div className={styles.videos}>
         {renderVideos(initialVideoCount - 1, initialVideoCount * 2 + 1)}
-      </div>
+      </div> */}
       <br />
       <br />
       <br />
@@ -69,7 +68,7 @@ const Main = () => {
         {renderVideos(0, initialVideoCount + 2)}
       </div>
       <div className={styles["ad-banner"]}>ЗДЕСЬ БУДЕТ РЕКЛАМА</div>
-      <div className={styles.videos}>{renderVideos(0, videos.length)}</div>
+      <div className={styles.videos}>{renderVideos(0, videos?.results.blogs.length ?? 0)}</div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import styles from "../styles/pages/Results.module.scss";
 import CardChannel from "../components/CardChannel";
 import Error404 from "./404";
 import classNames from "classnames";
+import { useSearchQuery } from "../api/blogs";
 
 const Results = () => {
   const location = useLocation();
@@ -14,17 +15,20 @@ const Results = () => {
 
   const [choose, setChoose] = useState("");
 
-  const foundVideos = videos.filter(
-    (video) =>
-      video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      video.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const { data: foundVideosOrPeople } = useSearchQuery(searchQuery);
+  console.log(foundVideosOrPeople);
 
-  const foundPeople = users.filter((user) =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  console.log(choose)
+  // const foundPeople = foundVideosOrPeople?.matches.filter((user) => {
+  //   console.log(
+  //     Object.keys(user).includes("name") ||
+  //       Object.keys(user).includes("username")
+  //   );
+  //   console.log(Object.keys(user))
+  // });
+  // console.log(foundPeople);
+  // foundVideosOrPeople?.matches.map((user) => {
+  //   console.log(user);
+  // });
 
   if (searchQuery !== "") {
     return (
@@ -32,7 +36,7 @@ const Results = () => {
         <div className={styles.buttons}>
           <button
             className={classNames(styles.btn, {
-              [styles.selected]: choose === "video" || choose === '',
+              [styles.selected]: choose === "video" || choose === "",
             })}
             onClick={() => setChoose("video")}
           >
@@ -49,18 +53,18 @@ const Results = () => {
         </div>
         {(choose === "video" || choose === "") && (
           <div className={styles.videos}>
-            {foundVideos?.map((video) => (
+            {foundVideosOrPeople?.matches?.map((video) => (
               <CardVideo {...video} option="results-page" />
             ))}
           </div>
         )}
-        {choose === "people" && (
+        {/* {choose === "people" && (
           <div className={styles.channels}>
             {foundPeople?.map((channel) => (
               <CardChannel {...channel} />
             ))}
           </div>
-        )}
+        )} */}
       </div>
     );
   } else {

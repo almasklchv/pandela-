@@ -1,41 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardInput from "../components/CardInput";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSignInMutation } from "../api/auth";
+import { USER } from "../consts/user";
 
 interface User {
   username: string;
   password: string;
 }
 
-async function checkUserCredentials(user: User) {
-  fetch("https://aphinapandela.onrender.com/api/users/token/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("DATA:", data);
-    });
-}
-
 const Login = () => {
   const navigate = useNavigate();
+  const [signIn, result] = useSignInMutation();
 
   const onLogin = (data: any) => {
-    checkUserCredentials(data);
-    navigate("/");
-    return "Hello";
+    signIn(data);
   };
+
+  useEffect(() => {
+    if (result.data) {
+      localStorage.setItem("token", result.data?.access);
+      localStorage.setItem("user", JSON.stringify(result.data?.user));
+      navigate("/");
+    }
+  }, [result]);
+
+  useEffect(() => {
+    if (USER) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div>
       <CardInput
         inputsData={[
           { title: "Никнейм", type: "text", name: "username" },
+          { title: "Email", type: "email", name: "email" },
           { title: "Пароль", type: "password", name: "password" },
         ]}
         formTitle="Авторизация"

@@ -12,7 +12,7 @@ interface ICardInput {
   buttonText: string;
   to: string;
   linkText?: string;
-  function: (data: any) => {};
+  function: (data: any) => void;
 }
 interface Inputs {
   title: string;

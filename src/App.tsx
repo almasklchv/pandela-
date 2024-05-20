@@ -20,6 +20,7 @@ import AddVideo from "./pages/add-video";
 import AddPlaylist from "./pages/add-playlist";
 import Subscriptions from "./pages/subscriptions";
 import Results from "./pages/results";
+import { USER } from "./consts/user";
 
 function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -118,7 +119,7 @@ function App() {
             element={
               <>
                 <Header isBurgerMenu={true} />
-                <Channel userId={"ff98f875-e36b-42a1-848a-9ee173cceacc"} />
+                <Channel userId={USER.id} />
               </>
             }
           />
@@ -127,7 +128,7 @@ function App() {
             element={
               <>
                 <Header isBurgerMenu={true} />
-                <Channel userId={"ff98f875-e36b-42a1-848a-9ee173cceacc"} />
+                <Channel userId={USER.id} />
               </>
             }
           />

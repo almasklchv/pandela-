@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import BurgerMenu from "./BurgerMenu";
 import classNames from "classnames";
+import { USER } from "../consts/user";
 
 const Header = (props: { isBurgerMenu: boolean }) => {
   const navigate = useNavigate();
@@ -20,8 +21,7 @@ const Header = (props: { isBurgerMenu: boolean }) => {
         search.value = decodeURIComponent(searchQuery);
       }
     }
-  }, [])
-  
+  }, []);
 
   const handleBurgerMenuClick = () => {
     setBurgerMenuClicked(!burgerMenuClicked);
@@ -125,10 +125,20 @@ const Header = (props: { isBurgerMenu: boolean }) => {
           </form>
         </div>
         <div className={styles.right}>
-          <div className={styles.signIn} onClick={() => navigate("/login")}>
-            <span className={styles.accountImg}></span>
-            <p className={styles.signInTitle}>Войти</p>
-          </div>
+          {!USER && (
+            <div className={styles.signIn} onClick={() => navigate("/login")}>
+              <span className={styles.accountImg}></span>
+              <p className={styles.signInTitle}>Войти</p>
+            </div>
+          )}
+          {USER && (
+            <div
+              className={styles.account}
+              onClick={() => navigate(`/profile`)}
+            >
+              <img src={USER.dp} alt="profile" className={styles.accountImg} />
+            </div>
+          )}
         </div>
         {props.isBurgerMenu && (
           <div className={styles.burgerMenu}>

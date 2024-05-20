@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/pages/Profile.module.scss";
 import CardVideo, { formatNumbers } from "../components/CardVideo";
 import { videos } from "../fake-db/main";
@@ -8,6 +8,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Error404 from "./404";
 import classNames from "classnames";
 import linkifyHtml from "linkify-html";
+import {
+  useFollowByIdMutation,
+  useInfoQuery,
+  useUserPlaylistsQuery,
+  useUserQuery,
+} from "../api/profiles";
+import { USER } from "../consts/user";
 
 interface IChannel {
   userId?: string;
@@ -22,29 +29,35 @@ const tabMap = {
 const Channel = (props: IChannel) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const {username} = useParams();
+  const { username } = useParams();
   const location = useLocation();
-  const userIdFromUsername = users.filter((user) => user.username === username)[0]?.userId
+  const userIdFromUsername = users.filter(
+    (user) => user.username === username
+  )[0]?.userId;
   const path = location.pathname.slice(0, 8);
-  
-  
-
   if (userIdFromUsername) {
-    window.location.href = `/channel/${userIdFromUsername}/videos`
-  } else if (!id && !props.userId){
-    window.location.href = '/'
+    window.location.href = `/channel/${userIdFromUsername}/videos`;
+  } else if (!id && !props.userId) {
+    window.location.href = "/";
   }
 
-  const user = useMemo(() => {
-    if (id || props.userId) {
-      return users.filter(
-        (user) =>
-          (id && id === user.userId) ||
-          (props.userId && props.userId === user.userId)
-      );
-    }
-    
-  }, [id, props.userId]);
+  const { data: info } = useInfoQuery(id ?? props.userId ?? "");
+  const { data: user } = useUserQuery(id ?? props.userId ?? "");
+  const { data: userPlaylists } = useUserPlaylistsQuery(
+    id ?? props.userId ?? ""
+  );
+  const author = { ...user, ...info, ...userPlaylists };
+  const authorLinks = [
+    { name: author?.main_name, link: author?.main_link },
+    { name: author?.second_name, link: author?.second_link },
+    { name: author?.third_name, link: author?.third_link },
+    { name: author?.fourth_name, link: author?.fourth_link },
+    { name: author?.fifth_name, link: author?.fifth_link },
+  ].filter((link) => link.name !== null);
+
+  const [followById, result] = useFollowByIdMutation();
+
+  console.log(author);
 
   const [tab, setTab] = useState(() => {
     let selected = "";
@@ -62,12 +75,11 @@ const Channel = (props: IChannel) => {
   });
 
   let allViews = 0;
-  if (user) {
-    videos
-    .filter((video) => video.userId === user[0]?.userId)
-    .forEach((video) => (allViews += video.views));
+  if (author && author?.pub_blogs) {
+    author?.pub_blogs.forEach((video) => {
+      allViews += video.views;
+    });
   }
-  
 
   const handlePlaylistCoverColor = () => {
     var image: HTMLImageElement | null = document.querySelector(
@@ -124,7 +136,6 @@ const Channel = (props: IChannel) => {
       };
     }
   };
-  
 
   useEffect(() => {
     if (
@@ -145,7 +156,7 @@ const Channel = (props: IChannel) => {
     }
   }, [tab, id, location.pathname, navigate]);
 
-  if (user?.length !== 0 && user) {
+  if (author) {
     return (
       <div className={styles.channel}>
         <div className={styles.container}>
@@ -157,19 +168,30 @@ const Channel = (props: IChannel) => {
           <div className={styles.profileInfo}>
             <img
               className={styles.profilePhoto}
-              src={user[0]?.profilePhoto}
+              src={author?.dp}
               alt="Фото профиля"
               width={82}
               height={82}
             />
             <div className={styles.personInfo}>
-              <p className={styles.name}>{user[0]?.name}</p>
+              <p className={styles.name}>{author?.name}</p>
               <p className={styles.username}>
-                @{user[0]?.username} {formatNumbers(user[0]?.subscribersCount) + " подписчиков"}
+                @{author?.username}{" "}
+                {formatNumbers(author?.no_of_followers ?? 0) + " подписчиков"}
               </p>
-              <p className={styles.bio}>{user[0]?.bio}</p>
+              <p className={styles.bio}>{author?.bio}</p>
             </div>
-            <button className={styles.subscribeBtn}>Подписаться</button>
+            {author.id !== USER.id && (
+              <button
+                onClick={() => {
+                  console.log(author?.id);
+                  followById(author?.id);
+                }}
+                className={styles.subscribeBtn}
+              >
+                Подписаться
+              </button>
+            )}
           </div>
           <ul className={styles.navbar}>
             {Object.entries(tabMap).map(([tabKey, tabName]) => (
@@ -192,25 +214,26 @@ const Channel = (props: IChannel) => {
           </ul>
           {tab === "/videos" && (
             <div className={styles.videos}>
-              {videos
-                .filter(
-                  (video) =>
-                    video.userId === id || video.userId === props.userId
-                )
-                .map((video: any) => (
-                  <CardVideo key={video.id} {...video} />
-                ))}
+              {author?.pub_blogs &&
+                author?.pub_blogs.map((video: any) => {
+                  return (
+                    <CardVideo
+                      key={video.id}
+                      {...{ author: { ...author }, ...video }}
+                    />
+                  );
+                })}
             </div>
           )}
           {tab === "/playlists" && (
             <div className={styles.playlists}>
-              {playlists.map((playlist) =>
-                videos.map((video) => {
+              {author?.pub_playlists?.map((playlist) =>
+                author?.pub_blogs?.map((video) => {
                   if (
-                    playlist.userId === id ||
-                    playlist.userId === props.userId
+                    playlist.author.id === id ||
+                    playlist.author.id === props.userId
                   ) {
-                    if (video.videoId === playlist.videos[0]) {
+                    if (video.id === playlist.videos[0].id) {
                       return (
                         <div
                           className={styles.playlist}
@@ -224,12 +247,12 @@ const Channel = (props: IChannel) => {
                               e.currentTarget.children[0].children[2];
                             viewPlaylist.style.display = "none";
                           }}
-                          onClick={() => navigate(`/playlist/${playlist.playlistId}`)}
+                          onClick={() => navigate(`/playlist/${playlist.id}`)}
                         >
                           <div className={styles.thumbnail}>
                             <img
                               className={styles.playlistCover}
-                              src={video.coverPath}
+                              src={video.thumbnail}
                               // src="/images/playlist-cover.png"
                               onLoad={handlePlaylistCoverColor}
                               alt={video.title}
@@ -255,7 +278,7 @@ const Channel = (props: IChannel) => {
                             </p>
                           </div>
                           <p className={styles.playlistTitle}>
-                            {playlist.title}
+                            {playlist.name}
                           </p>
                         </div>
                       );
@@ -274,31 +297,43 @@ const Channel = (props: IChannel) => {
               <div className={styles.left}>
                 <div className={styles.description}>
                   <p className={styles.title}>Описание</p>
-                  <p>{user[0].bio ? user[0].bio : 'Автор канала не заполнил описание.'}</p>
+                  <p>
+                    {author.bio
+                      ? author.bio
+                      : "Автор канала не заполнил описание."}
+                  </p>
                 </div>
                 <div className={styles.links}>
                   <p className={styles.title}>Ссылки</p>
                   <div className={styles.linksItems}>
-                    {user[0].links ? user[0].links?.map((link) => {
-                      return (
-                        <div className={styles.linksItem}>
-                          <p className={styles.linkName}>{link.name}</p>
-                          <span
-                            className={styles.link}
-                            dangerouslySetInnerHTML={{
-                              __html: linkifyHtml(link.link),
-                            }}
-                          />
-                        </div>
-                      );
-                    }) : 'Автор канала не добавил ссылок.'}
+                    {authorLinks.length !== 0 ? (
+                      authorLinks?.map((link) => {
+                        if (link.name) {
+                          return (
+                            <div className={styles.linksItem}>
+                              <p className={styles.linkName}>{link?.name}</p>
+                              <span
+                                className={styles.link}
+                                dangerouslySetInnerHTML={{
+                                  __html: linkifyHtml(link?.link ?? ""),
+                                }}
+                              />
+                            </div>
+                          );
+                        }
+                      })
+                    ) : (
+                      <p>Автор канала не добавил ссылок.</p>
+                    )}
                   </div>
                 </div>
               </div>
               <div className={styles.right}>
                 <div className={styles.stats}>
                   <p className={styles.title}>Статистика</p>
-                  <p className={styles.views}>{formatNumbers(allViews)} просмотров</p>
+                  <p className={styles.views}>
+                    {formatNumbers(allViews)} просмотров
+                  </p>
                 </div>
               </div>
             </div>

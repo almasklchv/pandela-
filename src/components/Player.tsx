@@ -447,7 +447,7 @@ const Player = (props: IPlayer) => {
         </div>
       </div>
       <video
-        src={props.src}
+        src={'https://intstories.s3.amazonaws.com/videos/Ada_Lovelace_portrait_1_animation_umMyVto.mp4'}
         onClick={handlePlayPause}
         onPlay={() => {
           setPaused(false);

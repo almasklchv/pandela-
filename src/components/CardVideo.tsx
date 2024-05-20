@@ -3,16 +3,10 @@ import styles from "../styles/components/CardVideo.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { users } from "../fake-db/main";
+import { VideoType } from "../types/video.type";
+import { useInfoQuery } from "../api/profiles";
 
-interface ICardVideo {
-  userId: string;
-  videoId: string;
-  coverPath: string;
-  videoPath: string;
-  title: string;
-  views: number;
-  ago: string;
-  description: string;
+interface ICardVideo extends VideoType {
   option?: string;
 }
 
@@ -43,18 +37,16 @@ const CardVideo = (props: ICardVideo) => {
   //   video?.pause();
   // };
 
-  const creatorOfVideo = users.filter((user) => user.userId === props.userId);
   const navigate = useNavigate();
   const openVideo = (e: any) => {
     let menuBtn;
     document.querySelectorAll(".menu-icon").forEach((item) => {
-      if (item.classList.contains(props.videoId)) {
+      if (item.classList.contains(props.id)) {
         menuBtn = item;
       }
     });
-    console.log(menuBtn);
     if (e.target !== menuBtn) {
-      navigate(`/video?id=${props.videoId}`);
+      navigate(`/video?id=${props.id}`);
     }
   };
   const location = useLocation();
@@ -64,12 +56,13 @@ const CardVideo = (props: ICardVideo) => {
     "/profile/playlists",
     "/profile/about",
   ].includes(location.pathname);
+  const { data: profile } = useInfoQuery(props.author.id);
 
   const handleVideoContextMenu = () => {
     const menu = document.querySelectorAll(`.${styles.contextMenu}`);
     let currentMenu: any;
     menu.forEach((menu) => {
-      if (menu.classList.contains(props.videoId)) {
+      if (menu.classList.contains(props.id)) {
         currentMenu = menu;
       }
     });
@@ -93,7 +86,7 @@ const CardVideo = (props: ICardVideo) => {
     >
       <img
         className={styles.videoCover}
-        src={props.coverPath}
+        src={props.thumbnail}
         alt={props.title}
       />
       {/* <video
@@ -112,7 +105,7 @@ const CardVideo = (props: ICardVideo) => {
           </p>
           {isProfile && (
             <img
-              className={classNames("menu-icon", props.videoId)}
+              className={classNames("menu-icon", props.id)}
               src="/icons/menu.svg"
               alt="иконка менюшки"
               onClick={handleVideoContextMenu}
@@ -121,41 +114,41 @@ const CardVideo = (props: ICardVideo) => {
         </div>
 
         {props.option === "video-page" && (
-          <p className={styles.videoAuthorName}>{creatorOfVideo[0].name}</p>
+          <p className={styles.videoAuthorName}>{profile?.name}</p>
         )}
         <p className={styles.videoStat}>
-          {formatNumbers(props.views)} просмотров&nbsp;&nbsp;&nbsp;&nbsp;
-          {props.option === "video-page" &&
+          {formatNumbers(props.no_of_views ?? props.views)} просмотров&nbsp;&nbsp;&nbsp;&nbsp;
+          {/* {props.option === "video-page" &&
           (window.innerWidth > 1200 || window.innerWidth <= 600)
             ? props.ago.slice(0, 3) + (props.ago.length > 7 && "...")
-            : props.ago}
+            : props.ago} */}
         </p>
         {props.option === "results-page" && (
           <div className={styles.videoAuthor}>
             <div className={styles.profileStat}>
               <img
                 className={styles.profilePhoto}
-                src={creatorOfVideo[0].profilePhoto}
+                src={props.author.dp}
                 alt="profilephoto"
               />
               <span className={styles.username}>
-                @{creatorOfVideo[0].username} ·&nbsp;
+                @{props.author.username} ·&nbsp;
               </span>
               <span className={styles.subscribersCount}>
                 <span className={styles.subscribersNumber}>
-                  {formatNumbers(creatorOfVideo[0].subscribersCount)}
+                  {formatNumbers(profile?.no_of_followers ?? 0)}
                 </span>{" "}
                 подписчиков
               </span>
             </div>
 
             <p className={styles.description}>
-              {props.description.slice(0, 110)}
+              {props.description?.slice(0, 110)}
             </p>
           </div>
         )}
       </div>
-      <div className={classNames(styles.contextMenu, props.videoId)}>
+      <div className={classNames(styles.contextMenu, props.id)}>
         <div className={styles.contextMenuItem}>
           <img src="/icons/edit-video.svg" alt="Изменить видео" />
           <p>Изменить видео</p>

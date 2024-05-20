@@ -79,6 +79,14 @@
   right: 25px;
 }
 
+.account {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  top: 30px;
+}
+
 .burgerMenu {
   position: absolute;
   top: 70px;
